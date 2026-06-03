@@ -1,516 +1,211 @@
-#!/usr/bin/env python3
-"""
-ACD Spatial Radar - fetch, dedupe, and score news for relevance to
-Advanced Cell Diagnostics / Bio-Techne Spatial field sales.
-
-Runs in GitHub Actions on a cron timer. Pulls RSS feeds, PubMed, and
-NIH RePORTER, scores each new item via the Claude API, and writes the
-results to data.json which the dashboard reads.
-
-Design rules:
-- A broken or missing source logs a warning and is skipped. It never
-  stops the whole run.
-- Items already in data.json are not re-scored (dedupe by link/id).
-- No em dashes in any output.
-"""
-
-import json
-import os
-import re
-import sys
-import time
-import html
-import hashlib
-import urllib.request
-import urllib.parse
-from datetime import datetime, timezone
-from xml.etree import ElementTree as ET
-
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SOURCES_PATH = os.path.join(ROOT, "sources.json")
-DATA_PATH = os.path.join(ROOT, "data.json")
-
-ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
-ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
-MODEL = "claude-haiku-4-5-20251001"  # cheap and fast for per-item scoring
-
-CATEGORIES = ["Competitor Move", "Research/Methods", "Funded Lab", "Own/Bio-Techne"]
-USER_AGENT = "ACD-Spatial-Radar/1.0 (sales intelligence; contact rep)"
-MAX_ITEMS_KEPT = 400  # cap the stored set so data.json stays small
-MIN_SCORE = 30        # items scoring below this are dropped, never shown
-TERRITORIES_PATH = os.path.join(ROOT, "territories.json")
-
-# Loaded once at startup
-_TERR = None
-
-
-def load_territories():
-    global _TERR
-    if _TERR is not None:
-        return _TERR
-    try:
-        with open(TERRITORIES_PATH, "r", encoding="utf-8") as f:
-            _TERR = json.load(f)
-    except Exception as e:
-        warn(f"Could not load territories.json: {e}. Territory tagging disabled.")
-        _TERR = {}
-    return _TERR
-
-
-def classify_territory(state, institution=""):
-    """Return (territory_code, region) for a given state and institution.
-    Region is 'East' or 'West'. Returns ('National', 'National') when no
-    usable location is present (most research and competitor items).
-    Applies the MA and MD account-level overrides by institution name."""
-    terr = load_territories()
-    if not terr or not state:
-        return ("National", "National")
-    state = state.upper().strip()
-    presets = terr.get("territory_presets", {})
-    east = terr.get("east_region", {})
-    east_states = set()
-    for grp in east.values():
-        east_states.update(grp)
-    region = "East" if state in east_states else "West"
-
-    inst = (institution or "").lower()
-
-    # Account-level overrides where one state maps to two territories.
-    if state == "MA":
-        if any(k in inst for k in ["harvard", "boston university", "dana-farber", "brigham", "mass general", "massachusetts general", "beth israel", "children's hospital boston"]):
-            return ("BSA", region)
-        if any(k in inst for k in ["broad", "mit", "massachusetts institute", "umass", "university of massachusetts"]):
-            return ("NEA", region)
-        # ambiguous MA account: leave specific code unset, mark region
-        return ("MA (BSA/NEA)", region)
-    if state == "MD":
-        if "nih" in inst or "national institutes of health" in inst or "bethesda" in inst:
-            return ("NIH", region)
-        if any(k in inst for k in ["johns hopkins", "hopkins", "university of maryland", "umd"]):
-            return ("MDA", region)
-        return ("MD (NIH/MDA)", region)
-
-    # Single-territory states: find the first preset that owns this state.
-    # Prefer East-coast territories when a state appears in multiple presets.
-    east_coast = set(terr.get("east_coast_territories", []))
-    matches = [code for code, states in presets.items() if state in states]
-    if not matches:
-        return ("Unmapped", region)
-    # prefer an East-coast territory match if one exists
-    east_matches = [m for m in matches if m in east_coast]
-    chosen = east_matches[0] if east_matches else matches[0]
-    return (chosen, region)
-
-
-# ----------------------------------------------------------------------
-# helpers
-# ----------------------------------------------------------------------
-
-def log(msg):
-    print(f"[{datetime.now(timezone.utc).isoformat(timespec='seconds')}] {msg}", flush=True)
-
-
-def warn(msg):
-    print(f"[WARN] {msg}", file=sys.stderr, flush=True)
-
-
-def http_get(url, headers=None, timeout=30):
-    req = urllib.request.Request(url, headers=headers or {"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return r.read().decode("utf-8", errors="replace")
-
-
-def http_post_json(url, payload, headers=None, timeout=60):
-    data = json.dumps(payload).encode("utf-8")
-    hdrs = {"Content-Type": "application/json", "User-Agent": USER_AGENT}
-    if headers:
-        hdrs.update(headers)
-    req = urllib.request.Request(url, data=data, headers=hdrs, method="POST")
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return json.loads(r.read().decode("utf-8", errors="replace"))
-
-
-def clean_text(s):
-    if not s:
-        return ""
-    s = html.unescape(s)
-    s = re.sub(r"<[^>]+>", " ", s)        # strip tags
-    s = re.sub(r"\s+", " ", s).strip()
-    return s
-
-
-def item_id(link, title):
-    basis = (link or "") + "|" + (title or "")
-    return hashlib.sha1(basis.encode("utf-8")).hexdigest()[:16]
-
-
-def title_key(title):
-    """Normalized title for meaning-based dedupe so a preprint and its
-    published version (same title, different link) collapse into one."""
-    t = (title or "").lower()
-    t = re.sub(r"[^a-z0-9 ]", "", t)   # drop punctuation
-    t = re.sub(r"\s+", " ", t).strip()
-    return t[:120]
-
-
-def normalize_link(link, source_name=""):
-    """Fix links that are not directly clickable. bioRxiv Atom feeds put a
-    DOI-style id in the link field, which 404s on its own. A bioRxiv DOI
-    (10.1101/...) resolves to the live article via doi.org regardless of
-    version, so rewrite it."""
-    link = (link or "").strip()
-    if not link:
-        return link
-    # already a full content URL to the article
-    if link.startswith("http") and "10.1101" in link and "biorxiv" in link:
-        return link
-    # bioRxiv cgi short-form URLs carry the DOI tail; convert to doi.org
-    m_cgi = re.search(r"/cgi/content/short/([0-9.]+v?\d*)", link)
-    if m_cgi:
-        return "https://doi.org/10.1101/" + m_cgi.group(1)
-    # extract a bioRxiv/medRxiv DOI if present anywhere in the string
-    m = re.search(r"(10\.1101/[^\s\"'<>]+)", link)
-    if m:
-        return "https://doi.org/" + m.group(1)
-    # bare doi: prefix
-    if link.lower().startswith("doi:"):
-        return "https://doi.org/" + link.split(":", 1)[1].strip()
-    return link
-
-
-# ----------------------------------------------------------------------
-# fetchers (each returns a list of raw dicts: title, link, summary, source, category_hint, date)
-# ----------------------------------------------------------------------
-
-def strip_ns(tag):
-    return tag.split("}", 1)[-1] if "}" in tag else tag
-
-
-def fetch_rss(src):
-    out = []
-    try:
-        raw = http_get(src["url"])
-        root = ET.fromstring(raw)
-    except Exception as e:
-        warn(f"RSS source '{src['name']}' failed: {e}. Skipping.")
-        return out
-
-    # handle both RSS <item> and Atom <entry>
-    nodes = []
-    for el in root.iter():
-        if strip_ns(el.tag) in ("item", "entry"):
-            nodes.append(el)
-
-    for n in nodes:
-        title = link = summary = date = ""
-        for child in n:
-            t = strip_ns(child.tag)
-            if t == "title":
-                title = clean_text(child.text)
-            elif t == "link":
-                # Atom uses href attribute, RSS uses text
-                link = child.get("href") or clean_text(child.text) or link
-            elif t in ("id", "guid"):
-                # bioRxiv Atom often carries the DOI here
-                idval = clean_text(child.text)
-                if not link or "10.1101" in idval:
-                    link = link or idval
-                    if "10.1101" in idval:
-                        link = idval
-            elif t in ("description", "summary", "abstract"):
-                summary = clean_text(child.text)
-            elif t in ("pubDate", "published", "updated", "date"):
-                date = clean_text(child.text)
-        if title:
-            out.append({
-                "title": title,
-                "link": normalize_link(link, src["name"]),
-                "summary": summary[:1200],
-                "source": src["name"],
-                "category_hint": src.get("category_hint", ""),
-                "date": date,
-            })
-    log(f"RSS '{src['name']}': {len(out)} items")
-    return out
-
-
-def fetch_pubmed(cfg):
-    out = []
-    try:
-        params = {
-            "db": "pubmed",
-            "term": cfg["query"],
-            "retmode": "json",
-            "retmax": str(cfg.get("retmax", 40)),
-            "sort": "date",
-        }
-        url = cfg["esearch_base"] + "?" + urllib.parse.urlencode(params)
-        ids = json.loads(http_get(url)).get("esearchresult", {}).get("idlist", [])
-        if not ids:
-            log("PubMed: 0 ids")
-            return out
-        time.sleep(0.4)
-        sparams = {"db": "pubmed", "id": ",".join(ids), "retmode": "json"}
-        surl = cfg["esummary_base"] + "?" + urllib.parse.urlencode(sparams)
-        result = json.loads(http_get(surl)).get("result", {})
-        for pid in result.get("uids", []):
-            rec = result.get(pid, {})
-            title = clean_text(rec.get("title", ""))
-            if not title:
-                continue
-            out.append({
-                "title": title,
-                "link": f"https://pubmed.ncbi.nlm.nih.gov/{pid}/",
-                "summary": clean_text(rec.get("source", "")) + ". " + clean_text(rec.get("fulljournalname", "")),
-                "source": "PubMed",
-                "category_hint": cfg.get("category_hint", "Research/Methods"),
-                "date": rec.get("pubdate", ""),
-            })
-    except Exception as e:
-        warn(f"PubMed failed: {e}. Skipping.")
-    log(f"PubMed: {len(out)} items")
-    return out
-
-
-def fetch_nih_reporter(cfg):
-    out = []
-    try:
-        payload = {
-            "criteria": {
-                "advanced_text_search": {
-                    "operator": "and",
-                    "search_field": "projecttitle,abstracttext,terms",
-                    "search_text": cfg["advanced_text_search"],
-                },
-                "newly_added_projects_only": cfg.get("newly_added_projects_only", True),
-            },
-            "include_fields": [
-                "ProjectTitle", "AbstractText", "FiscalYear", "Organization",
-                "PrincipalInvestigators", "AwardAmount", "ProjectDetailUrl",
-                "ApplId", "ProjectNum", "ProjectStartDate", "AgencyIcAdmin",
-                "OrgState", "OrgCity", "OrgName",
-            ],
-            "offset": 0,
-            "limit": cfg.get("limit", 50),
-            "sort_field": "fiscal_year",
-            "sort_order": "desc",
-        }
-        time.sleep(1.0)  # NIH asks for <= 1 request/second
-        resp = http_post_json(cfg["url"], payload)
-        for r in resp.get("results", []):
-            title = clean_text(r.get("project_title", ""))
-            if not title:
-                continue
-            org = (r.get("organization") or {}).get("org_name", "")
-            org_obj = r.get("organization") or {}
-            org_state = org_obj.get("org_state", "") or r.get("org_state", "")
-            org_city = org_obj.get("org_city", "") or r.get("org_city", "")
-            pis = ", ".join(
-                clean_text(pi.get("full_name", ""))
-                for pi in (r.get("principal_investigators") or [])
-            )
-            amt = r.get("award_amount")
-            summary = f"PI: {pis}. Institution: {org}. " \
-                      f"Award: {('$' + format(amt, ',')) if amt else 'n/a'}. " \
-                      + clean_text(r.get("abstract_text", ""))[:800]
-            # Build a reliable per-grant link. Prefer the API's detail URL,
-            # else construct from appl_id, else fall back to a project-number search.
-            appl_id = r.get("appl_id") or r.get("applId")
-            detail = r.get("project_detail_url") or r.get("projectDetailUrl")
-            if detail:
-                link = detail
-            elif appl_id:
-                link = f"https://reporter.nih.gov/project-details/{appl_id}"
-            elif r.get("project_num"):
-                link = "https://reporter.nih.gov/search/?projectNum=" + urllib.parse.quote(str(r.get("project_num")))
-            else:
-                link = "https://reporter.nih.gov/"
-            out.append({
-                "title": title,
-                "link": link,
-                "summary": summary,
-                "source": "NIH RePORTER",
-                "category_hint": cfg.get("category_hint", "Funded Lab"),
-                "date": clean_text(str(r.get("project_start_date", ""))),
-                "institution": org,
-                "pi": pis,
-                "state": (org_state or "").upper().strip(),
-                "city": org_city,
-            })
-    except Exception as e:
-        warn(f"NIH RePORTER failed: {e}. Skipping.")
-    log(f"NIH RePORTER: {len(out)} items")
-    return out
-
-
-# ----------------------------------------------------------------------
-# scoring via Claude
-# ----------------------------------------------------------------------
-
-SCORING_SYSTEM = """You are a sales intelligence analyst for Advanced Cell Diagnostics (ACD), a Bio-Techne brand. ACD sells RNAscope in situ hybridization and spatial biology products to academic researchers in the United States. This radar is an early-warning system first and a prospecting feed second.
-
-You score one item at a time. Instead of one gut number, rate four axes from 0 to 10, then derive a headline score. Reason about each axis honestly.
-
-AXES (0 to 10 each):
-1. relevance: How squarely is this in the spatial biology / in situ hybridization / RNAscope world? 10 = directly about RNAscope, smFISH, spatial transcriptomics, or multiplexed in situ imaging. 5 = adjacent (single-cell, general genomics) with a plausible spatial angle. 0 = unrelated biology.
-2. buying_signal: How strongly does this point to a near-term purchase or active lab? 10 = a newly funded grant naming a spatial/ISH aim, or a lab clearly standing up this capability. 5 = an active lab publishing relevant work. 0 = no commercial implication.
-3. competitive_urgency: How much does the field team need to hear this now to defend deals? 10 = a direct competitor launching, repositioning, partnering, or getting funded. 0 = no competitive angle.
-   Direct and emerging competitors to watch closely:
-   - Molecular Instruments (HCR RNA-CISH and RNA-FISH; positioned head-to-head against RNAscope on speed and price. Treat any MI news as high urgency.)
-   - 10x Genomics (Xenium, Visium)
-   - Bruker / NanoString (CosMx, GeoMx)
-   - Vizgen (MERSCOPE)
-   - Akoya Biosciences / Quanterix (PhenoCycler, CODEX)
-   - Navinci (Naveni in situ proximity ligation, spatial proteomics; competes with ProximityScope)
-   - Leica Biosystems (BOND RX automation, often partnering with the above)
-   Adjacent ecosystem (score moderate urgency, useful context not direct threat): Visiopharm, Grundium, Indica Labs (HALO), and pathology/imaging analysis vendors.
-4. recency: 10 = within the last week. 5 = within a month. 0 = older.
-
-NOISE CONTROL: A generic preprint or paper with no clear spatial, in situ, or commercial hook should score LOW on relevance and buying_signal, which will pull its headline score below the display threshold. Do not inflate a routine single-cell or genomics paper just because it mentions tissue. Reserve high research scores for work that genuinely uses or compares RNAscope, smFISH, HCR, MERFISH, or multiplexed in situ imaging, or that reveals an active high-value lab.
-
-HEADLINE SCORE: compute as a weighted blend, scaled to 0 to 100:
-score = round( (relevance*3 + buying_signal*2.5 + competitive_urgency*2.5 + recency*2) / 100 * 100 )
-Then apply one tiebreak rule: when two items would score within 3 points of each other and one is a competitor move, nudge the competitor item up by 3. Competitor intelligence wins ties because a missed launch costs the team across every deal at once.
-
-CATEGORY: assign exactly one from: Competitor Move, Research/Methods, Funded Lab, Own/Bio-Techne.
-
-WHY: write a one-line hook of at most 24 words. Be concrete, not vague. Name the specific lever where present: gene targets, tissue or disease, method, PI name, institution, or the competing product. Tell the rep what to note or do. Do not use em dashes.
-
-Respond with ONLY a JSON object, no preamble, no markdown fences:
-{"relevance": <int>, "buying_signal": <int>, "competitive_urgency": <int>, "recency": <int>, "score": <int>, "category": "<one of the four>", "why": "<one line>"}"""
-
-
-def score_item(item):
-    if not ANTHROPIC_API_KEY:
-        # no key: pass through with a neutral score so the pipeline still works
-        return {"score": 50, "category": item.get("category_hint") or "Research/Methods",
-                "why": "Scored neutrally (no API key set)."}
-    user = (
-        f"Source: {item['source']}\n"
-        f"Category hint: {item.get('category_hint','')}\n"
-        f"Title: {item['title']}\n"
-        f"Summary: {item.get('summary','')[:1000]}"
-    )
-    payload = {
-        "model": MODEL,
-        "max_tokens": 200,
-        "system": SCORING_SYSTEM,
-        "messages": [{"role": "user", "content": user}],
-    }
-    headers = {
-        "x-api-key": ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01",
-    }
-    try:
-        resp = http_post_json(ANTHROPIC_URL, payload, headers=headers, timeout=60)
-        text = "".join(b.get("text", "") for b in resp.get("content", []) if b.get("type") == "text")
-        text = text.strip().replace("```json", "").replace("```", "").strip()
-        parsed = json.loads(text)
-        score = int(parsed.get("score", 0))
-        category = parsed.get("category", "")
-        if category not in CATEGORIES:
-            category = item.get("category_hint") or "Research/Methods"
-        why = clean_text(parsed.get("why", "")).replace("\u2014", "-")
-        return {
-            "score": max(0, min(100, score)),
-            "category": category,
-            "why": why,
-            "subscores": {
-                "relevance": parsed.get("relevance"),
-                "buying_signal": parsed.get("buying_signal"),
-                "competitive_urgency": parsed.get("competitive_urgency"),
-                "recency": parsed.get("recency"),
-            },
-        }
-    except Exception as e:
-        warn(f"Scoring failed for '{item['title'][:60]}': {e}")
-        return {"score": 40, "category": item.get("category_hint") or "Research/Methods",
-                "why": "Could not score automatically, review manually."}
-
-
-# ----------------------------------------------------------------------
-# main
-# ----------------------------------------------------------------------
-
-def load_existing():
-    if not os.path.exists(DATA_PATH):
-        return {"updated": "", "items": []}
-    try:
-        with open(DATA_PATH, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception as e:
-        warn(f"Could not read existing data.json: {e}. Starting fresh.")
-        return {"updated": "", "items": []}
-
-
-def main():
-    with open(SOURCES_PATH, "r", encoding="utf-8") as f:
-        sources = json.load(f)
-
-    existing = load_existing()
-    seen_ids = {it["id"] for it in existing.get("items", [])}
-    seen_titles = {title_key(it.get("title", "")) for it in existing.get("items", [])}
-
-    # gather raw items from all sources
-    raw = []
-    for src in sources.get("rss_sources", []):
-        raw.extend(fetch_rss(src))
-    if "pubmed" in sources:
-        raw.extend(fetch_pubmed(sources["pubmed"]))
-    if "nih_reporter" in sources:
-        raw.extend(fetch_nih_reporter(sources["nih_reporter"]))
-
-    # dedupe and keep only new (by id AND by normalized title)
-    new_items = []
-    for it in raw:
-        iid = item_id(it.get("link", ""), it.get("title", ""))
-        tkey = title_key(it.get("title", ""))
-        if iid in seen_ids or (tkey and tkey in seen_titles):
-            continue
-        seen_ids.add(iid)
-        if tkey:
-            seen_titles.add(tkey)
-        it["id"] = iid
-        new_items.append(it)
-
-    log(f"{len(new_items)} new items to score (of {len(raw)} fetched)")
-
-    # score new items
-    scored_new = []
-    dropped = 0
-    for i, it in enumerate(new_items, 1):
-        s = score_item(it)
-        it.update(s)
-        terr_code, region = classify_territory(it.get("state", ""), it.get("institution", ""))
-        it["territory"] = terr_code
-        it["region"] = region
-        it["fetched"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
-        if it.get("score", 0) < MIN_SCORE:
-            dropped += 1
-        else:
-            scored_new.append(it)
-        if i % 10 == 0:
-            log(f"scored {i}/{len(new_items)}")
-        time.sleep(0.2)  # gentle pacing
-
-    log(f"kept {len(scored_new)} new items, dropped {dropped} below score {MIN_SCORE}")
-
-    # merge, sort, cap. Also re-filter any previously stored items under threshold.
-    all_items = scored_new + [it for it in existing.get("items", []) if it.get("score", 0) >= MIN_SCORE]
-    all_items.sort(key=lambda x: (x.get("score", 0), x.get("fetched", "")), reverse=True)
-    all_items = all_items[:MAX_ITEMS_KEPT]
-
-    out = {
-        "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "count": len(all_items),
-        "new_this_run": len(scored_new),
-        "categories": CATEGORIES,
-        "items": all_items,
-    }
-    with open(DATA_PATH, "w", encoding="utf-8") as f:
-        json.dump(out, f, ensure_ascii=False, indent=2)
-    log(f"Wrote {len(all_items)} items to data.json ({len(scored_new)} new)")
-
-
-if __name__ == "__main__":
-    main()
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACD Spatial Radar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* dark (default) */
+  :root, [data-theme="dark"] {
+    --bg: #0a0c10; --panel: #13161d; --panel-2: #1a1e28;
+    --ink: #eef0f6; --ink-2: #b7bccb; --ink-dim: #9aa0b2;
+    --line: #272c38; --line-bright: #3a4150; --accent: #5ad6c9;
+    --cat-competitor: #ff6b80; --cat-research: #6f9bff; --cat-funded: #45e08c; --cat-own: #f7b13b;
+    --logo-display: var(--logo-white);
+    --glow1: rgba(90,214,201,0.10); --glow2: rgba(111,155,255,0.08);
+    --whybg: rgba(255,255,255,0.03);
+  }
+  /* light (database Analytics Dashboard tokens, WCAG-checked) */
+  [data-theme="light"] {
+    --bg: #f4f7fb; --panel: #ffffff; --panel-2: #eef3fa;
+    --ink: #15233f; --ink-2: #3c4a63; --ink-dim: #5d6b85;
+    --line: #dbe5f1; --line-bright: #c2d2e8; --accent: #1d9e75;
+    --cat-competitor: #d83a4e; --cat-research: #1e40af; --cat-funded: #15803d; --cat-own: #b45309;
+    --logo-display: var(--logo-color);
+    --glow1: rgba(29,158,117,0.08); --glow2: rgba(30,64,175,0.06);
+    --whybg: rgba(0,0,0,0.035);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    background-image: radial-gradient(circle at 8% -5%, var(--glow1), transparent 38%), radial-gradient(circle at 95% 0%, var(--glow2), transparent 40%);
+    background-attachment: fixed; color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif; min-height: 100vh; line-height: 1.5;
+    transition: background-color 0.25s, color 0.25s;
+  }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 36px 34px 90px; }
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+  header.top { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-bottom: 1px solid var(--line); padding-bottom: 26px; margin-bottom: 26px; }
+  .brand { display: flex; flex-direction: column; gap: 14px; }
+  .logo { height: 34px; width: auto; }
+  .logo svg { height: 100%; width: auto; display: block; }
+  .brand h1 { font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.5rem; letter-spacing: -0.025em; line-height: 0.95; }
+  .brand h1 .dot { color: var(--accent); }
+  .brand p { font-family: 'Space Mono', monospace; color: var(--ink-dim); font-size: 0.76rem; margin-top: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .headright { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+  .meta { text-align: right; font-family: 'Space Mono', monospace; font-size: 0.74rem; color: var(--ink-dim); line-height: 1.9; }
+  .meta .pulse { color: var(--cat-funded); animation: blink 2.4s ease-in-out infinite; }
+  .meta b { color: var(--ink); }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.35} }
+  .themetoggle { font-family: 'Space Mono', monospace; font-size: 0.7rem; background: var(--panel); border: 1px solid var(--line); color: var(--ink-2); padding: 7px 13px; border-radius: 999px; cursor: pointer; transition: all 0.16s; display: flex; align-items: center; gap: 7px; }
+  .themetoggle:hover { border-color: var(--ink-dim); color: var(--ink); }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 26px; }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; position: relative; overflow: hidden; cursor: pointer; transition: border-color 0.18s, transform 0.18s; }
+  .stat:hover { border-color: var(--line-bright); transform: translateY(-2px); }
+  .stat::after { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background: var(--c); }
+  .stat .n { font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.1rem; line-height: 1; color: var(--c); }
+  .stat .lbl { font-family: 'Space Mono', monospace; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-dim); margin-top: 7px; }
+  .stat .top { font-size: 0.74rem; color: var(--ink-2); margin-top: 6px; line-height: 1.35; height: 2.7em; overflow: hidden; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 24px; }
+  .chip { font-family: 'Space Mono', monospace; font-size: 0.74rem; background: var(--panel); border: 1px solid var(--line); color: var(--ink-2); padding: 9px 15px; border-radius: 999px; cursor: pointer; transition: all 0.16s; user-select: none; letter-spacing: 0.02em; }
+  .chip:hover { color: var(--ink); border-color: var(--ink-dim); }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); font-weight: 700; }
+  .chip .cdot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:7px; vertical-align:middle; }
+  .spacer { flex: 1; }
+  .search { background: var(--panel); border: 1px solid var(--line); color: var(--ink); padding: 10px 15px; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 0.78rem; min-width: 240px; }
+  .search::placeholder { color: var(--ink-dim); }
+  .search:focus { outline: none; border-color: var(--accent); }
+  .sortsel { background: var(--panel); border: 1px solid var(--line); color: var(--ink-2); padding: 10px 13px; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 0.74rem; cursor: pointer; }
+  .feed { display: flex; flex-direction: column; gap: 14px; }
+  .card { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 22px 26px 22px 30px; display: grid; grid-template-columns: 92px 1fr; gap: 24px; align-items: start; transition: transform 0.16s, border-color 0.16s, background 0.16s; opacity: 0; transform: translateY(10px); animation: rise 0.5s ease forwards; }
+  .card:hover { transform: translateY(-2px); border-color: var(--line-bright); background: var(--panel-2); }
+  .card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-radius: 14px 0 0 14px; background: var(--catcolor, var(--accent)); }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  .scorebox { text-align: center; }
+  .score { font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.6rem; line-height: 0.9; color: var(--catcolor, var(--accent)); }
+  .score small { display: block; font-family: 'Space Mono', monospace; font-weight: 400; font-size: 0.56rem; color: var(--ink-dim); letter-spacing: 0.14em; margin-top: 5px; }
+  .meter { height: 4px; border-radius: 3px; background: var(--line); margin-top: 10px; overflow: hidden; }
+  .meter span { display:block; height:100%; background: var(--catcolor); border-radius:3px; }
+  .subs { display: flex; gap: 4px; margin-top: 9px; justify-content: center; }
+  .subs i { width: 7px; height: 18px; border-radius: 2px; background: var(--line); position: relative; }
+  .subs i b { position:absolute; bottom:0; left:0; right:0; background: var(--catcolor); border-radius:2px; display:block; }
+  .body .toprow { display: flex; align-items: center; gap: 11px; flex-wrap: wrap; margin-bottom: 9px; }
+  .tag { font-family: 'Space Mono', monospace; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; padding: 3px 10px; border-radius: 5px; background: color-mix(in srgb, var(--catcolor) 16%, transparent); color: var(--catcolor); border: 1px solid color-mix(in srgb, var(--catcolor) 40%, transparent); }
+  .src { font-family: 'Space Mono', monospace; font-size: 0.69rem; color: var(--ink-dim); }
+  .terr { font-family: 'Space Mono', monospace; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 5px; background: var(--panel-2); color: var(--ink-2); border: 1px solid var(--line-bright); }
+  .date { font-family: 'Space Mono', monospace; font-size: 0.67rem; color: var(--ink-dim); margin-left: auto; }
+  .body h2 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.28rem; line-height: 1.3; letter-spacing: -0.01em; margin-bottom: 9px; }
+  .body h2 a { color: var(--ink); text-decoration: none; }
+  .body h2 a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .why { font-size: 0.95rem; color: var(--ink); background: var(--whybg); border-left: 2px solid var(--catcolor, var(--accent)); padding: 8px 14px; border-radius: 0 6px 6px 0; margin-bottom: 10px; }
+  .summary { font-size: 0.85rem; color: var(--ink-2); display: none; }
+  .card.open .summary { display: block; margin-top: 9px; }
+  .expand { font-family: 'Space Mono', monospace; font-size: 0.66rem; color: var(--accent); cursor: pointer; background: none; border: none; padding: 4px 0 0; }
+  .empty { text-align: center; color: var(--ink-dim); font-family: 'Space Mono', monospace; padding: 70px 0; font-size: 0.85rem; }
+  footer { margin-top: 54px; text-align: center; font-family: 'Space Mono', monospace; font-size: 0.66rem; color: var(--ink-dim); }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } .card { opacity: 1; transform: none; } }
+  @media (max-width: 980px) { .stats { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 620px) { .wrap { padding: 24px 16px 70px; } .card { grid-template-columns: 62px 1fr; gap: 14px; padding: 16px 16px 16px 20px; } .score { font-size: 1.9rem; } .brand h1 { font-size: 1.9rem; } .logo { height: 28px; } .meta { text-align: left; } .headright { align-items: flex-start; } .stats { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="logo" id="logo" aria-label="Bio-Techne Spatial"></div>
+      <div>
+        <h1>Spatial Radar<span class="dot">.</span></h1>
+        <p>ACD / Bio-Techne Spatial &middot; Field Intelligence</p>
+      </div>
+    </div>
+    <div class="headright">
+      <button class="themetoggle" id="themetoggle" aria-label="Toggle light or dark theme"><span id="themeicon">&#9789;</span> <span id="themelabel">Dark</span></button>
+      <div class="meta">
+        <div><span class="pulse" aria-hidden="true">&#9679;</span> live feed</div>
+        <div>updated <b id="updated">--</b></div>
+        <div><b id="count">0</b> tracked &middot; <b id="newcount">0</b> new</div>
+      </div>
+    </div>
+  </header>
+  <section class="stats" id="stats" aria-label="Counts by category"></section>
+  <div class="controls" role="group" aria-label="Filters">
+    <button class="chip" data-cat="all" aria-pressed="true">All</button>
+    <button class="chip" data-cat="Competitor Move" aria-pressed="false"><span class="cdot" style="background:var(--cat-competitor)" aria-hidden="true"></span>Competitor</button>
+    <button class="chip" data-cat="Funded Lab" aria-pressed="false"><span class="cdot" style="background:var(--cat-funded)" aria-hidden="true"></span>Funded Lab</button>
+    <button class="chip" data-cat="Research/Methods" aria-pressed="false"><span class="cdot" style="background:var(--cat-research)" aria-hidden="true"></span>Research</button>
+    <button class="chip" data-cat="Own/Bio-Techne" aria-pressed="false"><span class="cdot" style="background:var(--cat-own)" aria-hidden="true"></span>Own News</button>
+    <div class="spacer"></div>
+    <input class="search" id="search" placeholder="filter by keyword, PI, lab, territory..." aria-label="Search items">
+    <select class="sortsel" id="region" aria-label="Region filter">
+      <option value="all">region: all</option>
+      <option value="East">East</option>
+      <option value="West">West</option>
+      <option value="National">National</option>
+    </select>
+    <select class="sortsel" id="sort" aria-label="Sort order">
+      <option value="score">sort: score</option>
+      <option value="date">sort: newest</option>
+    </select>
+  </div>
+  <div class="feed" id="feed" aria-live="polite"></div>
+  <footer>ACD Spatial Radar &middot; auto-refreshed by scheduled job every 6 hours</footer>
+</div>
+<script>
+const LOGO_WHITE = `<svg id="Logos" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 270"> <defs> <style> .cls-1 { fill: #fff; } </style> </defs> <path class="cls-1" d="M281.68,89.26h5.36v6.77h-5.36v19.82c0,2.86,1.2,3.66,2.34,3.66h3.02v7.2h-3.07c-6.57,0-10.22-3.65-10.22-10.23v-20.45h-4.86v-6.77h4.86v-8.83h7.94v8.83ZM457.45,110.25h-23.76c.21,6.61,3.66,10.13,8.76,10.13,3.48,0,6.11-1.66,7.18-4.82h7.5c-.22,1.74-.71,3.44-1.6,4.94-2.44,4.1-7.07,6.64-13.16,6.64-10.29,0-16.58-7.47-16.58-19.09s6.29-19.26,16.06-19.26c8.34,0,15.6,5.71,15.6,18.73v2.72ZM449.72,104.37c-.46-5.31-3.11-8.8-7.85-8.8s-7.79,3.85-8.15,8.8h16ZM319.67,107.52v2.72h-23.76c.21,6.61,3.66,10.13,8.76,10.13,3.48,0,6.11-1.66,7.18-4.82h7.5c-.22,1.74-.71,3.44-1.6,4.94-2.44,4.1-7.07,6.64-13.16,6.64-10.29,0-16.58-7.47-16.58-19.09s6.29-19.26,16.06-19.26c8.34,0,15.6,5.71,15.6,18.73ZM311.94,104.37c-.46-5.31-3.11-8.8-7.85-8.8s-7.79,3.85-8.15,8.8h16ZM338.49,120.14c-5.48,0-8.14-5.38-8.14-12.15s2.66-12.19,8.14-12.19c4.27,0,6.84,3.22,7.78,7.85h8.07c-1.41-9.08-7.3-14.86-15.86-14.86-9.87,0-16.16,7.67-16.16,19.22s6.3,19.12,16.16,19.12c8.58,0,14.47-5.83,15.87-14.86h-8.08c-.94,4.61-3.51,7.85-7.78,7.85ZM216.25,107.89c0,12.19-6.02,19.16-14.11,19.16-5.87,0-8.55-2.85-9.74-5.04h-.52v4.38h-7.76v-49.47h7.94v16.99h.34c1.19-2.12,3.7-5.11,9.78-5.11,7.88,0,14.08,6.74,14.08,19.09ZM208.09,107.86c0-6.91-2.72-11.95-8.1-11.95s-8.1,4.71-8.1,11.95,2.9,12.09,8.1,12.09,8.1-5.11,8.1-12.09ZM376.12,88.8c-4.86,0-8.31,1.46-10.36,5.84v-17.72h-7.82v49.47h7.94v-21.75c0-5.38,3.05-8.5,7.3-8.5s6.66,2.99,6.66,7.97v22.28h7.97v-23.61c0-8.93-4.67-13.98-11.7-13.98ZM220.09,126.38h7.94v-37.12h-7.94v37.12ZM224.06,75.56c-2.54,0-4.61,2.09-4.61,4.71s2.08,4.75,4.61,4.75,4.64-2.12,4.64-4.75-2.11-4.71-4.64-4.71ZM410.53,88.8c-5.01,0-8.65,1.66-10.66,6.37v-5.9s-7.51,0-7.51,0v37.12h7.94v-21.75c0-5.38,3.05-8.5,7.3-8.5s6.66,2.99,6.66,7.97v22.28h7.94v-23.61c0-8.93-4.64-13.98-11.67-13.98ZM264.29,104.38h6.42v7.17h-6.41c-1.2,9.44-7.22,15.59-16.11,15.59-9.96,0-16.31-7.7-16.31-19.12s6.35-19.22,16.31-19.22c8.87,0,14.89,6.09,16.1,15.59ZM256.18,111.56h-9.23l1.79-7.17h7.44c-.82-5.02-3.46-8.58-8-8.58-5.53,0-8.22,5.35-8.22,12.19s2.69,12.15,8.22,12.15c4.54,0,7.18-3.58,8-8.58Z"/> <path class="cls-1" d="M203.44,171.55c0,5.04-4.33,8.5-10.49,8.5-5.05,0-8.69-2.31-9.99-6.29-.24-.75-.36-1.55-.42-2.34h5.38c.66,2.64,2.36,3.9,5.13,3.9s4.57-1.38,4.57-3.18c0-1.54-1.07-2.52-3.3-3.04l-4.17-.97c-4.61-1.09-6.86-3.54-6.86-7.43,0-4.92,4-8.08,9.85-8.08,4.91,0,8,2.22,9.31,5.6.29.74.43,1.54.48,2.34h-5.14c-.57-1.85-1.97-3.33-4.59-3.33-2.4,0-4.24,1.28-4.24,3.09,0,1.54.98,2.52,3.47,3.11l4.15.95c4.63,1.07,6.84,3.44,6.84,7.17ZM252.14,161.77v17.74h-5.44v-2.58h-.22c-1.07,1.92-3.39,3.13-7.19,3.13-4.65,0-8.17-2.78-8.17-8,0-5.99,4.59-7.51,9.31-8.05,4.24-.5,6.03-.57,6.03-2.4v-.12c0-2.59-1.49-4.11-4.26-4.11s-4.52,1.59-5.11,3.35h-5.41c.13-1.06.41-2.09.92-3.03,1.84-3.41,5.39-5.07,9.58-5.07,4.59,0,9.96,2.07,9.96,9.14ZM246.51,166.85c-.76.67-3.93,1.09-5.39,1.31-2.56.38-4.48,1.4-4.48,3.82s1.73,3.49,4.13,3.49c3.5,0,5.74-2.54,5.74-5.49v-3.14ZM299.82,161.77v17.74h-5.44v-2.58h-.22c-1.07,1.92-3.39,3.13-7.19,3.13-4.65,0-8.17-2.78-8.17-8,0-5.99,4.59-7.51,9.31-8.05,4.24-.5,6.03-.57,6.03-2.4v-.12c0-2.59-1.49-4.11-4.26-4.11s-4.52,1.59-5.11,3.35h-5.41c.13-1.06.42-2.09.92-3.03,1.84-3.41,5.39-5.07,9.58-5.07,4.59,0,9.96,2.07,9.96,9.14ZM294.19,166.85c-.76.67-3.93,1.09-5.39,1.31-2.56.38-4.48,1.4-4.48,3.82s1.73,3.49,4.13,3.49c3.5,0,5.74-2.54,5.74-5.49v-3.14ZM262.91,146.64h-5.68v6.32h-3.47v4.85h3.47v14.63c0,4.7,2.61,7.32,7.31,7.32h2.2v-5.15h-2.16c-.81,0-1.67-.57-1.67-2.61v-14.18h3.83v-4.85h-3.83v-6.32ZM273.13,143.15c-1.81,0-3.3,1.5-3.3,3.37s1.49,3.4,3.3,3.4,3.32-1.52,3.32-3.4-1.51-3.37-3.32-3.37ZM270.29,179.51h5.68v-26.56h-5.68v26.56ZM229.18,166.28c0,8.72-4.3,13.71-10.1,13.71-4.2,0-6.12-2.04-6.97-3.61h-.24v13.06h-5.68v-36.48h5.55v3.32h.37c.85-1.52,2.64-3.65,6.99-3.65,5.64,0,10.07,4.82,10.07,13.66ZM223.35,166.26c0-4.94-1.94-8.55-5.79-8.55s-5.79,3.37-5.79,8.55,2.08,8.65,5.79,8.65,5.79-3.66,5.79-8.65ZM303.51,179.51h5.68v-35.39h-5.68v35.39ZM318.74,144.12l-1.26,3.26-1.25-3.26h-.89v4.47h.73v-3.01l1.22,3.01h.4l1.2-3v3h.74v-4.47h-.9ZM311.39,144.82h1.24v3.77h.74v-3.77h1.24v-.7h-3.23v.7Z"/> </svg>`;
+const LOGO_COLOR = `<svg id="Logos" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 270"> <defs> <style> .cls-1 { fill: #0034b7; } </style> </defs> <path class="cls-1" d="M281.68,89.26h5.36v6.77h-5.36v19.82c0,2.86,1.2,3.66,2.34,3.66h3.02v7.2h-3.07c-6.57,0-10.22-3.65-10.22-10.23v-20.45h-4.86v-6.77h4.86v-8.83h7.94v8.83ZM457.45,110.25h-23.76c.21,6.61,3.66,10.13,8.76,10.13,3.48,0,6.11-1.66,7.18-4.82h7.5c-.22,1.74-.71,3.44-1.6,4.94-2.44,4.1-7.07,6.64-13.16,6.64-10.29,0-16.58-7.47-16.58-19.09s6.29-19.26,16.06-19.26c8.34,0,15.6,5.71,15.6,18.73v2.72ZM449.72,104.37c-.46-5.31-3.11-8.8-7.85-8.8s-7.79,3.85-8.15,8.8h16ZM319.67,107.52v2.72h-23.76c.21,6.61,3.66,10.13,8.76,10.13,3.48,0,6.11-1.66,7.18-4.82h7.5c-.22,1.74-.71,3.44-1.6,4.94-2.44,4.1-7.07,6.64-13.16,6.64-10.29,0-16.58-7.47-16.58-19.09s6.29-19.26,16.06-19.26c8.34,0,15.6,5.71,15.6,18.73ZM311.94,104.37c-.46-5.31-3.11-8.8-7.85-8.8s-7.79,3.85-8.15,8.8h16ZM338.49,120.14c-5.48,0-8.14-5.38-8.14-12.15s2.66-12.19,8.14-12.19c4.27,0,6.84,3.22,7.78,7.85h8.07c-1.41-9.08-7.3-14.86-15.86-14.86-9.87,0-16.16,7.67-16.16,19.22s6.3,19.12,16.16,19.12c8.58,0,14.47-5.83,15.87-14.86h-8.08c-.94,4.61-3.51,7.85-7.78,7.85ZM216.25,107.89c0,12.19-6.02,19.16-14.11,19.16-5.87,0-8.55-2.85-9.74-5.04h-.52v4.38h-7.76v-49.47h7.94v16.99h.34c1.19-2.12,3.7-5.11,9.78-5.11,7.88,0,14.08,6.74,14.08,19.09ZM208.09,107.86c0-6.91-2.72-11.95-8.1-11.95s-8.1,4.71-8.1,11.95,2.9,12.09,8.1,12.09,8.1-5.11,8.1-12.09ZM376.12,88.8c-4.86,0-8.31,1.46-10.36,5.84v-17.72h-7.82v49.47h7.94v-21.75c0-5.38,3.05-8.5,7.3-8.5s6.66,2.99,6.66,7.97v22.28h7.97v-23.61c0-8.93-4.67-13.98-11.7-13.98ZM220.09,126.38h7.94v-37.12h-7.94v37.12ZM224.06,75.56c-2.54,0-4.61,2.09-4.61,4.71s2.08,4.75,4.61,4.75,4.64-2.12,4.64-4.75-2.11-4.71-4.64-4.71ZM410.53,88.8c-5.01,0-8.65,1.66-10.66,6.37v-5.9s-7.51,0-7.51,0v37.12h7.94v-21.75c0-5.38,3.05-8.5,7.3-8.5s6.66,2.99,6.66,7.97v22.28h7.94v-23.61c0-8.93-4.64-13.98-11.67-13.98ZM264.29,104.38h6.42v7.17h-6.41c-1.2,9.44-7.22,15.59-16.11,15.59-9.96,0-16.31-7.7-16.31-19.12s6.35-19.22,16.31-19.22c8.87,0,14.89,6.09,16.1,15.59ZM256.18,111.56h-9.23l1.79-7.17h7.44c-.82-5.02-3.46-8.58-8-8.58-5.53,0-8.22,5.35-8.22,12.19s2.69,12.15,8.22,12.15c4.54,0,7.18-3.58,8-8.58Z"/> <path d="M203.44,171.55c0,5.04-4.33,8.5-10.49,8.5-5.05,0-8.69-2.31-9.99-6.29-.24-.75-.36-1.55-.42-2.34h5.38c.66,2.64,2.36,3.9,5.13,3.9s4.57-1.38,4.57-3.18c0-1.54-1.07-2.52-3.3-3.04l-4.17-.97c-4.61-1.09-6.86-3.54-6.86-7.43,0-4.92,4-8.08,9.85-8.08,4.91,0,8,2.22,9.31,5.6.29.74.43,1.54.48,2.34h-5.14c-.57-1.85-1.97-3.33-4.59-3.33-2.4,0-4.24,1.28-4.24,3.09,0,1.54.98,2.52,3.47,3.11l4.15.95c4.63,1.07,6.84,3.44,6.84,7.17ZM252.14,161.77v17.74h-5.44v-2.58h-.22c-1.07,1.92-3.39,3.13-7.19,3.13-4.65,0-8.17-2.78-8.17-8,0-5.99,4.59-7.51,9.31-8.05,4.24-.5,6.03-.57,6.03-2.4v-.12c0-2.59-1.49-4.11-4.26-4.11s-4.52,1.59-5.11,3.35h-5.41c.13-1.06.41-2.09.92-3.03,1.84-3.41,5.39-5.07,9.58-5.07,4.59,0,9.96,2.07,9.96,9.14ZM246.51,166.85c-.76.67-3.93,1.09-5.39,1.31-2.56.38-4.48,1.4-4.48,3.82s1.73,3.49,4.13,3.49c3.5,0,5.74-2.54,5.74-5.49v-3.14ZM299.82,161.77v17.74h-5.44v-2.58h-.22c-1.07,1.92-3.39,3.13-7.19,3.13-4.65,0-8.17-2.78-8.17-8,0-5.99,4.59-7.51,9.31-8.05,4.24-.5,6.03-.57,6.03-2.4v-.12c0-2.59-1.49-4.11-4.26-4.11s-4.52,1.59-5.11,3.35h-5.41c.13-1.06.42-2.09.92-3.03,1.84-3.41,5.39-5.07,9.58-5.07,4.59,0,9.96,2.07,9.96,9.14ZM294.19,166.85c-.76.67-3.93,1.09-5.39,1.31-2.56.38-4.48,1.4-4.48,3.82s1.73,3.49,4.13,3.49c3.5,0,5.74-2.54,5.74-5.49v-3.14ZM262.91,146.64h-5.68v6.32h-3.47v4.85h3.47v14.63c0,4.7,2.61,7.32,7.31,7.32h2.2v-5.15h-2.16c-.81,0-1.67-.57-1.67-2.61v-14.18h3.83v-4.85h-3.83v-6.32ZM273.13,143.15c-1.81,0-3.3,1.5-3.3,3.37s1.49,3.4,3.3,3.4,3.32-1.52,3.32-3.4-1.51-3.37-3.32-3.37ZM270.29,179.51h5.68v-26.56h-5.68v26.56ZM229.18,166.28c0,8.72-4.3,13.71-10.1,13.71-4.2,0-6.12-2.04-6.97-3.61h-.24v13.06h-5.68v-36.48h5.55v3.32h.37c.85-1.52,2.64-3.65,6.99-3.65,5.64,0,10.07,4.82,10.07,13.66ZM223.35,166.26c0-4.94-1.94-8.55-5.79-8.55s-5.79,3.37-5.79,8.55,2.08,8.65,5.79,8.65,5.79-3.66,5.79-8.65ZM303.51,179.51h5.68v-35.39h-5.68v35.39ZM318.74,144.12l-1.26,3.26-1.25-3.26h-.89v4.47h.73v-3.01l1.22,3.01h.4l1.2-3v3h.74v-4.47h-.9ZM311.39,144.82h1.24v3.77h.74v-3.77h1.24v-.7h-3.23v.7Z"/> </svg>`;
+const CAT_COLOR = { "Competitor Move":"var(--cat-competitor)","Research/Methods":"var(--cat-research)","Funded Lab":"var(--cat-funded)","Own/Bio-Techne":"var(--cat-own)" };
+const CAT_SHORT = { "Funded Lab":"Funded","Competitor Move":"Competitor","Research/Methods":"Research","Own/Bio-Techne":"Own News" };
+let DATA = { items: [], updated: "" };
+let activeCat = "all";
+let theme = "dark";
+function fmtDate(s){ if(!s) return ""; const d=new Date(s); return isNaN(d)?s:d.toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"}); }
+function esc(s){ return (s||"").replace(/[&<>"]/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function applyTheme(){
+  document.documentElement.setAttribute("data-theme", theme);
+  document.getElementById("logo").innerHTML = theme==="dark" ? LOGO_WHITE : LOGO_COLOR;
+  document.getElementById("themeicon").innerHTML = theme==="dark" ? "&#9789;" : "&#9788;";
+  document.getElementById("themelabel").textContent = theme==="dark" ? "Dark" : "Light";
+}
+function renderStats(){
+  const cats = ["Competitor Move","Funded Lab","Research/Methods","Own/Bio-Techne"];
+  document.getElementById("stats").innerHTML = cats.map(cat=>{
+    const items = DATA.items.filter(i=>i.category===cat).sort((a,b)=>(b.score||0)-(a.score||0));
+    const top = items[0];
+    return `<div class="stat" data-cat="${cat}" style="--c:${CAT_COLOR[cat]}" role="button" tabindex="0" aria-label="${items.length} ${cat} items, filter">
+      <div class="n">${items.length}</div><div class="lbl">${CAT_SHORT[cat]}</div>
+      <div class="top">${top? "Top: "+esc(top.title).slice(0,52)+(top.title.length>52?"...":"") : "No items yet"}</div></div>`;
+  }).join("");
+  document.querySelectorAll(".stat").forEach(s=>{
+    const go=()=>setCat(s.dataset.cat);
+    s.addEventListener("click",go);
+    s.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();go();} });
+  });
+}
+function setCat(cat){ activeCat=cat; document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed", c.dataset.cat===cat?"true":"false")); render(); }
+function subbars(s){
+  if(!s) return "";
+  const axes=[["relevance",s.relevance],["buying_signal",s.buying_signal],["competitive_urgency",s.competitive_urgency],["recency",s.recency]];
+  return `<div class="subs" title="relevance / buying / competitive / recency" aria-hidden="true">`+axes.map(([k,v])=>`<i><b style="height:${Math.max(0,Math.min(10,v||0))*10}%"></b></i>`).join("")+`</div>`;
+}
+function render(){
+  const q = document.getElementById("search").value.toLowerCase().trim();
+  const sortBy = document.getElementById("sort").value;
+  const region = document.getElementById("region").value;
+  let items = DATA.items.slice();
+  if (activeCat!=="all") items = items.filter(i=>i.category===activeCat);
+  if (region!=="all") items = items.filter(i=>(i.region||"National")===region);
+  if (q) items = items.filter(i => (i.title||"").toLowerCase().includes(q)||(i.summary||"").toLowerCase().includes(q)||(i.why||"").toLowerCase().includes(q)||(i.pi||"").toLowerCase().includes(q)||(i.institution||"").toLowerCase().includes(q)||(i.territory||"").toLowerCase().includes(q));
+  items.sort((a,b)=> sortBy==="date" ? new Date(b.date||0)-new Date(a.date||0) : (b.score||0)-(a.score||0));
+  const feed = document.getElementById("feed");
+  if(!items.length){ feed.innerHTML='<div class="empty">no items match this filter</div>'; return; }
+  feed.innerHTML = items.map((i,n)=>{
+    const color = CAT_COLOR[i.category]||"var(--accent)";
+    const has = i.summary && i.summary.length>0;
+    return `<article class="card" style="--catcolor:${color}; animation-delay:${Math.min(n*0.035,0.5)}s">
+      <div class="scorebox"><div class="score">${i.score??"--"}<small>SIGNAL</small></div>
+      <div class="meter" aria-hidden="true"><span style="width:${Math.max(0,Math.min(100,i.score||0))}%"></span></div>${subbars(i.subscores)}</div>
+      <div class="body"><div class="toprow"><span class="tag">${esc(i.category||"")}</span>${i.territory && i.territory!=="National" ? `<span class="terr">${esc(i.territory)}</span>`:""}<span class="src">${esc(i.source||"")}</span><span class="date">${fmtDate(i.date)}</span></div>
+      <h2><a href="${esc(i.link||"#")}" target="_blank" rel="noopener">${esc(i.title||"Untitled")}</a></h2>
+      ${i.why? `<div class="why">${esc(i.why)}</div>`:""}
+      ${has? `<button class="expand" aria-expanded="false" onclick="const c=this.closest('.card');const o=c.classList.toggle('open');this.setAttribute('aria-expanded',o);this.textContent=o?'hide details \u25b4':'details \u25be'">details \u25be</button><div class="summary">${esc(i.summary)}</div>`:""}
+      </div></article>`;
+  }).join("");
+}
+function boot(data){
+  DATA = data;
+  document.getElementById("updated").textContent = fmtDate(data.updated)||"--";
+  document.getElementById("count").textContent = data.count ?? (data.items?data.
