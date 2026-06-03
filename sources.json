@@ -21,7 +21,17 @@
     "MERSCOPE",
     "PhenoCycler",
     "CODEX",
-    "Naveni"
+    "Naveni",
+    "seqFISH",
+    "Molecular Cartography",
+    "imaging mass cytometry",
+    "spatial multiomics",
+    "Hyperion",
+    "G4X",
+    "Lunaphore",
+    "COMET",
+    "Standard BioTools",
+    "Resolve Biosciences"
   ],
   "rss_sources": [
     {
@@ -97,6 +107,48 @@
       "url": "https://visiopharm.com/feed/",
       "category_hint": "Competitor Move",
       "note": "Image analysis, adjacent ecosystem. Feed URL unverified."
+    },
+    {
+      "name": "Resolve Biosciences",
+      "type": "rss",
+      "url": "https://resolvebiosciences.com/feed/",
+      "category_hint": "Competitor Move",
+      "note": "Molecular Cartography, direct ISH-based spatial competitor. Feed URL unverified, skip gracefully if invalid."
+    },
+    {
+      "name": "Standard BioTools",
+      "type": "rss",
+      "url": "https://www.standardbio.com/feed",
+      "category_hint": "Competitor Move",
+      "note": "Formerly Fluidigm, merged with SomaLogic. Hyperion imaging mass cytometry, spatial proteomics. Feed URL unverified."
+    },
+    {
+      "name": "Rebus Biosystems",
+      "type": "rss",
+      "url": "https://rebusbio.com/feed/",
+      "category_hint": "Competitor Move",
+      "note": "Esper platform, ISH-adjacent. Smaller player. Feed URL unverified."
+    },
+    {
+      "name": "Singular Genomics",
+      "type": "rss",
+      "url": "https://ir.singulargenomics.com/rss/news-releases.xml",
+      "category_hint": "Competitor Move",
+      "note": "G4X emerging spatial entrant. Feed URL unverified."
+    },
+    {
+      "name": "Curio Bioscience",
+      "type": "rss",
+      "url": "https://curiobioscience.com/feed/",
+      "category_hint": "Competitor Move",
+      "note": "Emerging spatial entrant. Feed URL unverified."
+    },
+    {
+      "name": "Lunaphore (Bio-Techne)",
+      "type": "rss",
+      "url": "https://lunaphore.com/feed/",
+      "category_hint": "Own/Bio-Techne",
+      "note": "COMET platform, now part of Bio-Techne. Track as sister product, not competitor. Feed URL unverified."
     }
   ],
   "pubmed": {
@@ -118,5 +170,39 @@
     "limit": 50,
     "category_hint": "Funded Lab",
     "note": "Highest-value sales signal. No auth. Respect 1 request/second. Names PI and institution for territory targeting."
+  },
+  "nsf_awards": {
+    "name": "NSF Awards",
+    "type": "nsf_awards",
+    "url": "https://api.nsf.gov/services/v1/awards.json",
+    "keyword_query": "spatial transcriptomics in situ hybridization spatial biology multiplexed imaging",
+    "fields": "id,title,awardeeName,piFirstName,piLastName,startDate,fundsObligatedAmt",
+    "limit": 50,
+    "category_hint": "Funded Lab",
+    "note": "Funds spatial method development NIH misses (BIO directorate, neuro, plant). No auth. Names PI and institution for territory targeting."
+  },
+  "sec_edgar": {
+    "name": "SEC EDGAR Full-Text Search",
+    "type": "sec_edgar",
+    "url": "https://efts.sec.gov/LATEST/search-index",
+    "request_method": "GET",
+    "query": "spatial transcriptomics OR multiplexed imaging OR spatial biology",
+    "user_agent": "Bio-Techne Spatial competitive monitoring (your_email@bio-techne.com)",
+    "ciks_of_interest": {
+      "Bruker (incl. NanoString)": "0001109354",
+      "Bruker Cellular Analysis (NanoString entity)": "0001689657",
+      "10x Genomics": "0001770787",
+      "Standard BioTools (formerly Fluidigm)": "0001162194",
+      "Quanterix (now owns Akoya)": "VERIFY_QTRX_CIK",
+      "Bio-Techne (own)": "0000842023"
+    },
+    "forms": [
+      "8-K",
+      "10-Q",
+      "10-K"
+    ],
+    "category_hint": "Competitor Move",
+    "rate_limit_note": "Stay under 10 req/s aggregate across sec.gov + efts.sec.gov. GET request, params after ?, descriptive User-Agent with contact email required by SEC fair-access policy. No auth key needed.",
+    "note": "CIKs verified June 2026. Akoya (was 0001711933) acquired by Quanterix in 2025, likely no longer files separately. NanoString now files under Bruker Cellular Analysis."
   }
 }

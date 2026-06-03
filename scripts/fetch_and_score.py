@@ -376,6 +376,106 @@ def fetch_nih_reporter(cfg):
     return out
 
 
+def fetch_nsf(cfg):
+    """NSF Awards API. GET with keyword + printFields + date range (mm/dd/yyyy).
+    Response: {'response': {'award': [...]}}. Names PI and awardee institution
+    with a state code, so these classify into territories like NIH items."""
+    out = []
+    try:
+        from datetime import timedelta
+        start = (datetime.now(timezone.utc) - timedelta(days=DAYS_LOOKBACK)).strftime("%m/%d/%Y")
+        end = datetime.now(timezone.utc).strftime("%m/%d/%Y")
+        params = {
+            "keyword": cfg.get("keyword_query", "spatial biology"),
+            "printFields": "id,title,awardeeName,awardeeStateCode,awardeeCity,pdPIName,startDate,fundsObligatedAmt,abstractText",
+            "dateStart": start,
+            "dateEnd": end,
+            "rpp": str(cfg.get("limit", 50)),
+            "offset": "1",
+        }
+        url = cfg["url"] + "?" + urllib.parse.urlencode(params)
+        time.sleep(1.0)  # NSF courtesy: ~1 req/sec
+        resp = json.loads(http_get(url))
+        awards = (resp.get("response") or {}).get("award", [])
+        for a in awards:
+            title = clean_text(a.get("title", ""))
+            if not title:
+                continue
+            aid = a.get("id", "")
+            pi = clean_text(a.get("pdPIName", ""))
+            org = clean_text(a.get("awardeeName", ""))
+            state = (a.get("awardeeStateCode") or "").upper().strip()
+            amt = a.get("fundsObligatedAmt")
+            link = f"https://www.nsf.gov/awardsearch/showAward?AWD_ID={aid}" if aid else "https://www.nsf.gov/awardsearch/"
+            summary = f"PI: {pi}. Institution: {org}. " \
+                      f"Award: {('$' + str(amt)) if amt else 'n/a'}. " \
+                      + clean_text(a.get("abstractText", ""))[:800]
+            out.append({
+                "title": title, "link": link, "summary": summary,
+                "source": "NSF Awards", "category_hint": cfg.get("category_hint", "Funded Lab"),
+                "date": clean_text(a.get("startDate", "")), "institution": org,
+                "pi": pi, "state": state, "city": clean_text(a.get("awardeeCity", "")),
+            })
+    except Exception as e:
+        warn(f"NSF Awards failed: {e}. Skipping.")
+    log(f"NSF Awards: {len(out)} items")
+    return out
+
+
+def fetch_sec_edgar(cfg):
+    """SEC EDGAR full-text search. GET efts.sec.gov/LATEST/search-index with
+    q, forms, dateRange, ciks. Requires a descriptive User-Agent with contact
+    email per SEC fair-access policy. Response: {'hits':{'hits':[{'_source':...,'_id':'accession:file'}]}}."""
+    out = []
+    try:
+        from datetime import timedelta
+        start = (datetime.now(timezone.utc) - timedelta(days=DAYS_LOOKBACK)).strftime("%Y-%m-%d")
+        end = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        ciks = [v for v in (cfg.get("ciks_of_interest") or {}).values()
+                if v and not v.startswith("VERIFY")]
+        params = {
+            "q": cfg.get("query", "spatial biology"),
+            "forms": ",".join(cfg.get("forms", ["8-K"])),
+            "dateRange": "custom", "startdt": start, "enddt": end,
+        }
+        if ciks:
+            params["ciks"] = ",".join(ciks)
+        ua = cfg.get("user_agent", USER_AGENT)
+        headers = {"User-Agent": ua, "Accept": "application/json"}
+        url = cfg["url"] + "?" + urllib.parse.urlencode(params)
+        time.sleep(0.5)  # SEC: stay well under 10 req/s
+        resp = json.loads(http_get(url, headers=headers))
+        hits = (resp.get("hits") or {}).get("hits", [])
+        cik_to_name = {v.lstrip("0"): k for k, v in (cfg.get("ciks_of_interest") or {}).items() if v and not v.startswith("VERIFY")}
+        for h in hits:
+            src = h.get("_source", {})
+            form = src.get("file_type") or src.get("form") or ""
+            display = src.get("display_names", [])
+            entity = display[0] if display else ""
+            title = f"{form}: {entity}".strip(": ").strip()
+            if not title:
+                continue
+            # build filing URL from _id = "accession:filename"
+            _id = h.get("_id", "")
+            link = "https://www.sec.gov/cgi-bin/browse-edgar"
+            cik_list = src.get("cik", [])
+            cik0 = (cik_list[0] if isinstance(cik_list, list) and cik_list else cik_list) or ""
+            if _id and ":" in _id and cik0:
+                acc, fname = _id.split(":", 1)
+                acc_nodash = acc.replace("-", "")
+                link = f"https://www.sec.gov/Archives/edgar/data/{str(cik0).lstrip('0')}/{acc_nodash}/{fname}"
+            summary = f"{entity} filed a {form}. Mentions: {cfg.get('query','')[:80]}."
+            out.append({
+                "title": title, "link": link, "summary": summary,
+                "source": "SEC EDGAR", "category_hint": cfg.get("category_hint", "Competitor Move"),
+                "date": src.get("file_date", ""), "institution": entity,
+            })
+    except Exception as e:
+        warn(f"SEC EDGAR failed: {e}. Skipping.")
+    log(f"SEC EDGAR: {len(out)} items")
+    return out
+
+
 # ----------------------------------------------------------------------
 # scoring via Claude
 # ----------------------------------------------------------------------
@@ -395,7 +495,12 @@ AXES (0 to 10 each):
    - Vizgen (MERSCOPE)
    - Akoya Biosciences / Quanterix (PhenoCycler, CODEX)
    - Navinci (Naveni in situ proximity ligation, spatial proteomics; competes with ProximityScope)
+   - Resolve Biosciences (Molecular Cartography, ISH-based spatial)
+   - Standard BioTools (Hyperion imaging mass cytometry, spatial proteomics)
+   - Singular Genomics (G4X emerging spatial entrant)
+   - Rebus Biosystems (Esper), Curio Bioscience (emerging entrants)
    - Leica Biosystems (BOND RX automation, often partnering with the above)
+   Sister product, NOT a competitor: Lunaphore (COMET) is now part of Bio-Techne. Tag its news as Own/Bio-Techne, not Competitor Move.
    Adjacent ecosystem (score moderate urgency, useful context not direct threat): Visiopharm, Grundium, Indica Labs (HALO), and pathology/imaging analysis vendors.
 4. recency: 10 = within the last week. 5 = within a month. 0 = older.
 
@@ -492,6 +597,10 @@ def main():
         raw.extend(fetch_pubmed(sources["pubmed"]))
     if "nih_reporter" in sources:
         raw.extend(fetch_nih_reporter(sources["nih_reporter"]))
+    if "nsf_awards" in sources:
+        raw.extend(fetch_nsf(sources["nsf_awards"]))
+    if "sec_edgar" in sources:
+        raw.extend(fetch_sec_edgar(sources["sec_edgar"]))
 
     # dedupe and keep only new (by id AND by normalized title), within lookback window
     new_items = []
