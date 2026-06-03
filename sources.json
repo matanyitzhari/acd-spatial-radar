@@ -1,0 +1,86 @@
+{
+  "_comment": "Edit this file to add, remove, or tune sources. The fetch script reads it on every run. A broken or missing feed logs a warning and is skipped, it never stops the whole pull. type controls how the script handles each entry.",
+
+  "keywords": [
+    "spatial transcriptomics",
+    "spatial biology",
+    "in situ hybridization",
+    "RNAscope",
+    "single molecule FISH",
+    "smFISH",
+    "MERFISH",
+    "spatial proteomics",
+    "multiplexed imaging",
+    "Xenium",
+    "Visium",
+    "CosMx",
+    "GeoMx",
+    "MERSCOPE",
+    "PhenoCycler",
+    "CODEX"
+  ],
+
+  "rss_sources": [
+    {
+      "name": "bioRxiv (Genomics)",
+      "type": "rss",
+      "url": "https://connect.biorxiv.org/biorxiv_xml.php?subject=genomics",
+      "category_hint": "Research/Methods"
+    },
+    {
+      "name": "bioRxiv (Cell Biology)",
+      "type": "rss",
+      "url": "https://connect.biorxiv.org/biorxiv_xml.php?subject=cell_biology",
+      "category_hint": "Research/Methods"
+    },
+    {
+      "name": "bioRxiv (Cancer Biology)",
+      "type": "rss",
+      "url": "https://connect.biorxiv.org/biorxiv_xml.php?subject=cancer_biology",
+      "category_hint": "Research/Methods"
+    },
+    {
+      "name": "10x Genomics Newsroom",
+      "type": "rss",
+      "url": "https://www.10xgenomics.com/feed",
+      "category_hint": "Competitor Move",
+      "note": "Feed URL unverified, script will log a warning and skip if it 404s. Fallback options noted in README."
+    },
+    {
+      "name": "Bruker News",
+      "type": "rss",
+      "url": "https://ir.bruker.com/rss/news-releases.xml",
+      "category_hint": "Competitor Move",
+      "note": "NanoString is now under Bruker. Feed URL unverified, will skip gracefully if invalid."
+    },
+    {
+      "name": "Bio-Techne Newsroom",
+      "type": "rss",
+      "url": "https://www.bio-techne.com/about-us/news-room/rss",
+      "category_hint": "Own/Bio-Techne",
+      "note": "Feed URL unverified, will skip gracefully if invalid."
+    }
+  ],
+
+  "pubmed": {
+    "name": "PubMed",
+    "type": "pubmed_eutils",
+    "esearch_base": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
+    "esummary_base": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi",
+    "query": "(spatial transcriptomics[Title/Abstract] OR \"in situ hybridization\"[Title/Abstract] OR RNAscope[Title/Abstract] OR \"spatial biology\"[Title/Abstract] OR MERFISH[Title/Abstract]) AND (\"last 7 days\"[EDAT])",
+    "retmax": 40,
+    "category_hint": "Research/Methods",
+    "note": "No API key needed at low volume. Register a free NCBI key later to raise the rate limit if you add more queries."
+  },
+
+  "nih_reporter": {
+    "name": "NIH RePORTER",
+    "type": "nih_reporter",
+    "url": "https://api.reporter.nih.gov/v2/projects/search",
+    "advanced_text_search": "spatial transcriptomics in situ hybridization RNAscope spatial biology multiplexed imaging",
+    "newly_added_projects_only": true,
+    "limit": 50,
+    "category_hint": "Funded Lab",
+    "note": "Highest-value sales signal. No auth. Respect 1 request/second. Names PI and institution for territory targeting."
+  }
+}

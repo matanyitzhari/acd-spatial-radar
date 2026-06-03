@@ -1,0 +1,88 @@
+{
+  "updated": "2026-06-01T12:00:00+00:00",
+  "count": 6,
+  "new_this_run": 6,
+  "categories": ["Competitor Move", "Research/Methods", "Funded Lab", "Own/Bio-Techne"],
+  "items": [
+    {
+      "id": "sample0000000001",
+      "title": "Spatial multiomic atlas of human colorectal tumor microenvironment",
+      "link": "https://reporter.nih.gov/",
+      "summary": "PI: Jane Okafor. Institution: Dana-Farber Cancer Institute. Award: $412,000. Project profiling tumor margins using high-plex in situ methods across patient cohorts.",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-04-01",
+      "institution": "Dana-Farber Cancer Institute",
+      "pi": "Jane Okafor",
+      "score": 94,
+      "category": "Funded Lab",
+      "why": "Newly funded spatial tumor project in MDA territory. PI likely needs probes soon, reach out.",
+      "fetched": "2026-06-01T12:00:00+00:00"
+    },
+    {
+      "id": "sample0000000002",
+      "title": "10x Genomics launches Xenium Prime 5K expanded panel",
+      "link": "https://www.10xgenomics.com/",
+      "summary": "New high-plex panel announced with broader gene coverage and faster run times for the Xenium platform.",
+      "source": "10x Genomics Newsroom",
+      "category_hint": "Competitor Move",
+      "date": "2026-05-28",
+      "score": 88,
+      "category": "Competitor Move",
+      "why": "Direct competitor expanding high-plex offering. Prepare positioning talking points for reps this week.",
+      "fetched": "2026-06-01T12:00:00+00:00"
+    },
+    {
+      "id": "sample0000000003",
+      "title": "RNAscope-based validation of spatial transcriptomics in fibrotic lung",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/00000003/",
+      "summary": "Nature Communications. Study uses RNAscope as orthogonal validation for spatial sequencing in IPF tissue.",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026-05-25",
+      "score": 82,
+      "category": "Research/Methods",
+      "why": "High-profile paper using RNAscope for validation. Strong proof point and a warm lab to contact.",
+      "fetched": "2026-06-01T12:00:00+00:00"
+    },
+    {
+      "id": "sample0000000004",
+      "title": "Benchmarking MERFISH and smFISH in neural tissue",
+      "link": "https://biorxiv.org/0004",
+      "summary": "Preprint comparing multiplexed FISH approaches for sensitivity and throughput in mouse cortex.",
+      "source": "bioRxiv (Genomics)",
+      "category_hint": "Research/Methods",
+      "date": "2026-05-30",
+      "score": 64,
+      "category": "Research/Methods",
+      "why": "Method comparison lab actively running FISH. Worth flagging for territory follow-up.",
+      "fetched": "2026-06-01T12:00:00+00:00"
+    },
+    {
+      "id": "sample0000000005",
+      "title": "Bio-Techne reports Q3 FY26 results with spatial portfolio growth",
+      "link": "https://www.bio-techne.com/",
+      "summary": "Quarterly results highlight double-digit growth in the spatial biology segment.",
+      "source": "Bio-Techne Newsroom",
+      "category_hint": "Own/Bio-Techne",
+      "date": "2026-05-08",
+      "score": 71,
+      "category": "Own/Bio-Techne",
+      "why": "Own portfolio momentum. Useful confidence point in customer conversations.",
+      "fetched": "2026-06-01T12:00:00+00:00"
+    },
+    {
+      "id": "sample0000000006",
+      "title": "Single-cell RNA atlas of zebrafish development",
+      "link": "https://biorxiv.org/0006",
+      "summary": "Preprint mapping cell types across developmental stages using single-cell sequencing.",
+      "source": "bioRxiv (Cell Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-05-29",
+      "score": 28,
+      "category": "Research/Methods",
+      "why": "Single-cell not spatial. Low priority unless lab pivots to in situ methods.",
+      "fetched": "2026-06-01T12:00:00+00:00"
+    }
+  ]
+}
