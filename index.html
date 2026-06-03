@@ -1,258 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ACD Spatial Radar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0c0e12;
-    --panel: #14171e;
-    --panel-2: #1b1f29;
-    --ink: #e8eaf0;
-    --ink-dim: #8b91a3;
-    --line: #2a2f3c;
-    --accent: #4fd1c5;
-    --cat-competitor: #ff5d73;
-    --cat-research: #5b8def;
-    --cat-funded: #3ddc84;
-    --cat-own: #f5a623;
-    --shadow: 0 18px 50px rgba(0,0,0,0.55);
+  /* dark (default) */
+  :root, [data-theme="dark"] {
+    --bg: #0a0c10; --panel: #13161d; --panel-2: #1a1e28;
+    --ink: #eef0f6; --ink-2: #b7bccb; --ink-dim: #9aa0b2;
+    --line: #272c38; --line-bright: #3a4150; --accent: #5ad6c9;
+    --cat-competitor: #ff6b80; --cat-research: #6f9bff; --cat-funded: #45e08c; --cat-own: #f7b13b;
+    --logo-display: var(--logo-white);
+    --glow1: rgba(90,214,201,0.10); --glow2: rgba(111,155,255,0.08);
+    --whybg: rgba(255,255,255,0.03);
+  }
+  /* light (database Analytics Dashboard tokens, WCAG-checked) */
+  [data-theme="light"] {
+    --bg: #f4f7fb; --panel: #ffffff; --panel-2: #eef3fa;
+    --ink: #15233f; --ink-2: #3c4a63; --ink-dim: #5d6b85;
+    --line: #dbe5f1; --line-bright: #c2d2e8; --accent: #1d9e75;
+    --cat-competitor: #d83a4e; --cat-research: #1e40af; --cat-funded: #15803d; --cat-own: #b45309;
+    --logo-display: var(--logo-color);
+    --glow1: rgba(29,158,117,0.08); --glow2: rgba(30,64,175,0.06);
+    --whybg: rgba(0,0,0,0.035);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
-    background-image:
-      radial-gradient(circle at 12% 0%, rgba(79,209,197,0.08), transparent 42%),
-      radial-gradient(circle at 90% 8%, rgba(91,141,239,0.07), transparent 40%);
-    color: var(--ink);
-    font-family: 'IBM Plex Sans', sans-serif;
-    min-height: 100vh;
-    line-height: 1.5;
+    background-image: radial-gradient(circle at 8% -5%, var(--glow1), transparent 38%), radial-gradient(circle at 95% 0%, var(--glow2), transparent 40%);
+    background-attachment: fixed; color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif; min-height: 100vh; line-height: 1.5;
+    transition: background-color 0.25s, color 0.25s;
   }
-  .wrap { max-width: 1180px; margin: 0 auto; padding: 38px 26px 80px; }
-
-  header.top {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    flex-wrap: wrap; gap: 18px; border-bottom: 1px solid var(--line);
-    padding-bottom: 26px; margin-bottom: 30px;
-  }
-  .brand h1 {
-    font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.7rem;
-    letter-spacing: -0.02em; line-height: 1;
-  }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 36px 34px 90px; }
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+  header.top { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-bottom: 1px solid var(--line); padding-bottom: 26px; margin-bottom: 26px; }
+  .brand { display: flex; flex-direction: column; gap: 14px; }
+  .logo { height: 34px; width: auto; }
+  .logo svg { height: 100%; width: auto; display: block; }
+  .brand h1 { font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.5rem; letter-spacing: -0.025em; line-height: 0.95; }
   .brand h1 .dot { color: var(--accent); }
-  .brand p {
-    font-family: 'Space Mono', monospace; color: var(--ink-dim);
-    font-size: 0.78rem; margin-top: 8px; letter-spacing: 0.04em; text-transform: uppercase;
-  }
-  .meta { text-align: right; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--ink-dim); }
-  .meta .pulse { color: var(--cat-funded); }
+  .brand p { font-family: 'Space Mono', monospace; color: var(--ink-dim); font-size: 0.76rem; margin-top: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .headright { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+  .meta { text-align: right; font-family: 'Space Mono', monospace; font-size: 0.74rem; color: var(--ink-dim); line-height: 1.9; }
+  .meta .pulse { color: var(--cat-funded); animation: blink 2.4s ease-in-out infinite; }
   .meta b { color: var(--ink); }
-
-  .controls {
-    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
-    margin-bottom: 26px;
-  }
-  .chip {
-    font-family: 'Space Mono', monospace; font-size: 0.74rem;
-    background: var(--panel); border: 1px solid var(--line); color: var(--ink-dim);
-    padding: 8px 14px; border-radius: 999px; cursor: pointer; transition: all 0.15s;
-    user-select: none; letter-spacing: 0.02em;
-  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.35} }
+  .themetoggle { font-family: 'Space Mono', monospace; font-size: 0.7rem; background: var(--panel); border: 1px solid var(--line); color: var(--ink-2); padding: 7px 13px; border-radius: 999px; cursor: pointer; transition: all 0.16s; display: flex; align-items: center; gap: 7px; }
+  .themetoggle:hover { border-color: var(--ink-dim); color: var(--ink); }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 26px; }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; position: relative; overflow: hidden; cursor: pointer; transition: border-color 0.18s, transform 0.18s; }
+  .stat:hover { border-color: var(--line-bright); transform: translateY(-2px); }
+  .stat::after { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background: var(--c); }
+  .stat .n { font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.1rem; line-height: 1; color: var(--c); }
+  .stat .lbl { font-family: 'Space Mono', monospace; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-dim); margin-top: 7px; }
+  .stat .top { font-size: 0.74rem; color: var(--ink-2); margin-top: 6px; line-height: 1.35; height: 2.7em; overflow: hidden; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 24px; }
+  .chip { font-family: 'Space Mono', monospace; font-size: 0.74rem; background: var(--panel); border: 1px solid var(--line); color: var(--ink-2); padding: 9px 15px; border-radius: 999px; cursor: pointer; transition: all 0.16s; user-select: none; letter-spacing: 0.02em; }
   .chip:hover { color: var(--ink); border-color: var(--ink-dim); }
-  .chip.active { background: var(--ink); color: var(--bg); border-color: var(--ink); font-weight: 700; }
-  .chip .cdot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); font-weight: 700; }
+  .chip .cdot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:7px; vertical-align:middle; }
   .spacer { flex: 1; }
-  .search {
-    background: var(--panel); border: 1px solid var(--line); color: var(--ink);
-    padding: 9px 14px; border-radius: 8px; font-family: 'Space Mono', monospace;
-    font-size: 0.78rem; min-width: 200px;
-  }
+  .search { background: var(--panel); border: 1px solid var(--line); color: var(--ink); padding: 10px 15px; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 0.78rem; min-width: 240px; }
+  .search::placeholder { color: var(--ink-dim); }
   .search:focus { outline: none; border-color: var(--accent); }
-  .sortsel {
-    background: var(--panel); border: 1px solid var(--line); color: var(--ink-dim);
-    padding: 9px 12px; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 0.74rem; cursor: pointer;
-  }
-
+  .sortsel { background: var(--panel); border: 1px solid var(--line); color: var(--ink-2); padding: 10px 13px; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 0.74rem; cursor: pointer; }
   .feed { display: flex; flex-direction: column; gap: 14px; }
-
-  .card {
-    position: relative; background: var(--panel); border: 1px solid var(--line);
-    border-radius: 14px; padding: 20px 22px 20px 26px; display: grid;
-    grid-template-columns: 76px 1fr; gap: 20px; align-items: start;
-    transition: transform 0.14s, border-color 0.14s, background 0.14s;
-    opacity: 0; animation: rise 0.5s ease forwards;
-  }
-  .card:hover { transform: translateY(-2px); border-color: #3a4150; background: var(--panel-2); }
-  .card::before {
-    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-    border-radius: 14px 0 0 14px; background: var(--catcolor, var(--accent));
-  }
+  .card { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 22px 26px 22px 30px; display: grid; grid-template-columns: 92px 1fr; gap: 24px; align-items: start; transition: transform 0.16s, border-color 0.16s, background 0.16s; opacity: 0; transform: translateY(10px); animation: rise 0.5s ease forwards; }
+  .card:hover { transform: translateY(-2px); border-color: var(--line-bright); background: var(--panel-2); }
+  .card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-radius: 14px 0 0 14px; background: var(--catcolor, var(--accent)); }
   @keyframes rise { to { opacity: 1; transform: translateY(0); } }
-
-  .score {
-    font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.4rem;
-    line-height: 0.9; text-align: center; color: var(--catcolor, var(--accent));
-  }
-  .score small {
-    display: block; font-family: 'Space Mono', monospace; font-weight: 400;
-    font-size: 0.6rem; color: var(--ink-dim); letter-spacing: 0.12em; margin-top: 4px;
-  }
-  .body .toprow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
-  .tag {
-    font-family: 'Space Mono', monospace; font-size: 0.62rem; text-transform: uppercase;
-    letter-spacing: 0.07em; padding: 3px 9px; border-radius: 5px;
-    background: color-mix(in srgb, var(--catcolor) 16%, transparent);
-    color: var(--catcolor); border: 1px solid color-mix(in srgb, var(--catcolor) 35%, transparent);
-  }
-  .src { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--ink-dim); }
-  .date { font-family: 'Space Mono', monospace; font-size: 0.66rem; color: var(--ink-dim); margin-left: auto; }
-  .body h2 {
-    font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.18rem;
-    line-height: 1.3; letter-spacing: -0.01em; margin-bottom: 8px;
-  }
+  .scorebox { text-align: center; }
+  .score { font-family: 'Fraunces', serif; font-weight: 900; font-size: 2.6rem; line-height: 0.9; color: var(--catcolor, var(--accent)); }
+  .score small { display: block; font-family: 'Space Mono', monospace; font-weight: 400; font-size: 0.56rem; color: var(--ink-dim); letter-spacing: 0.14em; margin-top: 5px; }
+  .meter { height: 4px; border-radius: 3px; background: var(--line); margin-top: 10px; overflow: hidden; }
+  .meter span { display:block; height:100%; background: var(--catcolor); border-radius:3px; }
+  .subs { display: flex; gap: 4px; margin-top: 9px; justify-content: center; }
+  .subs i { width: 7px; height: 18px; border-radius: 2px; background: var(--line); position: relative; }
+  .subs i b { position:absolute; bottom:0; left:0; right:0; background: var(--catcolor); border-radius:2px; display:block; }
+  .body .toprow { display: flex; align-items: center; gap: 11px; flex-wrap: wrap; margin-bottom: 9px; }
+  .tag { font-family: 'Space Mono', monospace; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; padding: 3px 10px; border-radius: 5px; background: color-mix(in srgb, var(--catcolor) 16%, transparent); color: var(--catcolor); border: 1px solid color-mix(in srgb, var(--catcolor) 40%, transparent); }
+  .src { font-family: 'Space Mono', monospace; font-size: 0.69rem; color: var(--ink-dim); }
+  .date { font-family: 'Space Mono', monospace; font-size: 0.67rem; color: var(--ink-dim); margin-left: auto; }
+  .body h2 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.28rem; line-height: 1.3; letter-spacing: -0.01em; margin-bottom: 9px; }
   .body h2 a { color: var(--ink); text-decoration: none; }
   .body h2 a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
-  .why {
-    font-size: 0.92rem; color: var(--ink); background: rgba(255,255,255,0.025);
-    border-left: 2px solid var(--catcolor, var(--accent)); padding: 7px 12px;
-    border-radius: 0 6px 6px 0; margin-bottom: 10px;
-  }
-  .summary { font-size: 0.82rem; color: var(--ink-dim); display: none; }
-  .card.open .summary { display: block; margin-top: 8px; }
-  .expand {
-    font-family: 'Space Mono', monospace; font-size: 0.66rem; color: var(--accent);
-    cursor: pointer; background: none; border: none; padding: 0; margin-top: 4px;
-  }
-
-  .empty { text-align: center; color: var(--ink-dim); font-family: 'Space Mono', monospace; padding: 60px 0; font-size: 0.85rem; }
-
-  footer { margin-top: 50px; text-align: center; font-family: 'Space Mono', monospace; font-size: 0.66rem; color: var(--ink-dim); }
-
-  @media (max-width: 620px) {
-    .card { grid-template-columns: 56px 1fr; gap: 14px; padding: 16px 16px 16px 20px; }
-    .score { font-size: 1.8rem; }
-    .brand h1 { font-size: 2rem; }
-    .meta { text-align: left; }
-  }
+  .why { font-size: 0.95rem; color: var(--ink); background: var(--whybg); border-left: 2px solid var(--catcolor, var(--accent)); padding: 8px 14px; border-radius: 0 6px 6px 0; margin-bottom: 10px; }
+  .summary { font-size: 0.85rem; color: var(--ink-2); display: none; }
+  .card.open .summary { display: block; margin-top: 9px; }
+  .expand { font-family: 'Space Mono', monospace; font-size: 0.66rem; color: var(--accent); cursor: pointer; background: none; border: none; padding: 4px 0 0; }
+  .empty { text-align: center; color: var(--ink-dim); font-family: 'Space Mono', monospace; padding: 70px 0; font-size: 0.85rem; }
+  footer { margin-top: 54px; text-align: center; font-family: 'Space Mono', monospace; font-size: 0.66rem; color: var(--ink-dim); }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } .card { opacity: 1; transform: none; } }
+  @media (max-width: 980px) { .stats { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 620px) { .wrap { padding: 24px 16px 70px; } .card { grid-template-columns: 62px 1fr; gap: 14px; padding: 16px 16px 16px 20px; } .score { font-size: 1.9rem; } .brand h1 { font-size: 1.9rem; } .logo { height: 28px; } .meta { text-align: left; } .headright { align-items: flex-start; } .stats { grid-template-columns: 1fr 1fr; } }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
     <div class="brand">
-      <h1>Spatial Radar<span class="dot">.</span></h1>
-      <p>ACD / Bio-Techne Spatial &middot; Field Intelligence</p>
+      <div class="logo" id="logo" aria-label="Bio-Techne Spatial"></div>
+      <div>
+        <h1>Spatial Radar<span class="dot">.</span></h1>
+        <p>ACD / Bio-Techne Spatial &middot; Field Intelligence</p>
+      </div>
     </div>
-    <div class="meta">
-      <div><span class="pulse">&#9679;</span> live feed</div>
-      <div>updated <b id="updated">--</b></div>
-      <div><b id="count">0</b> items tracked</div>
+    <div class="headright">
+      <button class="themetoggle" id="themetoggle" aria-label="Toggle light or dark theme"><span id="themeicon">&#9789;</span> <span id="themelabel">Dark</span></button>
+      <div class="meta">
+        <div><span class="pulse" aria-hidden="true">&#9679;</span> live feed</div>
+        <div>updated <b id="updated">--</b></div>
+        <div><b id="count">0</b> tracked &middot; <b id="newcount">0</b> new</div>
+      </div>
     </div>
   </header>
-
-  <div class="controls">
-    <div class="chip active" data-cat="all">All</div>
-    <div class="chip" data-cat="Funded Lab"><span class="cdot" style="background:var(--cat-funded)"></span>Funded Lab</div>
-    <div class="chip" data-cat="Competitor Move"><span class="cdot" style="background:var(--cat-competitor)"></span>Competitor</div>
-    <div class="chip" data-cat="Research/Methods"><span class="cdot" style="background:var(--cat-research)"></span>Research</div>
-    <div class="chip" data-cat="Own/Bio-Techne"><span class="cdot" style="background:var(--cat-own)"></span>Own News</div>
+  <section class="stats" id="stats" aria-label="Counts by category"></section>
+  <div class="controls" role="group" aria-label="Filters">
+    <button class="chip" data-cat="all" aria-pressed="true">All</button>
+    <button class="chip" data-cat="Competitor Move" aria-pressed="false"><span class="cdot" style="background:var(--cat-competitor)" aria-hidden="true"></span>Competitor</button>
+    <button class="chip" data-cat="Funded Lab" aria-pressed="false"><span class="cdot" style="background:var(--cat-funded)" aria-hidden="true"></span>Funded Lab</button>
+    <button class="chip" data-cat="Research/Methods" aria-pressed="false"><span class="cdot" style="background:var(--cat-research)" aria-hidden="true"></span>Research</button>
+    <button class="chip" data-cat="Own/Bio-Techne" aria-pressed="false"><span class="cdot" style="background:var(--cat-own)" aria-hidden="true"></span>Own News</button>
     <div class="spacer"></div>
-    <input class="search" id="search" placeholder="filter by keyword, PI, lab...">
-    <select class="sortsel" id="sort">
+    <input class="search" id="search" placeholder="filter by keyword, PI, lab..." aria-label="Search items">
+    <select class="sortsel" id="sort" aria-label="Sort order">
       <option value="score">sort: score</option>
       <option value="date">sort: newest</option>
     </select>
   </div>
-
-  <div class="feed" id="feed"></div>
-  <footer>ACD Spatial Radar &middot; auto-refreshed by scheduled job &middot; no em dashes were harmed</footer>
+  <div class="feed" id="feed" aria-live="polite"></div>
+  <footer>ACD Spatial Radar &middot; auto-refreshed by scheduled job every 6 hours</footer>
 </div>
-
 <script>
-const CAT_COLOR = {
-  "Competitor Move": "var(--cat-competitor)",
-  "Research/Methods": "var(--cat-research)",
-  "Funded Lab": "var(--cat-funded)",
-  "Own/Bio-Techne": "var(--cat-own)"
-};
+const LOGO_WHITE = `<svg id="Logos" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 270"> <defs> <style> .cls-1 { fill: #fff; } </style> </defs> <path class="cls-1" d="M281.68,89.26h5.36v6.77h-5.36v19.82c0,2.86,1.2,3.66,2.34,3.66h3.02v7.2h-3.07c-6.57,0-10.22-3.65-10.22-10.23v-20.45h-4.86v-6.77h4.86v-8.83h7.94v8.83ZM457.45,110.25h-23.76c.21,6.61,3.66,10.13,8.76,10.13,3.48,0,6.11-1.66,7.18-4.82h7.5c-.22,1.74-.71,3.44-1.6,4.94-2.44,4.1-7.07,6.64-13.16,6.64-10.29,0-16.58-7.47-16.58-19.09s6.29-19.26,16.06-19.26c8.34,0,15.6,5.71,15.6,18.73v2.72ZM449.72,104.37c-.46-5.31-3.11-8.8-7.85-8.8s-7.79,3.85-8.15,8.8h16ZM319.67,107.52v2.72h-23.76c.21,6.61,3.66,10.13,8.76,10.13,3.48,0,6.11-1.66,7.18-4.82h7.5c-.22,1.74-.71,3.44-1.6,4.94-2.44,4.1-7.07,6.64-13.16,6.64-10.29,0-16.58-7.47-16.58-19.09s6.29-19.26,16.06-19.26c8.34,0,15.6,5.71,15.6,18.73ZM311.94,104.37c-.46-5.31-3.11-8.8-7.85-8.8s-7.79,3.85-8.15,8.8h16ZM338.49,120.14c-5.48,0-8.14-5.38-8.14-12.15s2.66-12.19,8.14-12.19c4.27,0,6.84,3.22,7.78,7.85h8.07c-1.41-9.08-7.3-14.86-15.86-14.86-9.87,0-16.16,7.67-16.16,19.22s6.3,19.12,16.16,19.12c8.58,0,14.47-5.83,15.87-14.86h-8.08c-.94,4.61-3.51,7.85-7.78,7.85ZM216.25,107.89c0,12.19-6.02,19.16-14.11,19.16-5.87,0-8.55-2.85-9.74-5.04h-.52v4.38h-7.76v-49.47h7.94v16.99h.34c1.19-2.12,3.7-5.11,9.78-5.11,7.88,0,14.08,6.74,14.08,19.09ZM208.09,107.86c0-6.91-2.72-11.95-8.1-11.95s-8.1,4.71-8.1,11.95,2.9,12.09,8.1,12.09,8.1-5.11,8.1-12.09ZM376.12,88.8c-4.86,0-8.31,1.46-10.36,5.84v-17.72h-7.82v49.47h7.94v-21.75c0-5.38,3.05-8.5,7.3-8.5s6.66,2.99,6.66,7.97v22.28h7.97v-23.61c0-8.93-4.67-13.98-11.7-13.98ZM220.09,126.38h7.94v-37.12h-7.94v37.12ZM224.06,75.56c-2.54,0-4.61,2.09-4.61,4.71s2.08,4.75,4.61,4.75,4.64-2.12,4.64-4.75-2.11-4.71-4.64-4.71ZM410.53,88.8c-5.01,0-8.65,1.66-10.66,6.37v-5.9s-7.51,0-7.51,0v37.12h7.94v-21.75c0-5.38,3.05-8.5,7.3-8.5s6.66,2.99,6.66,7.97v22.28h7.94v-23.61c0-8.93-4.64-13.98-11.67-13.98ZM264.29,104.38h6.42v7.17h-6.41c-1.2,9.44-7.22,15.59-16.11,15.59-9.96,0-16.31-7.7-16.31-19.12s6.35-19.22,16.31-19.22c8.87,0,14.89,6.09,16.1,15.59ZM256.18,111.56h-9.23l1.79-7.17h7.44c-.82-5.02-3.46-8.58-8-8.58-5.53,0-8.22,5.35-8.22,12.19s2.69,12.15,8.22,12.15c4.54,0,7.18-3.58,8-8.58Z"/> <path class="cls-1" d="M203.44,171.55c0,5.04-4.33,8.5-10.49,8.5-5.05,0-8.69-2.31-9.99-6.29-.24-.75-.36-1.55-.42-2.34h5.38c.66,2.64,2.36,3.9,5.13,3.9s4.57-1.38,4.57-3.18c0-1.54-1.07-2.52-3.3-3.04l-4.17-.97c-4.61-1.09-6.86-3.54-6.86-7.43,0-4.92,4-8.08,9.85-8.08,4.91,0,8,2.22,9.31,5.6.29.74.43,1.54.48,2.34h-5.14c-.57-1.85-1.97-3.33-4.59-3.33-2.4,0-4.24,1.28-4.24,3.09,0,1.54.98,2.52,3.47,3.11l4.15.95c4.63,1.07,6.84,3.44,6.84,7.17ZM252.14,161.77v17.74h-5.44v-2.58h-.22c-1.07,1.92-3.39,3.13-7.19,3.13-4.65,0-8.17-2.78-8.17-8,0-5.99,4.59-7.51,9.31-8.05,4.24-.5,6.03-.57,6.03-2.4v-.12c0-2.59-1.49-4.11-4.26-4.11s-4.52,1.59-5.11,3.35h-5.41c.13-1.06.41-2.09.92-3.03,1.84-3.41,5.39-5.07,9.58-5.07,4.59,0,9.96,2.07,9.96,9.14ZM246.51,166.85c-.76.67-3.93,1.09-5.39,1.31-2.56.38-4.48,1.4-4.48,3.82s1.73,3.49,4.13,3.49c3.5,0,5.74-2.54,5.74-5.49v-3.14ZM299.82,161.77v17.74h-5.44v-2.58h-.22c-1.07,1.92-3.39,3.13-7.19,3.13-4.65,0-8.17-2.78-8.17-8,0-5.99,4.59-7.51,9.31-8.05,4.24-.5,6.03-.57,6.03-2.4v-.12c0-2.59-1.49-4.11-4.26-4.11s-4.52,1.59-5.11,3.35h-5.41c.13-1.06.42-2.09.92-3.03,1.84-3.41,5.39-5.07,9.58-5.07,4.59,0,9.96,2.07,9.96,9.14ZM294.19,166.85c-.76.67-3.93,1.09-5.39,1.31-2.56.38-4.48,1.4-4.48,3.82s1.73,3.49,4.13,3.49c3.5,0,5.74-2.54,5.74-5.49v-3.14ZM262.91,146.64h-5.68v6.32h-3.47v4.85h3.47v14.63c0,4.7,2.61,7.32,7.31,7.32h2.2v-5.15h-2.16c-.81,0-1.67-.57-1.67-2.61v-14.18h3.83v-4.85h-3.83v-6.32ZM273.13,143.15c-1.81,0-3.3,1.5-3.3,3.37s1.49,3.4,3.3,3.4,3.32-1.52,3.32-3.4-1.51-3.37-3.32-3.37ZM270.29,179.51h5.68v-26.56h-5.68v26.56ZM229.18,166.28c0,8.72-4.3,13.71-10.1,13.71-4.2,0-6.12-2.04-6.97-3.61h-.24v13.06h-5.68v-36.48h5.55v3.32h.37c.85-1.52,2.64-3.65,6.99-3.65,5.64,0,10.07,4.82,10.07,13.66ZM223.35,166.26c0-4.94-1.94-8.55-5.79-8.55s-5.79,3.37-5.79,8.55,2.08,8.65,5.79,8.65,5.79-3.66,5.79-8.65ZM303.51,179.51h5.68v-35.39h-5.68v35.39ZM318.74,144.12l-1.26,3.26-1.25-3.26h-.89v4.47h.73v-3.01l1.22,3.01h.4l1.2-3v3h.74v-4.47h-.9ZM311.39,144.82h1.24v3.77h.74v-3.77h1.24v-.7h-3.23v.7Z"/> </svg>`;
+const LOGO_COLOR = `<svg id="Logos" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 270"> <defs> <style> .cls-1 { fill: #0034b7; } </style> </defs> <path class="cls-1" d="M281.68,89.26h5.36v6.77h-5.36v19.82c0,2.86,1.2,3.66,2.34,3.66h3.02v7.2h-3.07c-6.57,0-10.22-3.65-10.22-10.23v-20.45h-4.86v-6.77h4.86v-8.83h7.94v8.83ZM457.45,110.25h-23.76c.21,6.61,3.66,10.13,8.76,10.13,3.48,0,6.11-1.66,7.18-4.82h7.5c-.22,1.74-.71,3.44-1.6,4.94-2.44,4.1-7.07,6.64-13.16,6.64-10.29,0-16.58-7.47-16.58-19.09s6.29-19.26,16.06-19.26c8.34,0,15.6,5.71,15.6,18.73v2.72ZM449.72,104.37c-.46-5.31-3.11-8.8-7.85-8.8s-7.79,3.85-8.15,8.8h16ZM319.67,107.52v2.72h-23.76c.21,6.61,3.66,10.13,8.76,10.13,3.48,0,6.11-1.66,7.18-4.82h7.5c-.22,1.74-.71,3.44-1.6,4.94-2.44,4.1-7.07,6.64-13.16,6.64-10.29,0-16.58-7.47-16.58-19.09s6.29-19.26,16.06-19.26c8.34,0,15.6,5.71,15.6,18.73ZM311.94,104.37c-.46-5.31-3.11-8.8-7.85-8.8s-7.79,3.85-8.15,8.8h16ZM338.49,120.14c-5.48,0-8.14-5.38-8.14-12.15s2.66-12.19,8.14-12.19c4.27,0,6.84,3.22,7.78,7.85h8.07c-1.41-9.08-7.3-14.86-15.86-14.86-9.87,0-16.16,7.67-16.16,19.22s6.3,19.12,16.16,19.12c8.58,0,14.47-5.83,15.87-14.86h-8.08c-.94,4.61-3.51,7.85-7.78,7.85ZM216.25,107.89c0,12.19-6.02,19.16-14.11,19.16-5.87,0-8.55-2.85-9.74-5.04h-.52v4.38h-7.76v-49.47h7.94v16.99h.34c1.19-2.12,3.7-5.11,9.78-5.11,7.88,0,14.08,6.74,14.08,19.09ZM208.09,107.86c0-6.91-2.72-11.95-8.1-11.95s-8.1,4.71-8.1,11.95,2.9,12.09,8.1,12.09,8.1-5.11,8.1-12.09ZM376.12,88.8c-4.86,0-8.31,1.46-10.36,5.84v-17.72h-7.82v49.47h7.94v-21.75c0-5.38,3.05-8.5,7.3-8.5s6.66,2.99,6.66,7.97v22.28h7.97v-23.61c0-8.93-4.67-13.98-11.7-13.98ZM220.09,126.38h7.94v-37.12h-7.94v37.12ZM224.06,75.56c-2.54,0-4.61,2.09-4.61,4.71s2.08,4.75,4.61,4.75,4.64-2.12,4.64-4.75-2.11-4.71-4.64-4.71ZM410.53,88.8c-5.01,0-8.65,1.66-10.66,6.37v-5.9s-7.51,0-7.51,0v37.12h7.94v-21.75c0-5.38,3.05-8.5,7.3-8.5s6.66,2.99,6.66,7.97v22.28h7.94v-23.61c0-8.93-4.64-13.98-11.67-13.98ZM264.29,104.38h6.42v7.17h-6.41c-1.2,9.44-7.22,15.59-16.11,15.59-9.96,0-16.31-7.7-16.31-19.12s6.35-19.22,16.31-19.22c8.87,0,14.89,6.09,16.1,15.59ZM256.18,111.56h-9.23l1.79-7.17h7.44c-.82-5.02-3.46-8.58-8-8.58-5.53,0-8.22,5.35-8.22,12.19s2.69,12.15,8.22,12.15c4.54,0,7.18-3.58,8-8.58Z"/> <path d="M203.44,171.55c0,5.04-4.33,8.5-10.49,8.5-5.05,0-8.69-2.31-9.99-6.29-.24-.75-.36-1.55-.42-2.34h5.38c.66,2.64,2.36,3.9,5.13,3.9s4.57-1.38,4.57-3.18c0-1.54-1.07-2.52-3.3-3.04l-4.17-.97c-4.61-1.09-6.86-3.54-6.86-7.43,0-4.92,4-8.08,9.85-8.08,4.91,0,8,2.22,9.31,5.6.29.74.43,1.54.48,2.34h-5.14c-.57-1.85-1.97-3.33-4.59-3.33-2.4,0-4.24,1.28-4.24,3.09,0,1.54.98,2.52,3.47,3.11l4.15.95c4.63,1.07,6.84,3.44,6.84,7.17ZM252.14,161.77v17.74h-5.44v-2.58h-.22c-1.07,1.92-3.39,3.13-7.19,3.13-4.65,0-8.17-2.78-8.17-8,0-5.99,4.59-7.51,9.31-8.05,4.24-.5,6.03-.57,6.03-2.4v-.12c0-2.59-1.49-4.11-4.26-4.11s-4.52,1.59-5.11,3.35h-5.41c.13-1.06.41-2.09.92-3.03,1.84-3.41,5.39-5.07,9.58-5.07,4.59,0,9.96,2.07,9.96,9.14ZM246.51,166.85c-.76.67-3.93,1.09-5.39,1.31-2.56.38-4.48,1.4-4.48,3.82s1.73,3.49,4.13,3.49c3.5,0,5.74-2.54,5.74-5.49v-3.14ZM299.82,161.77v17.74h-5.44v-2.58h-.22c-1.07,1.92-3.39,3.13-7.19,3.13-4.65,0-8.17-2.78-8.17-8,0-5.99,4.59-7.51,9.31-8.05,4.24-.5,6.03-.57,6.03-2.4v-.12c0-2.59-1.49-4.11-4.26-4.11s-4.52,1.59-5.11,3.35h-5.41c.13-1.06.42-2.09.92-3.03,1.84-3.41,5.39-5.07,9.58-5.07,4.59,0,9.96,2.07,9.96,9.14ZM294.19,166.85c-.76.67-3.93,1.09-5.39,1.31-2.56.38-4.48,1.4-4.48,3.82s1.73,3.49,4.13,3.49c3.5,0,5.74-2.54,5.74-5.49v-3.14ZM262.91,146.64h-5.68v6.32h-3.47v4.85h3.47v14.63c0,4.7,2.61,7.32,7.31,7.32h2.2v-5.15h-2.16c-.81,0-1.67-.57-1.67-2.61v-14.18h3.83v-4.85h-3.83v-6.32ZM273.13,143.15c-1.81,0-3.3,1.5-3.3,3.37s1.49,3.4,3.3,3.4,3.32-1.52,3.32-3.4-1.51-3.37-3.32-3.37ZM270.29,179.51h5.68v-26.56h-5.68v26.56ZM229.18,166.28c0,8.72-4.3,13.71-10.1,13.71-4.2,0-6.12-2.04-6.97-3.61h-.24v13.06h-5.68v-36.48h5.55v3.32h.37c.85-1.52,2.64-3.65,6.99-3.65,5.64,0,10.07,4.82,10.07,13.66ZM223.35,166.26c0-4.94-1.94-8.55-5.79-8.55s-5.79,3.37-5.79,8.55,2.08,8.65,5.79,8.65,5.79-3.66,5.79-8.65ZM303.51,179.51h5.68v-35.39h-5.68v35.39ZM318.74,144.12l-1.26,3.26-1.25-3.26h-.89v4.47h.73v-3.01l1.22,3.01h.4l1.2-3v3h.74v-4.47h-.9ZM311.39,144.82h1.24v3.77h.74v-3.77h1.24v-.7h-3.23v.7Z"/> </svg>`;
+const CAT_COLOR = { "Competitor Move":"var(--cat-competitor)","Research/Methods":"var(--cat-research)","Funded Lab":"var(--cat-funded)","Own/Bio-Techne":"var(--cat-own)" };
+const CAT_SHORT = { "Funded Lab":"Funded","Competitor Move":"Competitor","Research/Methods":"Research","Own/Bio-Techne":"Own News" };
 let DATA = { items: [], updated: "" };
 let activeCat = "all";
-
-function fmtDate(s) {
-  if (!s) return "";
-  const d = new Date(s);
-  if (isNaN(d)) return s;
-  return d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+let theme = "dark";
+function fmtDate(s){ if(!s) return ""; const d=new Date(s); return isNaN(d)?s:d.toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"}); }
+function esc(s){ return (s||"").replace(/[&<>"]/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function applyTheme(){
+  document.documentElement.setAttribute("data-theme", theme);
+  document.getElementById("logo").innerHTML = theme==="dark" ? LOGO_WHITE : LOGO_COLOR;
+  document.getElementById("themeicon").innerHTML = theme==="dark" ? "&#9789;" : "&#9788;";
+  document.getElementById("themelabel").textContent = theme==="dark" ? "Dark" : "Light";
 }
-
-function render() {
+function renderStats(){
+  const cats = ["Competitor Move","Funded Lab","Research/Methods","Own/Bio-Techne"];
+  document.getElementById("stats").innerHTML = cats.map(cat=>{
+    const items = DATA.items.filter(i=>i.category===cat).sort((a,b)=>(b.score||0)-(a.score||0));
+    const top = items[0];
+    return `<div class="stat" data-cat="${cat}" style="--c:${CAT_COLOR[cat]}" role="button" tabindex="0" aria-label="${items.length} ${cat} items, filter">
+      <div class="n">${items.length}</div><div class="lbl">${CAT_SHORT[cat]}</div>
+      <div class="top">${top? "Top: "+esc(top.title).slice(0,52)+(top.title.length>52?"...":"") : "No items yet"}</div></div>`;
+  }).join("");
+  document.querySelectorAll(".stat").forEach(s=>{
+    const go=()=>setCat(s.dataset.cat);
+    s.addEventListener("click",go);
+    s.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();go();} });
+  });
+}
+function setCat(cat){ activeCat=cat; document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed", c.dataset.cat===cat?"true":"false")); render(); }
+function subbars(s){
+  if(!s) return "";
+  const axes=[["relevance",s.relevance],["buying_signal",s.buying_signal],["competitive_urgency",s.competitive_urgency],["recency",s.recency]];
+  return `<div class="subs" title="relevance / buying / competitive / recency" aria-hidden="true">`+axes.map(([k,v])=>`<i><b style="height:${Math.max(0,Math.min(10,v||0))*10}%"></b></i>`).join("")+`</div>`;
+}
+function render(){
   const q = document.getElementById("search").value.toLowerCase().trim();
   const sortBy = document.getElementById("sort").value;
   let items = DATA.items.slice();
-
-  if (activeCat !== "all") items = items.filter(i => i.category === activeCat);
-  if (q) items = items.filter(i =>
-    (i.title || "").toLowerCase().includes(q) ||
-    (i.summary || "").toLowerCase().includes(q) ||
-    (i.why || "").toLowerCase().includes(q) ||
-    (i.pi || "").toLowerCase().includes(q) ||
-    (i.institution || "").toLowerCase().includes(q)
-  );
-  items.sort((a, b) => sortBy === "date"
-    ? new Date(b.date || 0) - new Date(a.date || 0)
-    : (b.score || 0) - (a.score || 0));
-
+  if (activeCat!=="all") items = items.filter(i=>i.category===activeCat);
+  if (q) items = items.filter(i => (i.title||"").toLowerCase().includes(q)||(i.summary||"").toLowerCase().includes(q)||(i.why||"").toLowerCase().includes(q)||(i.pi||"").toLowerCase().includes(q)||(i.institution||"").toLowerCase().includes(q));
+  items.sort((a,b)=> sortBy==="date" ? new Date(b.date||0)-new Date(a.date||0) : (b.score||0)-(a.score||0));
   const feed = document.getElementById("feed");
-  if (!items.length) { feed.innerHTML = '<div class="empty">no items match this filter</div>'; return; }
-
-  feed.innerHTML = items.map((i, n) => {
-    const color = CAT_COLOR[i.category] || "var(--accent)";
-    const hasSummary = i.summary && i.summary.length > 0;
-    return `
-      <article class="card" style="--catcolor:${color}; animation-delay:${Math.min(n*0.04,0.6)}s">
-        <div class="score">${i.score ?? "--"}<small>SIGNAL</small></div>
-        <div class="body">
-          <div class="toprow">
-            <span class="tag">${i.category || ""}</span>
-            <span class="src">${i.source || ""}</span>
-            <span class="date">${fmtDate(i.date)}</span>
-          </div>
-          <h2><a href="${i.link || "#"}" target="_blank" rel="noopener">${i.title || "Untitled"}</a></h2>
-          ${i.why ? `<div class="why">${i.why}</div>` : ""}
-          ${hasSummary ? `<button class="expand" onclick="this.closest('.card').classList.toggle('open')">details &#9662;</button><div class="summary">${i.summary}</div>` : ""}
-        </div>
-      </article>`;
+  if(!items.length){ feed.innerHTML='<div class="empty">no items match this filter</div>'; return; }
+  feed.innerHTML = items.map((i,n)=>{
+    const color = CAT_COLOR[i.category]||"var(--accent)";
+    const has = i.summary && i.summary.length>0;
+    return `<article class="card" style="--catcolor:${color}; animation-delay:${Math.min(n*0.035,0.5)}s">
+      <div class="scorebox"><div class="score">${i.score??"--"}<small>SIGNAL</small></div>
+      <div class="meter" aria-hidden="true"><span style="width:${Math.max(0,Math.min(100,i.score||0))}%"></span></div>${subbars(i.subscores)}</div>
+      <div class="body"><div class="toprow"><span class="tag">${esc(i.category||"")}</span><span class="src">${esc(i.source||"")}</span><span class="date">${fmtDate(i.date)}</span></div>
+      <h2><a href="${esc(i.link||"#")}" target="_blank" rel="noopener">${esc(i.title||"Untitled")}</a></h2>
+      ${i.why? `<div class="why">${esc(i.why)}</div>`:""}
+      ${has? `<button class="expand" aria-expanded="false" onclick="const c=this.closest('.card');const o=c.classList.toggle('open');this.setAttribute('aria-expanded',o);this.textContent=o?'hide details \u25b4':'details \u25be'">details \u25be</button><div class="summary">${esc(i.summary)}</div>`:""}
+      </div></article>`;
   }).join("");
 }
-
-function boot(data) {
+function boot(data){
   DATA = data;
-  document.getElementById("updated").textContent = fmtDate(data.updated) || "--";
-  document.getElementById("count").textContent = data.count ?? (data.items ? data.items.length : 0);
-  render();
+  document.getElementById("updated").textContent = fmtDate(data.updated)||"--";
+  document.getElementById("count").textContent = data.count ?? (data.items?data.items.length:0);
+  document.getElementById("newcount").textContent = data.new_this_run ?? 0;
+  renderStats(); render();
 }
-
-document.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => {
-  document.querySelectorAll(".chip").forEach(x => x.classList.remove("active"));
-  c.classList.add("active");
-  activeCat = c.dataset.cat;
-  render();
-}));
+document.getElementById("themetoggle").addEventListener("click",()=>{ theme = theme==="dark"?"light":"dark"; applyTheme(); });
+document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>setCat(c.dataset.cat)));
 document.getElementById("search").addEventListener("input", render);
 document.getElementById("sort").addEventListener("change", render);
-
-fetch("data.json?" + Date.now())
-  .then(r => r.json())
-  .then(boot)
-  .catch(() => {
-    document.getElementById("feed").innerHTML =
-      '<div class="empty">could not load data.json. If running locally, serve the folder over http rather than opening the file directly.</div>';
-  });
+applyTheme();
+fetch("data.json?"+Date.now()).then(r=>r.json()).then(boot).catch(()=>{ document.getElementById("feed").innerHTML='<div class="empty">could not load data.json. If running locally, serve the folder over http rather than opening the file directly.</div>'; });
 </script>
 </body>
 </html>
