@@ -1,6 +1,5 @@
 {
   "_comment": "Edit this file to add, remove, or tune sources. The fetch script reads it on every run. A broken or missing feed logs a warning and is skipped, it never stops the whole pull. type controls how the script handles each entry.",
-
   "keywords": [
     "spatial transcriptomics",
     "spatial biology",
@@ -24,7 +23,6 @@
     "CODEX",
     "Naveni"
   ],
-
   "rss_sources": [
     {
       "name": "bioRxiv (Genomics)",
@@ -101,18 +99,16 @@
       "note": "Image analysis, adjacent ecosystem. Feed URL unverified."
     }
   ],
-
   "pubmed": {
     "name": "PubMed",
     "type": "pubmed_eutils",
     "esearch_base": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
     "esummary_base": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi",
-    "query": "(spatial transcriptomics[Title/Abstract] OR \"in situ hybridization\"[Title/Abstract] OR RNAscope[Title/Abstract] OR \"spatial biology\"[Title/Abstract] OR MERFISH[Title/Abstract]) AND (\"last 7 days\"[EDAT])",
+    "query": "(spatial transcriptomics[Title/Abstract] OR \"in situ hybridization\"[Title/Abstract] OR RNAscope[Title/Abstract] OR \"spatial biology\"[Title/Abstract] OR MERFISH[Title/Abstract]) AND (\"last 90 days\"[EDAT])",
     "retmax": 40,
     "category_hint": "Research/Methods",
     "note": "No API key needed at low volume. Register a free NCBI key later to raise the rate limit if you add more queries."
   },
-
   "nih_reporter": {
     "name": "NIH RePORTER",
     "type": "nih_reporter",

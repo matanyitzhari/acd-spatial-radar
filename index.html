@@ -208,4 +208,22 @@ function render(){
 function boot(data){
   DATA = data;
   document.getElementById("updated").textContent = fmtDate(data.updated)||"--";
-  document.getElementById("count").textContent = data.count ?? (data.items?data.
+  document.getElementById("count").textContent = data.count ?? (data.items?data.items.length:0);
+  document.getElementById("newcount").textContent = data.new_this_run ?? 0;
+  renderStats();
+  if(!DATA.items || !DATA.items.length){
+    document.getElementById("feed").innerHTML='<div class="empty">No items yet. Run the workflow (Actions tab > Run workflow) to populate the radar.</div>';
+    return;
+  }
+  render();
+}
+document.getElementById("themetoggle").addEventListener("click",()=>{ theme = theme==="dark"?"light":"dark"; applyTheme(); });
+document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>setCat(c.dataset.cat)));
+document.getElementById("search").addEventListener("input", render);
+document.getElementById("region").addEventListener("change", render);
+document.getElementById("sort").addEventListener("change", render);
+applyTheme();
+fetch("data.json?"+Date.now()).then(r=>r.json()).then(boot).catch(()=>{ document.getElementById("feed").innerHTML='<div class="empty">could not load data.json. If running locally, serve the folder over http rather than opening the file directly.</div>'; });
+</script>
+</body>
+</html>
