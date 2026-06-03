@@ -41,6 +41,20 @@ MIN_SCORE = 30        # items scoring below this are dropped, never shown
 DAYS_LOOKBACK = 120   # only keep items from the last N days (about 4 months)
 TERRITORIES_PATH = os.path.join(ROOT, "territories.json")
 
+# Keywords used to pre-filter broad newswire feeds (rss_filtered) before scoring,
+# so we don't waste API calls on unrelated pharma news. An item passes if its
+# title or summary contains any of these (spatial method terms OR a competitor name).
+FILTER_KEYWORDS = [
+    "spatial", "in situ", "rnascope", "rna-ish", "rna ish", "smfish", "merfish",
+    "hcr ", "hybridization chain reaction", "multiplexed imaging", "spatial proteomics",
+    "spatial transcriptomics", "spatial biology", "in situ hybridization",
+    "molecular instruments", "10x genomics", "xenium", "visium", "nanostring",
+    "cosmx", "geomx", "vizgen", "merscope", "akoya", "phenocycler", "codex",
+    "navinci", "naveni", "resolve bioscience", "molecular cartography",
+    "standard biotools", "hyperion", "imaging mass cytometry", "singular genomics",
+    "quanterix", "bio-techne", "advanced cell diagnostics",
+]
+
 # Loaded once at startup
 _TERR = None
 
@@ -254,14 +268,23 @@ def fetch_rss(src):
             elif t in ("pubDate", "published", "updated", "date"):
                 date = clean_text(child.text)
         if title:
-            out.append({
+            item = {
                 "title": title,
                 "link": normalize_link(link, src["name"]),
                 "summary": summary[:1200],
                 "source": src["name"],
                 "category_hint": src.get("category_hint", ""),
                 "date": date,
-            })
+            }
+            # For broad newswire feeds (rss_filtered), keep only items that mention
+            # a spatial/ISH/competitor keyword, so we don't score hundreds of
+            # unrelated pharma releases. Match against title + summary.
+            if src.get("type") == "rss_filtered":
+                hay = (title + " " + summary).lower()
+                kws = src.get("_filter_keywords") or FILTER_KEYWORDS
+                if not any(k in hay for k in kws):
+                    continue
+            out.append(item)
     log(f"RSS '{src['name']}': {len(out)} items")
     return out
 
@@ -378,6 +401,59 @@ def fetch_nih_reporter(cfg):
     except Exception as e:
         warn(f"NIH RePORTER failed: {e}. Skipping.")
     log(f"NIH RePORTER: {len(out)} items")
+    return out
+
+
+def fetch_html_news(cfg):
+    """Scrape a press-release listing page that has no working RSS feed (e.g.
+    Molecular Instruments, a Wix site). Pulls the page HTML, finds outbound
+    newswire links (Business Wire, PR Newswire, etc.) and the headline text and
+    date near each one. Emits one item per release linking to the newswire
+    article, which is the stable canonical URL. Resilient: any parse miss is
+    skipped, a fetch failure logs a warning and returns nothing."""
+    out = []
+    name = cfg.get("name", "HTML News")
+    try:
+        raw = http_get(cfg["url"])
+        # Find anchors pointing at known newswire/press domains.
+        wire_re = re.compile(
+            r'href="(https?://(?:www\.)?(?:businesswire|prnewswire|accesswire|einpresswire|globenewswire|prweb)\.com/[^"]+)"',
+            re.I)
+        # Split the HTML into chunks around each newswire link so we can grab the
+        # nearby headline and date. We look at a window of text before each link.
+        text = re.sub(r'<[^>]+>', '\n', raw)        # strip tags to lines
+        text = html.unescape(text)
+        lines = [l.strip() for l in text.split('\n') if l.strip()]
+        # Collect newswire URLs in order of appearance.
+        wire_urls = wire_re.findall(raw)
+        if not wire_urls:
+            log(f"{name}: no newswire links found on page")
+            return out
+        # For headline+date, walk the de-tagged lines: a release is a longish
+        # title line, a source word, then a date line like 'February 17, 2026'.
+        date_re = re.compile(r'^[A-Z][a-z]+ \d{1,2}, \d{4}$')
+        title_buf = None
+        wire_idx = 0
+        for i, ln in enumerate(lines):
+            if date_re.match(ln) and title_buf and wire_idx < len(wire_urls):
+                # found a release block: title_buf is the headline, ln is the date
+                link = wire_urls[wire_idx]
+                wire_idx += 1
+                out.append({
+                    "title": clean_text(title_buf),
+                    "link": link,
+                    "summary": f"{name} press release via newswire.",
+                    "source": name,
+                    "category_hint": cfg.get("category_hint", "Competitor Move"),
+                    "date": ln,
+                })
+                title_buf = None
+            elif len(ln) > 40 and not ln.startswith(("http", "[", "meta-", "©", "Copyright")):
+                # candidate headline: a long content line
+                title_buf = ln
+        log(f"{name}: {len(out)} items")
+    except Exception as e:
+        warn(f"{name} (HTML scrape) failed: {e}. Skipping.")
     return out
 
 
@@ -621,6 +697,8 @@ def main():
         raw.extend(fetch_nih_reporter(sources["nih_reporter"]))
     if "nsf_awards" in sources:
         raw.extend(fetch_nsf(sources["nsf_awards"]))
+    if "mi_news" in sources:
+        raw.extend(fetch_html_news(sources["mi_news"]))
 
     # dedupe and keep only new (by id AND by normalized title), within lookback window
     new_items = []
