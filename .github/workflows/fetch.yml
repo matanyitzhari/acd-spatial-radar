@@ -1,7 +1,7 @@
 name: Fetch and score spatial news
 
 on:
-   workflow_dispatch: {}   # lets you trigger a run manually from the Actions tab
+  workflow_dispatch: {}   # manual only. Add a schedule: block here to automate.
 
 permissions:
   contents: write   # needed so the job can commit data.json back to the repo
@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
