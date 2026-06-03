@@ -67,13 +67,6 @@
       "note": "NanoString is now under Bruker. Feed URL unverified, will skip gracefully if invalid."
     },
     {
-      "name": "Bio-Techne Newsroom",
-      "type": "rss",
-      "url": "https://www.bio-techne.com/about-us/news-room/rss",
-      "category_hint": "Own/Bio-Techne",
-      "note": "Feed URL unverified, will skip gracefully if invalid."
-    },
-    {
       "name": "Molecular Instruments",
       "type": "rss",
       "url": "https://www.molecularinstruments.com/news?format=rss",
@@ -144,11 +137,11 @@
       "note": "Emerging spatial entrant. Feed URL unverified."
     },
     {
-      "name": "Lunaphore (Bio-Techne)",
+      "name": "GenomeWeb",
       "type": "rss",
-      "url": "https://lunaphore.com/feed/",
-      "category_hint": "Own/Bio-Techne",
-      "note": "COMET platform, now part of Bio-Techne. Track as sister product, not competitor. Feed URL unverified."
+      "url": "https://www.genomeweb.com/section/rss/news",
+      "category_hint": "",
+      "note": "Industry trade outlet. Safety net that covers all spatial players (MI, Navinci, 10x, etc.) even if their own feeds are dead. Category left blank so the scorer assigns it per item."
     }
   ],
   "pubmed": {
@@ -156,7 +149,7 @@
     "type": "pubmed_eutils",
     "esearch_base": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
     "esummary_base": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi",
-    "query": "(spatial transcriptomics[Title/Abstract] OR \"in situ hybridization\"[Title/Abstract] OR RNAscope[Title/Abstract] OR \"spatial biology\"[Title/Abstract] OR MERFISH[Title/Abstract]) AND (\"last 90 days\"[EDAT])",
+    "query": "(spatial transcriptomics[Title/Abstract] OR \"in situ hybridization\"[Title/Abstract] OR RNAscope[Title/Abstract] OR \"spatial biology\"[Title/Abstract] OR MERFISH[Title/Abstract] OR smFISH[Title/Abstract] OR \"hybridization chain reaction\"[Title/Abstract] OR BaseScope[Title/Abstract] OR \"multiplexed imaging\"[Title/Abstract]) AND (\"last 120 days\"[EDAT])",
     "retmax": 40,
     "category_hint": "Research/Methods",
     "note": "No API key needed at low volume. Register a free NCBI key later to raise the rate limit if you add more queries."
@@ -165,44 +158,20 @@
     "name": "NIH RePORTER",
     "type": "nih_reporter",
     "url": "https://api.reporter.nih.gov/v2/projects/search",
-    "advanced_text_search": "spatial transcriptomics in situ hybridization RNAscope spatial biology multiplexed imaging",
+    "advanced_text_search": "spatial transcriptomics in situ hybridization RNAscope smFISH HCR multiplexed imaging spatial proteomics BaseScope miRNAscope single molecule FISH spatial biology tissue RNA localization",
     "newly_added_projects_only": true,
     "limit": 50,
     "category_hint": "Funded Lab",
-    "note": "Highest-value sales signal. No auth. Respect 1 request/second. Names PI and institution for territory targeting."
+    "note": "Highest-value sales signal. No auth. Respect 1 request/second. Names PI and institution for territory targeting. Method-term OR anchor mirrors the SciLeads playbook structure; persona-level relevance is handled by the scorer."
   },
   "nsf_awards": {
     "name": "NSF Awards",
     "type": "nsf_awards",
     "url": "https://api.nsf.gov/services/v1/awards.json",
-    "keyword_query": "spatial transcriptomics in situ hybridization spatial biology multiplexed imaging",
+    "keyword_query": "\"spatial transcriptomics\"",
     "fields": "id,title,awardeeName,piFirstName,piLastName,startDate,fundsObligatedAmt",
     "limit": 50,
     "category_hint": "Funded Lab",
-    "note": "Funds spatial method development NIH misses (BIO directorate, neuro, plant). No auth. Names PI and institution for territory targeting."
-  },
-  "sec_edgar": {
-    "name": "SEC EDGAR Full-Text Search",
-    "type": "sec_edgar",
-    "url": "https://efts.sec.gov/LATEST/search-index",
-    "request_method": "GET",
-    "query": "spatial transcriptomics OR multiplexed imaging OR spatial biology",
-    "user_agent": "Bio-Techne Spatial competitive monitoring (your_email@bio-techne.com)",
-    "ciks_of_interest": {
-      "Bruker (incl. NanoString)": "0001109354",
-      "Bruker Cellular Analysis (NanoString entity)": "0001689657",
-      "10x Genomics": "0001770787",
-      "Standard BioTools (formerly Fluidigm)": "0001162194",
-      "Quanterix (now owns Akoya)": "VERIFY_QTRX_CIK",
-      "Bio-Techne (own)": "0000842023"
-    },
-    "forms": [
-      "8-K",
-      "10-Q",
-      "10-K"
-    ],
-    "category_hint": "Competitor Move",
-    "rate_limit_note": "Stay under 10 req/s aggregate across sec.gov + efts.sec.gov. GET request, params after ?, descriptive User-Agent with contact email required by SEC fair-access policy. No auth key needed.",
-    "note": "CIKs verified June 2026. Akoya (was 0001711933) acquired by Quanterix in 2025, likely no longer files separately. NanoString now files under Bruker Cellular Analysis."
+    "note": "Funds spatial method development NIH misses (BIO directorate, neuro, plant). No auth. Names PI and institution for territory targeting. NOTE: NSF keyword is a phrase match, so a single anchor term is used; scoring filters relevance downstream."
   }
 }

@@ -34,11 +34,11 @@ ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
 MODEL = "claude-haiku-4-5-20251001"  # cheap and fast for per-item scoring
 
-CATEGORIES = ["Competitor Move", "Research/Methods", "Funded Lab", "Own/Bio-Techne"]
+CATEGORIES = ["Competitor Move", "Research/Methods", "Funded Lab"]
 USER_AGENT = "ACD-Spatial-Radar/1.0 (sales intelligence; contact rep)"
 MAX_ITEMS_KEPT = 400  # cap the stored set so data.json stays small
 MIN_SCORE = 30        # items scoring below this are dropped, never shown
-DAYS_LOOKBACK = 90    # only keep items from the last N days (about 3 months)
+DAYS_LOOKBACK = 120   # only keep items from the last N days (about 4 months)
 TERRITORIES_PATH = os.path.join(ROOT, "territories.json")
 
 # Loaded once at startup
@@ -308,15 +308,20 @@ def fetch_nih_reporter(cfg):
     out = []
     try:
         from datetime import timedelta
-        cutoff = (datetime.now(timezone.utc) - timedelta(days=DAYS_LOOKBACK)).strftime("%Y-%m-%d")
+        now = datetime.now(timezone.utc)
+        cutoff = (now - timedelta(days=DAYS_LOOKBACK)).strftime("%Y-%m-%d")
+        # NIH fiscal year runs Oct 1 to Sep 30. Include current and prior FY so a
+        # 4-month window never falls in a gap around the Oct boundary.
+        fy = now.year if now.month >= 10 else now.year
+        fiscal_years = sorted({fy, fy - 1, (now.year if now.month < 10 else now.year + 1)})
         payload = {
             "criteria": {
                 "advanced_text_search": {
-                    "operator": "and",
+                    "operator": "or",
                     "search_field": "projecttitle,abstracttext,terms",
                     "search_text": cfg["advanced_text_search"],
                 },
-                "newly_added_projects_only": cfg.get("newly_added_projects_only", True),
+                "fiscal_years": fiscal_years,
                 "award_notice_date": {"from_date": cutoff, "to_date": ""},
             },
             "include_fields": [
@@ -500,17 +505,34 @@ AXES (0 to 10 each):
    - Singular Genomics (G4X emerging spatial entrant)
    - Rebus Biosystems (Esper), Curio Bioscience (emerging entrants)
    - Leica Biosystems (BOND RX automation, often partnering with the above)
-   Sister product, NOT a competitor: Lunaphore (COMET) is now part of Bio-Techne. Tag its news as Own/Bio-Techne, not Competitor Move.
    Adjacent ecosystem (score moderate urgency, useful context not direct threat): Visiopharm, Grundium, Indica Labs (HALO), and pathology/imaging analysis vendors.
 4. recency: 10 = within the last week. 5 = within a month. 0 = older.
 
 NOISE CONTROL: A generic preprint or paper with no clear spatial, in situ, or commercial hook should score LOW on relevance and buying_signal, which will pull its headline score below the display threshold. Do not inflate a routine single-cell or genomics paper just because it mentions tissue. Reserve high research scores for work that genuinely uses or compares RNAscope, smFISH, HCR, MERFISH, or multiplexed in situ imaging, or that reveals an active high-value lab.
 
+HIGH-VALUE LAB PROFILES: ACD field reps target these 16 research personas. A grant or paper matching one of these is a strong RNAscope prospect EVEN IF it never says "spatial" or "RNAscope", because these labs need in situ RNA validation. Treat a clear match as high relevance and high buying_signal:
+1. Neuro-psychiatric: bulk or single-cell RNA-seq on brain tissue in psychiatric cohorts (depression, PTSD, schizophrenia, autism, bipolar, addiction). Needs subtype marker validation in situ.
+2. HIV / SIV: viral reservoir labs in lymph node, gut, or brain tissue (HIV-1, SIV, SHIV). No antibodies for viral RNA, so RNAscope is the only option.
+3. Gene therapy: AAV or lentiviral biodistribution and transgene expression (vector, transgene, AAV, RNAi, siRNA).
+4. Neuroscience: scRNA-seq brain labs validating cell types or circuits (receptors, ligands, neural circuits, synaptic, glia).
+5. Comparative oncology: vet or NCI canine cancer programs (dog, canine, tumor microenvironment) where antibodies are scarce.
+6. Poor-antibody labs: IHC-heavy stem cell or developmental work frustrated by antibody specificity (LGR5, SOX2, SOX9, marker validation).
+7. Cytokine detection: localizing cytokines in tissue (IFNG, IL6, TNFA, GZMB, CXCL9/10) where antibodies are weak.
+8. Immuno-oncology and TME: tumor microenvironment spatial profiling (PD-1, PD-L1, CTLA-4, TILs, myeloid, exhaustion, CD8 T cells).
+9. Neurodegeneration and glial biology: AD, PD, ALS in human brain (microglia, astrocytes, amyloid, tau, P2RY12, TMEM119, GFAP).
+10. Organoids and 3D models: confirming cell identity in organoids (patient-derived, brain, intestinal, spheroids).
+11. Fibrosis, NASH, tissue remodeling: fibrotic niche profiling (NASH, IPF, cirrhosis, hepatic stellate cells, COL1A1, ACTA2, myofibroblasts).
+12. Infectious disease non-HIV: pathogen RNA localization (SARS-CoV-2, influenza, RSV, tuberculosis, parasite, viral tropism).
+13. CRISPR and gene-editing validation: on/off-target and exon-level (base editing, prime editing, gRNA, splice variant, knock-in/out).
+14. Non-coding RNA: lncRNA and miRNA spatial localization (lncRNA, microRNA, antisense, ncRNA).
+15. Stem cell and iPSC differentiation: lineage marker validation (iPSC, OCT4, NANOG, neural differentiation, cardiomyocytes).
+16. Barrier-organ inflammation: lung, GI, kidney epithelia (IBD, Crohn's, ulcerative colitis, asthma, COPD, glomerulonephritis, podocytes).
+
 HEADLINE SCORE: compute as a weighted blend, scaled to 0 to 100:
 score = round( (relevance*3 + buying_signal*2.5 + competitive_urgency*2.5 + recency*2) / 100 * 100 )
 Then apply one tiebreak rule: when two items would score within 3 points of each other and one is a competitor move, nudge the competitor item up by 3. Competitor intelligence wins ties because a missed launch costs the team across every deal at once.
 
-CATEGORY: assign exactly one from: Competitor Move, Research/Methods, Funded Lab, Own/Bio-Techne.
+CATEGORY: assign exactly one from: Competitor Move, Research/Methods, Funded Lab.
 
 WHY: write a one-line hook of at most 24 words. Be concrete, not vague. Name the specific lever where present: gene targets, tissue or disease, method, PI name, institution, or the competing product. Tell the rep what to note or do. Do not use em dashes.
 
@@ -599,8 +621,6 @@ def main():
         raw.extend(fetch_nih_reporter(sources["nih_reporter"]))
     if "nsf_awards" in sources:
         raw.extend(fetch_nsf(sources["nsf_awards"]))
-    if "sec_edgar" in sources:
-        raw.extend(fetch_sec_edgar(sources["sec_edgar"]))
 
     # dedupe and keep only new (by id AND by normalized title), within lookback window
     new_items = []
