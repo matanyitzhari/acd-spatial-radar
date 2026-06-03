@@ -1,0 +1,50 @@
+{
+  "_comment": "ACD territory reference for the Spatial Radar. Extracted from the Web Revenue Tracker. East/West is the high-level split. territory_presets maps each territory code to its state/province list. Note the documented account-level overrides for MA (BSA vs NEA) and MD (NIH vs MDA) which a state-only lookup cannot resolve on its own.",
+
+  "east_region": {
+    "us_east_coast": ["ME", "NH", "VT", "MA", "RI", "CT", "NY", "NJ", "PA", "DE", "MD", "DC", "VA", "WV"],
+    "midwest_extension": ["OH", "KY", "IN"],
+    "eastern_canada": ["NL", "PE", "NS", "NB", "QC", "ON", "MB", "SK"],
+    "special": ["NIH"]
+  },
+
+  "territory_presets": {
+    "BSA": ["MA"],
+    "CEA": ["NL", "PE", "NS", "NB", "QC", "ON", "MB", "SK", "NY"],
+    "GCA": ["MO", "TN", "AL", "MS", "AR", "LA"],
+    "MDA": ["NJ", "DE", "VA", "WV", "DC", "MD"],
+    "MSA": ["CO", "AZ", "NV", "UT", "NM", "NE", "IA", "ND", "SD", "KS"],
+    "MWA": ["IL", "MN", "WI", "MI"],
+    "NCA": ["CA"],
+    "NEA": ["ME", "NH", "VT", "MA", "CT", "RI"],
+    "NIH": ["MD"],
+    "NWA": ["BC", "AB", "WA", "OR", "AK", "ID", "MT", "WY"],
+    "NYA": ["NY"],
+    "PAA": ["PA"],
+    "RBA": ["OH", "IN", "KY"],
+    "SCA": ["CA", "HI"],
+    "SEA": ["NC", "GA", "SC", "FL", "PR"],
+    "TXA": ["TX", "OK"]
+  },
+
+  "east_coast_territories": ["BSA", "CEA", "MDA", "NEA", "NIH", "NYA", "PAA", "RBA"],
+  "west_territories": ["GCA", "MSA", "MWA", "NCA", "NWA", "SCA", "SEA", "TXA"],
+
+  "account_level_overrides": {
+    "_comment": "State-only lookup cannot resolve these. Applied by institution name where possible.",
+    "MA": {
+      "BSA": "Harvard-affiliated institutions and Boston University",
+      "NEA": "Broad Institute, MIT, UMass, and all other MA accounts"
+    },
+    "MD": {
+      "NIH": "NIH campus (Bethesda intramural)",
+      "MDA": "Johns Hopkins, University of Maryland, and other MD accounts"
+    }
+  },
+
+  "notes": [
+    "RBA (OH, IN, KY) is marked in the source tool as a placeholder pending a final state list.",
+    "NCA and SCA are California-based but grouped under West (West means non-East, not strictly geographic).",
+    "State name to code normalization (full names and Canadian provinces) is handled in the script."
+  ]
+}

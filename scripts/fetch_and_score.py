@@ -38,6 +38,68 @@ CATEGORIES = ["Competitor Move", "Research/Methods", "Funded Lab", "Own/Bio-Tech
 USER_AGENT = "ACD-Spatial-Radar/1.0 (sales intelligence; contact rep)"
 MAX_ITEMS_KEPT = 400  # cap the stored set so data.json stays small
 MIN_SCORE = 30        # items scoring below this are dropped, never shown
+TERRITORIES_PATH = os.path.join(ROOT, "territories.json")
+
+# Loaded once at startup
+_TERR = None
+
+
+def load_territories():
+    global _TERR
+    if _TERR is not None:
+        return _TERR
+    try:
+        with open(TERRITORIES_PATH, "r", encoding="utf-8") as f:
+            _TERR = json.load(f)
+    except Exception as e:
+        warn(f"Could not load territories.json: {e}. Territory tagging disabled.")
+        _TERR = {}
+    return _TERR
+
+
+def classify_territory(state, institution=""):
+    """Return (territory_code, region) for a given state and institution.
+    Region is 'East' or 'West'. Returns ('National', 'National') when no
+    usable location is present (most research and competitor items).
+    Applies the MA and MD account-level overrides by institution name."""
+    terr = load_territories()
+    if not terr or not state:
+        return ("National", "National")
+    state = state.upper().strip()
+    presets = terr.get("territory_presets", {})
+    east = terr.get("east_region", {})
+    east_states = set()
+    for grp in east.values():
+        east_states.update(grp)
+    region = "East" if state in east_states else "West"
+
+    inst = (institution or "").lower()
+
+    # Account-level overrides where one state maps to two territories.
+    if state == "MA":
+        if any(k in inst for k in ["harvard", "boston university", "dana-farber", "brigham", "mass general", "massachusetts general", "beth israel", "children's hospital boston"]):
+            return ("BSA", region)
+        if any(k in inst for k in ["broad", "mit", "massachusetts institute", "umass", "university of massachusetts"]):
+            return ("NEA", region)
+        # ambiguous MA account: leave specific code unset, mark region
+        return ("MA (BSA/NEA)", region)
+    if state == "MD":
+        if "nih" in inst or "national institutes of health" in inst or "bethesda" in inst:
+            return ("NIH", region)
+        if any(k in inst for k in ["johns hopkins", "hopkins", "university of maryland", "umd"]):
+            return ("MDA", region)
+        return ("MD (NIH/MDA)", region)
+
+    # Single-territory states: find the first preset that owns this state.
+    # Prefer East-coast territories when a state appears in multiple presets.
+    east_coast = set(terr.get("east_coast_territories", []))
+    matches = [code for code, states in presets.items() if state in states]
+    if not matches:
+        return ("Unmapped", region)
+    # prefer an East-coast territory match if one exists
+    east_matches = [m for m in matches if m in east_coast]
+    chosen = east_matches[0] if east_matches else matches[0]
+    return (chosen, region)
 
 
 # ----------------------------------------------------------------------
@@ -224,8 +286,9 @@ def fetch_nih_reporter(cfg):
             },
             "include_fields": [
                 "ProjectTitle", "AbstractText", "FiscalYear", "Organization",
-                "PrincipalInvestigators", "AwardAmount", "ProjectNumLink",
-                "ProjectStartDate", "AgencyIcAdmin",
+                "PrincipalInvestigators", "AwardAmount", "ProjectDetailUrl",
+                "ApplId", "ProjectNum", "ProjectStartDate", "AgencyIcAdmin",
+                "OrgState", "OrgCity", "OrgName",
             ],
             "offset": 0,
             "limit": cfg.get("limit", 50),
@@ -239,6 +302,9 @@ def fetch_nih_reporter(cfg):
             if not title:
                 continue
             org = (r.get("organization") or {}).get("org_name", "")
+            org_obj = r.get("organization") or {}
+            org_state = org_obj.get("org_state", "") or r.get("org_state", "")
+            org_city = org_obj.get("org_city", "") or r.get("org_city", "")
             pis = ", ".join(
                 clean_text(pi.get("full_name", ""))
                 for pi in (r.get("principal_investigators") or [])
@@ -247,15 +313,29 @@ def fetch_nih_reporter(cfg):
             summary = f"PI: {pis}. Institution: {org}. " \
                       f"Award: {('$' + format(amt, ',')) if amt else 'n/a'}. " \
                       + clean_text(r.get("abstract_text", ""))[:800]
+            # Build a reliable per-grant link. Prefer the API's detail URL,
+            # else construct from appl_id, else fall back to a project-number search.
+            appl_id = r.get("appl_id") or r.get("applId")
+            detail = r.get("project_detail_url") or r.get("projectDetailUrl")
+            if detail:
+                link = detail
+            elif appl_id:
+                link = f"https://reporter.nih.gov/project-details/{appl_id}"
+            elif r.get("project_num"):
+                link = "https://reporter.nih.gov/search/?projectNum=" + urllib.parse.quote(str(r.get("project_num")))
+            else:
+                link = "https://reporter.nih.gov/"
             out.append({
                 "title": title,
-                "link": r.get("project_num_link") or "https://reporter.nih.gov/",
+                "link": link,
                 "summary": summary,
                 "source": "NIH RePORTER",
                 "category_hint": cfg.get("category_hint", "Funded Lab"),
                 "date": clean_text(str(r.get("project_start_date", ""))),
                 "institution": org,
                 "pi": pis,
+                "state": (org_state or "").upper().strip(),
+                "city": org_city,
             })
     except Exception as e:
         warn(f"NIH RePORTER failed: {e}. Skipping.")
@@ -401,6 +481,9 @@ def main():
     for i, it in enumerate(new_items, 1):
         s = score_item(it)
         it.update(s)
+        terr_code, region = classify_territory(it.get("state", ""), it.get("institution", ""))
+        it["territory"] = terr_code
+        it["region"] = region
         it["fetched"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
         if it.get("score", 0) < MIN_SCORE:
             dropped += 1

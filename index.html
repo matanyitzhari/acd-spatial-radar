@@ -86,6 +86,7 @@
   .body .toprow { display: flex; align-items: center; gap: 11px; flex-wrap: wrap; margin-bottom: 9px; }
   .tag { font-family: 'Space Mono', monospace; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; padding: 3px 10px; border-radius: 5px; background: color-mix(in srgb, var(--catcolor) 16%, transparent); color: var(--catcolor); border: 1px solid color-mix(in srgb, var(--catcolor) 40%, transparent); }
   .src { font-family: 'Space Mono', monospace; font-size: 0.69rem; color: var(--ink-dim); }
+  .terr { font-family: 'Space Mono', monospace; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 5px; background: var(--panel-2); color: var(--ink-2); border: 1px solid var(--line-bright); }
   .date { font-family: 'Space Mono', monospace; font-size: 0.67rem; color: var(--ink-dim); margin-left: auto; }
   .body h2 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.28rem; line-height: 1.3; letter-spacing: -0.01em; margin-bottom: 9px; }
   .body h2 a { color: var(--ink); text-decoration: none; }
@@ -128,7 +129,13 @@
     <button class="chip" data-cat="Research/Methods" aria-pressed="false"><span class="cdot" style="background:var(--cat-research)" aria-hidden="true"></span>Research</button>
     <button class="chip" data-cat="Own/Bio-Techne" aria-pressed="false"><span class="cdot" style="background:var(--cat-own)" aria-hidden="true"></span>Own News</button>
     <div class="spacer"></div>
-    <input class="search" id="search" placeholder="filter by keyword, PI, lab..." aria-label="Search items">
+    <input class="search" id="search" placeholder="filter by keyword, PI, lab, territory..." aria-label="Search items">
+    <select class="sortsel" id="region" aria-label="Region filter">
+      <option value="all">region: all</option>
+      <option value="East">East</option>
+      <option value="West">West</option>
+      <option value="National">National</option>
+    </select>
     <select class="sortsel" id="sort" aria-label="Sort order">
       <option value="score">sort: score</option>
       <option value="date">sort: newest</option>
@@ -177,9 +184,11 @@ function subbars(s){
 function render(){
   const q = document.getElementById("search").value.toLowerCase().trim();
   const sortBy = document.getElementById("sort").value;
+  const region = document.getElementById("region").value;
   let items = DATA.items.slice();
   if (activeCat!=="all") items = items.filter(i=>i.category===activeCat);
-  if (q) items = items.filter(i => (i.title||"").toLowerCase().includes(q)||(i.summary||"").toLowerCase().includes(q)||(i.why||"").toLowerCase().includes(q)||(i.pi||"").toLowerCase().includes(q)||(i.institution||"").toLowerCase().includes(q));
+  if (region!=="all") items = items.filter(i=>(i.region||"National")===region);
+  if (q) items = items.filter(i => (i.title||"").toLowerCase().includes(q)||(i.summary||"").toLowerCase().includes(q)||(i.why||"").toLowerCase().includes(q)||(i.pi||"").toLowerCase().includes(q)||(i.institution||"").toLowerCase().includes(q)||(i.territory||"").toLowerCase().includes(q));
   items.sort((a,b)=> sortBy==="date" ? new Date(b.date||0)-new Date(a.date||0) : (b.score||0)-(a.score||0));
   const feed = document.getElementById("feed");
   if(!items.length){ feed.innerHTML='<div class="empty">no items match this filter</div>'; return; }
@@ -189,7 +198,7 @@ function render(){
     return `<article class="card" style="--catcolor:${color}; animation-delay:${Math.min(n*0.035,0.5)}s">
       <div class="scorebox"><div class="score">${i.score??"--"}<small>SIGNAL</small></div>
       <div class="meter" aria-hidden="true"><span style="width:${Math.max(0,Math.min(100,i.score||0))}%"></span></div>${subbars(i.subscores)}</div>
-      <div class="body"><div class="toprow"><span class="tag">${esc(i.category||"")}</span><span class="src">${esc(i.source||"")}</span><span class="date">${fmtDate(i.date)}</span></div>
+      <div class="body"><div class="toprow"><span class="tag">${esc(i.category||"")}</span>${i.territory && i.territory!=="National" ? `<span class="terr">${esc(i.territory)}</span>`:""}<span class="src">${esc(i.source||"")}</span><span class="date">${fmtDate(i.date)}</span></div>
       <h2><a href="${esc(i.link||"#")}" target="_blank" rel="noopener">${esc(i.title||"Untitled")}</a></h2>
       ${i.why? `<div class="why">${esc(i.why)}</div>`:""}
       ${has? `<button class="expand" aria-expanded="false" onclick="const c=this.closest('.card');const o=c.classList.toggle('open');this.setAttribute('aria-expanded',o);this.textContent=o?'hide details \u25b4':'details \u25be'">details \u25be</button><div class="summary">${esc(i.summary)}</div>`:""}
@@ -201,11 +210,17 @@ function boot(data){
   document.getElementById("updated").textContent = fmtDate(data.updated)||"--";
   document.getElementById("count").textContent = data.count ?? (data.items?data.items.length:0);
   document.getElementById("newcount").textContent = data.new_this_run ?? 0;
-  renderStats(); render();
+  renderStats();
+  if(!DATA.items || !DATA.items.length){
+    document.getElementById("feed").innerHTML='<div class="empty">No items yet. Run the workflow (Actions tab > Run workflow) to populate the radar.</div>';
+    return;
+  }
+  render();
 }
 document.getElementById("themetoggle").addEventListener("click",()=>{ theme = theme==="dark"?"light":"dark"; applyTheme(); });
 document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>setCat(c.dataset.cat)));
 document.getElementById("search").addEventListener("input", render);
+document.getElementById("region").addEventListener("change", render);
 document.getElementById("sort").addEventListener("change", render);
 applyTheme();
 fetch("data.json?"+Date.now()).then(r=>r.json()).then(boot).catch(()=>{ document.getElementById("feed").innerHTML='<div class="empty">could not load data.json. If running locally, serve the folder over http rather than opening the file directly.</div>'; });
