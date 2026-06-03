@@ -81,6 +81,15 @@ def item_id(link, title):
     return hashlib.sha1(basis.encode("utf-8")).hexdigest()[:16]
 
 
+def title_key(title):
+    """Normalized title for meaning-based dedupe so a preprint and its
+    published version (same title, different link) collapse into one."""
+    t = (title or "").lower()
+    t = re.sub(r"[^a-z0-9 ]", "", t)   # drop punctuation
+    t = re.sub(r"\s+", " ", t).strip()
+    return t[:120]
+
+
 # ----------------------------------------------------------------------
 # fetchers (each returns a list of raw dicts: title, link, summary, source, category_hint, date)
 # ----------------------------------------------------------------------
@@ -225,26 +234,26 @@ def fetch_nih_reporter(cfg):
 # scoring via Claude
 # ----------------------------------------------------------------------
 
-SCORING_SYSTEM = """You are a sales intelligence analyst for Advanced Cell Diagnostics (ACD), a Bio-Techne brand. ACD sells RNAscope in situ hybridization and spatial biology products to academic researchers in the United States.
+SCORING_SYSTEM = """You are a sales intelligence analyst for Advanced Cell Diagnostics (ACD), a Bio-Techne brand. ACD sells RNAscope in situ hybridization and spatial biology products to academic researchers in the United States. This radar is an early-warning system first and a prospecting feed second.
 
-You score one news or research item at a time for how relevant it is to an ACD field sales rep. Reps care about, in rough priority order:
-1. Funded labs (a newly funded grant on spatial biology, in situ hybridization, or RNAscope is a strong buying signal. The PI may need probes or instruments soon).
-2. Competitor moves (product launches, platform updates, or positioning from 10x Genomics, Bruker/NanoString, Vizgen, Akoya/Quanterix and similar. Reps need to know what they are up against).
-3. Research and methods (new papers using or comparing spatial transcriptomics, smFISH, multiplexed imaging, or RNAscope itself. Useful for talking tracks and finding active labs).
-4. Own/Bio-Techne news (ACD or Bio-Techne announcements the rep should be aware of).
+You score one item at a time. Instead of one gut number, rate four axes from 0 to 10, then derive a headline score. Reason about each axis honestly.
 
-Score 0 to 100:
-- 80 to 100: directly actionable. A funded spatial/ISH lab, a major competitor launch, a high-profile paper using a relevant method.
-- 50 to 79: relevant context worth a glance.
-- 20 to 49: tangential. Adjacent biology but not clearly spatial or ISH.
-- 0 to 19: not relevant.
+AXES (0 to 10 each):
+1. relevance: How squarely is this in the spatial biology / in situ hybridization / RNAscope world? 10 = directly about RNAscope, smFISH, spatial transcriptomics, or multiplexed in situ imaging. 5 = adjacent (single-cell, general genomics) with a plausible spatial angle. 0 = unrelated biology.
+2. buying_signal: How strongly does this point to a near-term purchase or active lab? 10 = a newly funded grant naming a spatial/ISH aim, or a lab clearly standing up this capability. 5 = an active lab publishing relevant work. 0 = no commercial implication.
+3. competitive_urgency: How much does the field team need to hear this now to defend deals? 10 = a direct competitor (10x Genomics, Bruker/NanoString, Vizgen, Akoya/Quanterix) launching or repositioning a platform. 0 = no competitive angle.
+4. recency: 10 = within the last week. 5 = within a month. 0 = older.
 
-Assign exactly one category from: Competitor Move, Research/Methods, Funded Lab, Own/Bio-Techne.
+HEADLINE SCORE: compute as a weighted blend, scaled to 0 to 100:
+score = round( (relevance*3 + buying_signal*2.5 + competitive_urgency*2.5 + recency*2) / 100 * 100 )
+Then apply one tiebreak rule: when two items would score within 3 points of each other and one is a competitor move, nudge the competitor item up by 3. Competitor intelligence wins ties because a missed launch costs the team across every deal at once.
 
-Write a one-line "why it matters" of at most 22 words, plain and specific, telling the rep what to do or note. Do not use em dashes.
+CATEGORY: assign exactly one from: Competitor Move, Research/Methods, Funded Lab, Own/Bio-Techne.
+
+WHY: write a one-line hook of at most 24 words. Be concrete, not vague. Name the specific lever where present: gene targets, tissue or disease, method, PI name, institution, or the competing product. Tell the rep what to note or do. Do not use em dashes.
 
 Respond with ONLY a JSON object, no preamble, no markdown fences:
-{"score": <int>, "category": "<one of the four>", "why": "<one line>"}"""
+{"relevance": <int>, "buying_signal": <int>, "competitive_urgency": <int>, "recency": <int>, "score": <int>, "category": "<one of the four>", "why": "<one line>"}"""
 
 
 def score_item(item):
@@ -278,7 +287,17 @@ def score_item(item):
         if category not in CATEGORIES:
             category = item.get("category_hint") or "Research/Methods"
         why = clean_text(parsed.get("why", "")).replace("\u2014", "-")
-        return {"score": max(0, min(100, score)), "category": category, "why": why}
+        return {
+            "score": max(0, min(100, score)),
+            "category": category,
+            "why": why,
+            "subscores": {
+                "relevance": parsed.get("relevance"),
+                "buying_signal": parsed.get("buying_signal"),
+                "competitive_urgency": parsed.get("competitive_urgency"),
+                "recency": parsed.get("recency"),
+            },
+        }
     except Exception as e:
         warn(f"Scoring failed for '{item['title'][:60]}': {e}")
         return {"score": 40, "category": item.get("category_hint") or "Research/Methods",
@@ -306,6 +325,7 @@ def main():
 
     existing = load_existing()
     seen_ids = {it["id"] for it in existing.get("items", [])}
+    seen_titles = {title_key(it.get("title", "")) for it in existing.get("items", [])}
 
     # gather raw items from all sources
     raw = []
@@ -316,13 +336,16 @@ def main():
     if "nih_reporter" in sources:
         raw.extend(fetch_nih_reporter(sources["nih_reporter"]))
 
-    # dedupe and keep only new
+    # dedupe and keep only new (by id AND by normalized title)
     new_items = []
     for it in raw:
         iid = item_id(it.get("link", ""), it.get("title", ""))
-        if iid in seen_ids:
+        tkey = title_key(it.get("title", ""))
+        if iid in seen_ids or (tkey and tkey in seen_titles):
             continue
         seen_ids.add(iid)
+        if tkey:
+            seen_titles.add(tkey)
         it["id"] = iid
         new_items.append(it)
 
