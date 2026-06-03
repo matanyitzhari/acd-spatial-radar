@@ -53,34 +53,6 @@
       "category_hint": "Research/Methods"
     },
     {
-      "name": "10x Genomics Newsroom",
-      "type": "rss",
-      "url": "https://www.10xgenomics.com/feed",
-      "category_hint": "Competitor Move",
-      "note": "Feed URL unverified, script will log a warning and skip if it 404s. Fallback options noted in README."
-    },
-    {
-      "name": "Bruker News",
-      "type": "rss",
-      "url": "https://ir.bruker.com/rss/news-releases.xml",
-      "category_hint": "Competitor Move",
-      "note": "NanoString is now under Bruker. Feed URL unverified, will skip gracefully if invalid."
-    },
-    {
-      "name": "Molecular Instruments",
-      "type": "rss",
-      "url": "https://www.molecularinstruments.com/news?format=rss",
-      "category_hint": "Competitor Move",
-      "note": "Most direct emerging competitor (HCR vs RNAscope). Feed URL unverified, may need a swap. Site also at hcrimaging.com."
-    },
-    {
-      "name": "Navinci News",
-      "type": "rss",
-      "url": "https://navinci.se/news/feed/",
-      "category_hint": "Competitor Move",
-      "note": "In situ proximity ligation, competes with ProximityScope. Feed URL unverified."
-    },
-    {
       "name": "Vizgen News",
       "type": "rss",
       "url": "https://vizgen.com/feed/",
@@ -88,60 +60,95 @@
       "note": "MERSCOPE. Feed URL unverified."
     },
     {
+      "name": "GenomeWeb",
+      "type": "rss",
+      "url": "https://www.genomeweb.com/section/rss/news",
+      "category_hint": "",
+      "note": "Industry trade outlet. Safety net that covers all spatial players (MI, Navinci, 10x, etc.) even if their own feeds are dead. Category left blank so the scorer assigns it per item."
+    },
+    {
+      "name": "Business Wire (Genetics)",
+      "type": "rss_filtered",
+      "url": "https://feed.businesswire.com/rss/home/?rss=G1QFDERJXkJaF1tVVA==",
+      "category_hint": "",
+      "note": "Business Wire Genetics topic feed. Keyword-filtered to spatial/ISH terms. Catches MI, 10x, Akoya, Standard BioTools, etc. that publish here."
+    },
+    {
+      "name": "Business Wire (Oncology)",
+      "type": "rss_filtered",
+      "url": "https://feed.businesswire.com/rss/home/?rss=G1QFDERJXkJaF1tUXQ==",
+      "category_hint": "",
+      "note": "Business Wire Oncology topic feed. Keyword-filtered. Catches TME/cancer spatial launches."
+    },
+    {
+      "name": "PR Newswire (All)",
+      "type": "rss_filtered",
+      "url": "https://www.prnewswire.com/rss/all-news-releases-from-PR-newswire-news.rss",
+      "category_hint": "",
+      "note": "PR Newswire main feed. Keyword-filtered. Catches 10x Genomics and others publishing via PRN. URL may need confirming."
+    },
+    {
+      "name": "10x Genomics Newsroom",
+      "type": "rss",
+      "url": "https://www.10xgenomics.com/feed",
+      "category_hint": "Competitor Move",
+      "note": "Likely dead (10x uses PR Newswire). Kept in case; newswire net is the real catch."
+    },
+    {
+      "name": "Bruker News",
+      "type": "rss",
+      "url": "https://ir.bruker.com/rss/news-releases.xml",
+      "category_hint": "Competitor Move",
+      "note": "IR feed, may work. CosMx/GeoMx via NanoString under Bruker."
+    },
+    {
+      "name": "Navinci News",
+      "type": "rss",
+      "url": "https://navinci.se/news/feed/",
+      "category_hint": "Competitor Move",
+      "note": "WordPress feed, may work. Naveni proximity ligation."
+    },
+    {
       "name": "Akoya Biosciences",
       "type": "rss",
       "url": "https://www.akoyabio.com/feed/",
       "category_hint": "Competitor Move",
-      "note": "PhenoCycler/CODEX. Feed URL unverified."
+      "note": "Likely dead; Akoya now under Quanterix (acquired 2025), publishes via GlobeNewswire."
     },
     {
       "name": "Visiopharm News",
       "type": "rss",
       "url": "https://visiopharm.com/feed/",
       "category_hint": "Competitor Move",
-      "note": "Image analysis, adjacent ecosystem. Feed URL unverified."
+      "note": "WordPress feed, may work."
     },
     {
       "name": "Resolve Biosciences",
       "type": "rss",
       "url": "https://resolvebiosciences.com/feed/",
       "category_hint": "Competitor Move",
-      "note": "Molecular Cartography, direct ISH-based spatial competitor. Feed URL unverified, skip gracefully if invalid."
+      "note": "WordPress feed, may work."
     },
     {
       "name": "Standard BioTools",
       "type": "rss",
       "url": "https://www.standardbio.com/feed",
       "category_hint": "Competitor Move",
-      "note": "Formerly Fluidigm, merged with SomaLogic. Hyperion imaging mass cytometry, spatial proteomics. Feed URL unverified."
-    },
-    {
-      "name": "Rebus Biosystems",
-      "type": "rss",
-      "url": "https://rebusbio.com/feed/",
-      "category_hint": "Competitor Move",
-      "note": "Esper platform, ISH-adjacent. Smaller player. Feed URL unverified."
+      "note": "Likely dead; uses GlobeNewswire."
     },
     {
       "name": "Singular Genomics",
       "type": "rss",
       "url": "https://ir.singulargenomics.com/rss/news-releases.xml",
       "category_hint": "Competitor Move",
-      "note": "G4X emerging spatial entrant. Feed URL unverified."
+      "note": "IR feed, may work."
     },
     {
       "name": "Curio Bioscience",
       "type": "rss",
       "url": "https://curiobioscience.com/feed/",
       "category_hint": "Competitor Move",
-      "note": "Emerging spatial entrant. Feed URL unverified."
-    },
-    {
-      "name": "GenomeWeb",
-      "type": "rss",
-      "url": "https://www.genomeweb.com/section/rss/news",
-      "category_hint": "",
-      "note": "Industry trade outlet. Safety net that covers all spatial players (MI, Navinci, 10x, etc.) even if their own feeds are dead. Category left blank so the scorer assigns it per item."
+      "note": "WordPress feed, may work."
     }
   ],
   "pubmed": {
@@ -173,5 +180,12 @@
     "limit": 50,
     "category_hint": "Funded Lab",
     "note": "Funds spatial method development NIH misses (BIO directorate, neuro, plant). No auth. Names PI and institution for territory targeting. NOTE: NSF keyword is a phrase match, so a single anchor term is used; scoring filters relevance downstream."
+  },
+  "mi_news": {
+    "name": "Molecular Instruments",
+    "type": "html_news",
+    "url": "https://www.molecularinstruments.com/news",
+    "category_hint": "Competitor Move",
+    "note": "MI site is Wix with no working RSS. Scrapes the news page HTML and links to the Business Wire / PR Newswire article for each release. Most direct RNAscope competitor, treat as high urgency."
   }
 }
