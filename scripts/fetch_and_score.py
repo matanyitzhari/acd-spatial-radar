@@ -37,6 +37,7 @@ MODEL = "claude-haiku-4-5-20251001"  # cheap and fast for per-item scoring
 CATEGORIES = ["Competitor Move", "Research/Methods", "Funded Lab", "Own/Bio-Techne"]
 USER_AGENT = "ACD-Spatial-Radar/1.0 (sales intelligence; contact rep)"
 MAX_ITEMS_KEPT = 400  # cap the stored set so data.json stays small
+MIN_SCORE = 30        # items scoring below this are dropped, never shown
 
 
 # ----------------------------------------------------------------------
@@ -90,6 +91,31 @@ def title_key(title):
     return t[:120]
 
 
+def normalize_link(link, source_name=""):
+    """Fix links that are not directly clickable. bioRxiv Atom feeds put a
+    DOI-style id in the link field, which 404s on its own. A bioRxiv DOI
+    (10.1101/...) resolves to the live article via doi.org regardless of
+    version, so rewrite it."""
+    link = (link or "").strip()
+    if not link:
+        return link
+    # already a full content URL to the article
+    if link.startswith("http") and "10.1101" in link and "biorxiv" in link:
+        return link
+    # bioRxiv cgi short-form URLs carry the DOI tail; convert to doi.org
+    m_cgi = re.search(r"/cgi/content/short/([0-9.]+v?\d*)", link)
+    if m_cgi:
+        return "https://doi.org/10.1101/" + m_cgi.group(1)
+    # extract a bioRxiv/medRxiv DOI if present anywhere in the string
+    m = re.search(r"(10\.1101/[^\s\"'<>]+)", link)
+    if m:
+        return "https://doi.org/" + m.group(1)
+    # bare doi: prefix
+    if link.lower().startswith("doi:"):
+        return "https://doi.org/" + link.split(":", 1)[1].strip()
+    return link
+
+
 # ----------------------------------------------------------------------
 # fetchers (each returns a list of raw dicts: title, link, summary, source, category_hint, date)
 # ----------------------------------------------------------------------
@@ -122,6 +148,13 @@ def fetch_rss(src):
             elif t == "link":
                 # Atom uses href attribute, RSS uses text
                 link = child.get("href") or clean_text(child.text) or link
+            elif t in ("id", "guid"):
+                # bioRxiv Atom often carries the DOI here
+                idval = clean_text(child.text)
+                if not link or "10.1101" in idval:
+                    link = link or idval
+                    if "10.1101" in idval:
+                        link = idval
             elif t in ("description", "summary", "abstract"):
                 summary = clean_text(child.text)
             elif t in ("pubDate", "published", "updated", "date"):
@@ -129,7 +162,7 @@ def fetch_rss(src):
         if title:
             out.append({
                 "title": title,
-                "link": link,
+                "link": normalize_link(link, src["name"]),
                 "summary": summary[:1200],
                 "source": src["name"],
                 "category_hint": src.get("category_hint", ""),
@@ -241,8 +274,19 @@ You score one item at a time. Instead of one gut number, rate four axes from 0 t
 AXES (0 to 10 each):
 1. relevance: How squarely is this in the spatial biology / in situ hybridization / RNAscope world? 10 = directly about RNAscope, smFISH, spatial transcriptomics, or multiplexed in situ imaging. 5 = adjacent (single-cell, general genomics) with a plausible spatial angle. 0 = unrelated biology.
 2. buying_signal: How strongly does this point to a near-term purchase or active lab? 10 = a newly funded grant naming a spatial/ISH aim, or a lab clearly standing up this capability. 5 = an active lab publishing relevant work. 0 = no commercial implication.
-3. competitive_urgency: How much does the field team need to hear this now to defend deals? 10 = a direct competitor (10x Genomics, Bruker/NanoString, Vizgen, Akoya/Quanterix) launching or repositioning a platform. 0 = no competitive angle.
+3. competitive_urgency: How much does the field team need to hear this now to defend deals? 10 = a direct competitor launching, repositioning, partnering, or getting funded. 0 = no competitive angle.
+   Direct and emerging competitors to watch closely:
+   - Molecular Instruments (HCR RNA-CISH and RNA-FISH; positioned head-to-head against RNAscope on speed and price. Treat any MI news as high urgency.)
+   - 10x Genomics (Xenium, Visium)
+   - Bruker / NanoString (CosMx, GeoMx)
+   - Vizgen (MERSCOPE)
+   - Akoya Biosciences / Quanterix (PhenoCycler, CODEX)
+   - Navinci (Naveni in situ proximity ligation, spatial proteomics; competes with ProximityScope)
+   - Leica Biosystems (BOND RX automation, often partnering with the above)
+   Adjacent ecosystem (score moderate urgency, useful context not direct threat): Visiopharm, Grundium, Indica Labs (HALO), and pathology/imaging analysis vendors.
 4. recency: 10 = within the last week. 5 = within a month. 0 = older.
+
+NOISE CONTROL: A generic preprint or paper with no clear spatial, in situ, or commercial hook should score LOW on relevance and buying_signal, which will pull its headline score below the display threshold. Do not inflate a routine single-cell or genomics paper just because it mentions tissue. Reserve high research scores for work that genuinely uses or compares RNAscope, smFISH, HCR, MERFISH, or multiplexed in situ imaging, or that reveals an active high-value lab.
 
 HEADLINE SCORE: compute as a weighted blend, scaled to 0 to 100:
 score = round( (relevance*3 + buying_signal*2.5 + competitive_urgency*2.5 + recency*2) / 100 * 100 )
@@ -353,17 +397,23 @@ def main():
 
     # score new items
     scored_new = []
+    dropped = 0
     for i, it in enumerate(new_items, 1):
         s = score_item(it)
         it.update(s)
         it["fetched"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
-        scored_new.append(it)
+        if it.get("score", 0) < MIN_SCORE:
+            dropped += 1
+        else:
+            scored_new.append(it)
         if i % 10 == 0:
             log(f"scored {i}/{len(new_items)}")
         time.sleep(0.2)  # gentle pacing
 
-    # merge, sort, cap
-    all_items = scored_new + existing.get("items", [])
+    log(f"kept {len(scored_new)} new items, dropped {dropped} below score {MIN_SCORE}")
+
+    # merge, sort, cap. Also re-filter any previously stored items under threshold.
+    all_items = scored_new + [it for it in existing.get("items", []) if it.get("score", 0) >= MIN_SCORE]
     all_items.sort(key=lambda x: (x.get("score", 0), x.get("fetched", "")), reverse=True)
     all_items = all_items[:MAX_ITEMS_KEPT]
 

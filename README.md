@@ -1,7 +1,7 @@
 # ACD Spatial Radar
 
 A self-updating news radar for Advanced Cell Diagnostics / Bio-Techne Spatial field sales.
-A scheduled GitHub Actions job pulls RSS feeds, PubMed, and NIH RePORTER every 6 hours,
+A GitHub Actions job (run manually from the Actions tab) pulls RSS feeds, PubMed, and NIH RePORTER,
 scores each new item for relevance via the Claude API, and writes `data.json`.
 GitHub Pages serves the dashboard, which reads that file.
 
@@ -35,9 +35,12 @@ No server to run. No hosting bill. The only cost is a few cents of Claude API us
    Actions tab > "Fetch and score spatial news" > Run workflow.
    When it finishes it will have updated `data.json` and the dashboard will show real items.
 
-After that it runs itself every 6 hours. Adjust the cadence by editing the `cron` line in `fetch.yml`.
+It runs only when you trigger it manually (Actions tab > Run workflow). To re-enable a schedule later, add a `schedule:` block back to `fetch.yml`.
 
 ## Tuning
+
+- **Score threshold:** items scoring below `MIN_SCORE` (currently 30) in `fetch_and_score.py` are dropped and never shown. Raise or lower that one constant to taste.
+- **Competitors tracked:** Molecular Instruments, 10x Genomics, Bruker/NanoString, Vizgen, Akoya/Quanterix, Navinci, plus adjacent imaging vendors. Edit the competitor block in the scoring prompt to add or remove.
 
 - **Add or change sources:** edit `sources.json`. RSS entries just need a `name`, `url`, and `category_hint`. A broken feed is logged and skipped, it will not break the run.
 - **Change what counts as relevant:** edit the `SCORING_SYSTEM` text in `fetch_and_score.py`. That prompt is the brain.

@@ -9,6 +9,10 @@
     "single molecule FISH",
     "smFISH",
     "MERFISH",
+    "HCR",
+    "hybridization chain reaction",
+    "RNA-ISH",
+    "proximity ligation",
     "spatial proteomics",
     "multiplexed imaging",
     "Xenium",
@@ -17,7 +21,8 @@
     "GeoMx",
     "MERSCOPE",
     "PhenoCycler",
-    "CODEX"
+    "CODEX",
+    "Naveni"
   ],
 
   "rss_sources": [
@@ -59,6 +64,41 @@
       "url": "https://www.bio-techne.com/about-us/news-room/rss",
       "category_hint": "Own/Bio-Techne",
       "note": "Feed URL unverified, will skip gracefully if invalid."
+    },
+    {
+      "name": "Molecular Instruments",
+      "type": "rss",
+      "url": "https://www.molecularinstruments.com/news?format=rss",
+      "category_hint": "Competitor Move",
+      "note": "Most direct emerging competitor (HCR vs RNAscope). Feed URL unverified, may need a swap. Site also at hcrimaging.com."
+    },
+    {
+      "name": "Navinci News",
+      "type": "rss",
+      "url": "https://navinci.se/news/feed/",
+      "category_hint": "Competitor Move",
+      "note": "In situ proximity ligation, competes with ProximityScope. Feed URL unverified."
+    },
+    {
+      "name": "Vizgen News",
+      "type": "rss",
+      "url": "https://vizgen.com/feed/",
+      "category_hint": "Competitor Move",
+      "note": "MERSCOPE. Feed URL unverified."
+    },
+    {
+      "name": "Akoya Biosciences",
+      "type": "rss",
+      "url": "https://www.akoyabio.com/feed/",
+      "category_hint": "Competitor Move",
+      "note": "PhenoCycler/CODEX. Feed URL unverified."
+    },
+    {
+      "name": "Visiopharm News",
+      "type": "rss",
+      "url": "https://visiopharm.com/feed/",
+      "category_hint": "Competitor Move",
+      "note": "Image analysis, adjacent ecosystem. Feed URL unverified."
     }
   ],
 
