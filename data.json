@@ -1,7 +1,7 @@
 {
-  "updated": "2026-06-03T12:00:00+00:00",
-  "count": 4,
-  "new_this_run": 4,
+  "updated": "2026-06-03T19:36:46+00:00",
+  "count": 21,
+  "new_this_run": 17,
   "categories": [
     "Competitor Move",
     "Research/Methods",
@@ -51,23 +51,172 @@
       }
     },
     {
-      "id": "smp03",
-      "title": "RNAscope validation of spatial transcriptomics in fibrotic lung",
-      "link": "https://pubmed.ncbi.nlm.nih.gov/0/",
-      "summary": "Nature Communications. RNAscope used as orthogonal validation.",
-      "source": "PubMed",
-      "date": "2026-05-25",
-      "score": 78,
-      "category": "Research/Methods",
-      "why": "High-profile RNAscope validation paper. Strong proof point.",
+      "title": "Vizgen to Debut Spatial Multiomics Roadmap at AGBT 2026",
+      "link": "https://vizgen.com/vizgen-to-debut-spatial-multiomics-roadmap-at-agbt-2026/",
+      "summary": "Vizgen will expand applications of MERSCOPE Ultra™ platform to include spatially-resolved molecular profiling of organoids; company has expansive pipeline and is progressing toward multiple breakthrough capabilities Waltham, Mass. – February 19, 2026 – Vizgen, Inc., a leader in spatial multiomics at single-cell resolution, today announced a series of innovations under development to help accelerate drug discovery, advance understanding of disease progression, and enable new research breakthroughs. The company will present its... The post Vizgen to Debut Spatial Multiomics Roadmap at AGBT 2026 appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Thu, 19 Feb 2026 15:05:01 +0000",
+      "id": "ab0762a99ade95f6",
+      "score": 88,
+      "category": "Competitor Move",
+      "why": "Vizgen expanding MERSCOPE Ultra to organoid spatial multiomics; direct threat to RNAscope positioning in high-value discovery workflows.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
       "territory": "National",
       "region": "National",
+      "fetched": "2026-06-03T19:35:22+00:00"
+    },
+    {
+      "title": "A spatial atlas of the healthy human liver redefines mammalian liver zonation",
+      "link": "https://vizgen.com/a-spatial-atlas-of-the-healthy-human-liver-redefines-mammalian-liver-zonation/",
+      "summary": "Yakubovsky et al., Nature, 2026 A new spatial transcriptomics atlas of the healthy human liver, published in Nature by Yakubovsky and colleagues at the Weizmann Institute of Science with collaborators at Sheba Medical Center and... The post A spatial atlas of the healthy human liver redefines mammalian liver zonation appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Sun, 24 May 2026 08:49:03 +0000",
+      "id": "cdac4a980660de3f",
+      "score": 87,
+      "category": "Competitor Move",
+      "why": "Vizgen MERSCOPE used for high-profile Nature liver atlas; establishes Vizgen in premium tissue mapping. Track Weizmann/Sheba for RNAscope competitive positioning.",
       "subscores": {
-        "relevance": 10,
-        "buying_signal": 5,
-        "competitive_urgency": 3,
-        "recency": 7
-      }
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T19:35:16+00:00"
+    },
+    {
+      "title": "Vizgen Raises $48M to Propel Push in Spatial Biology and Multiomics Tools",
+      "link": "https://vizgen.com/vizgen-raises-48m-to-propel-push-in-spatial-biology-and-multiomics-tools/",
+      "summary": "Ryan Cross ENDPOINTS NEWS Senior Science Correspondent Vizgen, a startup that has developed techniques to map how genes and proteins are expressed across different cells, has raised a $48 million Series E financing to ramp... The post Vizgen Raises $48M to Propel Push in Spatial Biology and Multiomics Tools appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Thu, 08 Jan 2026 13:37:19 +0000",
+      "id": "4e697ecd0e1bfd28",
+      "score": 86,
+      "category": "Competitor Move",
+      "why": "Vizgen Series E $48M signals aggressive expansion of MERSCOPE platform and multiomics capability; direct RNAscope competitive threat.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 9,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T19:35:26+00:00"
+    },
+    {
+      "title": "Five Ways Vizgen Elevated Your Spatial Biology in 2025",
+      "link": "https://vizgen.com/five-ways-vizgen-elevated-your-spatial-biology-in-2025/",
+      "summary": "The post Five Ways Vizgen Elevated Your Spatial Biology in 2025 appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Tue, 06 Jan 2026 07:25:20 +0000",
+      "id": "2425da9aa8bbca42",
+      "score": 85,
+      "category": "Competitor Move",
+      "why": "Vizgen (MERSCOPE) marketing momentum; assess which 2025 improvements threaten RNAscope positioning on speed, multiplexing, or ease-of-use.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T19:35:30+00:00"
+    },
+    {
+      "title": "Vizgen Launches New Panels and AI Segmentation Tools to Advance Spatial Biology Research",
+      "link": "https://vizgen.com/vizgen-launches-new-panels-and-ai-segmentation-tools-to-advance-spatial-biology-research/",
+      "summary": "Pre-designed and Add-on gene panels are a new means of accessing Vizgen’s validation and customization capabilities Extended range of cell segmentation models reflective of ongoing initiative to streamline advanced downstream analysis Waltham, Mass. – April... The post Vizgen Launches New Panels and AI Segmentation Tools to Advance Spatial Biology Research appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Wed, 15 Apr 2026 08:56:29 +0000",
+      "id": "c5d80cc4824bdd3a",
+      "score": 84,
+      "category": "Competitor Move",
+      "why": "Vizgen expands MERSCOPE gene panels and AI segmentation-direct threat to RNAscope workflow efficiency and ease-of-use positioning.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 9,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T19:35:17+00:00"
+    },
+    {
+      "title": "Vizgen Raises $48M in Financing to Fuel Commercial Growth, Path to Profitability",
+      "link": "https://vizgen.com/vizgen-raises-48m-in-financing-to-fuel-commercial-growth-path-to-profitability/",
+      "summary": "Jan 08, 2026 | Huanjia Zhang NEW YORK – Vizgen said on Thursday that it has closed a $48 million financing round to further support its commercial growth. The round was led by Arch Venture Partners, M... The post Vizgen Raises $48M in Financing to Fuel Commercial Growth, Path to Profitability appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Thu, 08 Jan 2026 22:34:27 +0000",
+      "id": "cd018b9ee663b0a3",
+      "score": 83,
+      "category": "Competitor Move",
+      "why": "Vizgen (MERSCOPE) secures $48M Series C funding to accelerate commercial expansion; direct spatial transcriptomics competitor fueling sales/market penetration.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 3,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T19:35:23+00:00"
+    },
+    {
+      "title": "Vizgen Announces $48 Million Financing",
+      "link": "https://vizgen.com/vizgen-announces-48-million-financing/",
+      "summary": "Waltham, Mass. – January 8, 2026 – Vizgen, Inc., a leader in spatial multiomics, today announced the closing of a $48 million financing. The financing was led by ARCH Venture Partners and co-led by M Ventures... The post Vizgen Announces $48 Million Financing appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Thu, 08 Jan 2026 12:25:14 +0000",
+      "id": "8efe2d726e56407a",
+      "score": 82,
+      "category": "Competitor Move",
+      "why": "Vizgen MERSCOPE secures $48M Series C; expect accelerated market push, new features, or aggressive sales targeting RNAscope accounts. Monitor closely.",
+      "subscores": {
+        "relevance": 8,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T19:35:29+00:00"
+    },
+    {
+      "title": "Looking Ahead to 2026: A Vizgen View from Our CEO",
+      "link": "https://vizgen.com/looking-ahead-to-2026-a-vizgen-view-from-our-ceo/",
+      "summary": "Dear Vizgen Family, At Vizgen, 2025 was one of both significant evolution and steadfastness. We bolstered our protein and co-detection capabilities, successfully resolved our prior litigation and introduced new, class-leading chemistry. At the same time, we moved – as always, with speed –... The post Looking Ahead to 2026: A Vizgen View from Our CEO appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Thu, 08 Jan 2026 22:20:30 +0000",
+      "id": "331bec6dc5ab5caf",
+      "score": 82,
+      "category": "Competitor Move",
+      "why": "Vizgen CEO highlights new protein co-detection chemistry and expanded capabilities for MERSCOPE platform entering 2026.",
+      "subscores": {
+        "relevance": 8,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T19:35:25+00:00"
     },
     {
       "id": "smp04",
@@ -90,6 +239,214 @@
         "competitive_urgency": 2,
         "recency": 6
       }
+    },
+    {
+      "id": "smp03",
+      "title": "RNAscope validation of spatial transcriptomics in fibrotic lung",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/0/",
+      "summary": "Nature Communications. RNAscope used as orthogonal validation.",
+      "source": "PubMed",
+      "date": "2026-05-25",
+      "score": 78,
+      "category": "Research/Methods",
+      "why": "High-profile RNAscope validation paper. Strong proof point.",
+      "territory": "National",
+      "region": "National",
+      "subscores": {
+        "relevance": 10,
+        "buying_signal": 5,
+        "competitive_urgency": 3,
+        "recency": 7
+      }
+    },
+    {
+      "title": "AGBT: Spatial Biology Field ‘Maturing’ as Updates Well-Received, if Not Flashy",
+      "link": "https://vizgen.com/agbt-spatial-biology-field-maturing-as-updates-well-received-if-not-flashy/",
+      "summary": "Mar 04, 2026 | Andrew P. Han | Huanjia Zhang NEW YORK – New developments in spatial biology technology had a muted reception at this year’s Advances in Genome Biology and Technology general meeting, as... The post AGBT: Spatial Biology Field ‘Maturing’ as Updates Well-Received, if Not Flashy appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Wed, 04 Mar 2026 20:52:47 +0000",
+      "id": "8041d5b2bf4c7d49",
+      "score": 63,
+      "category": "Competitor Move",
+      "why": "Vizgen signals field maturation at AGBT; monitor for MERSCOPE updates, positioning shifts, and competitive narrative momentum in spatial biology.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 4,
+        "competitive_urgency": 6,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T19:35:20+00:00"
+    },
+    {
+      "title": "Vizgen Founder Professor Xiaowei Zhuang Awarded 2026 Ernest Solvay Prize",
+      "link": "https://vizgen.com/vizgen-founder-professor-xiaowei-zhuang-awarded-2026-ernest-solvay-prize/",
+      "summary": "Prize celebrates breakthrough work that resulted in the MERSCOPE® Platform Waltham, Mass. – March 31, 2026 – Xiaowei Zhuang, PhD, the David B. Arnold, Jr. Professor of Science at Harvard University and Howard Hughes Medical... The post Vizgen Founder Professor Xiaowei Zhuang Awarded 2026 Ernest Solvay Prize appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Wed, 01 Apr 2026 06:51:48 +0000",
+      "id": "d58e1651885bf9be",
+      "score": 62,
+      "category": "Competitor Move",
+      "why": "Vizgen founder Zhuang wins Ernest Solvay Prize for MERSCOPE; reinforces competitor's thought leadership and platform validation in spatial transcriptomics.",
+      "subscores": {
+        "relevance": 8,
+        "buying_signal": 3,
+        "competitive_urgency": 7,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T19:35:19+00:00"
+    },
+    {
+      "title": "A spatial in situ hybridization approach to T cell clonotype analysis using T cell receptor variable gene probes.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42228574/",
+      "summary": "Cell Rep. Cell reports",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 1",
+      "id": "5153a7633fd71b83",
+      "score": 59,
+      "category": "Research/Methods",
+      "why": "Published spatial ISH method for TCR clonotype mapping in situ; active academic group, likely RNAscope or smFISH user, moderate prospecting signal.",
+      "subscores": {
+        "relevance": 8,
+        "buying_signal": 6,
+        "competitive_urgency": 0,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T19:36:14+00:00"
+    },
+    {
+      "title": "Tumour architecture shapes polarized epithelial states that predict survival in high-grade serous ovarian cancer",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.27.727977v1?rss=1",
+      "summary": "Epithelial heterogeneity defines high-grade serous ovarian carcinoma (HGSC), yet principles that generate this diversity within and across tumours remain unclear. Integrating single-cell RNA sequencing (scRNA-seq) data from 13 studies (1,980,703 cells, 371 samples), we resolve a dominant axis of secretory cell polarization spanning proliferative, progenitor-like SecA cells and quiescent SecB cells expressing a mucosal injury response program. Targeted spatial transcriptomics across 8 whole HGSC tissues and a 97-patient tissue microarray shows this axis is spatially deterministic: tumour architecture shapes a hypoxic gradient along which SecB cells localize to avascular, luminal regions, where HIF/NF-{kappa}B-driven survival and glycolysis displace the mitogenic signalling of SecA. Within this niche, SecB cells rewire adhesion, ECM-remodelling, and immune-regulatory programs. Transcriptionally reprogrammed macrophages are enriched in this niche, while lymphocytes are excluded or dysfunctional. These cells assemble a coordinated multicellular niche poised for dissemination. SecB cells are enriched both in ascites and after chemotherapy, and are progressively lost in patientderived or",
+      "source": "bioRxiv (Cancer Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-01",
+      "id": "9975c8ee6631d45f",
+      "score": 59,
+      "category": "Research/Methods",
+      "why": "Spatial transcriptomics across 8 HGSC tissues; resolves epithelial polarization axis in tumor architecture using in situ spatial methods.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 6,
+        "competitive_urgency": 0,
+        "recency": 5
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T19:34:46+00:00"
+    },
+    {
+      "title": "Spatial Neuroimmune Crosstalk Driving Perineural Invasion in Head and Neck Squamous Cell Carcinoma",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.26.727931v1?rss=1",
+      "summary": "BackgroundPerineural invasion (PNI) is a clinically important feature of aggressive head and neck squamous cell carcinoma (HNSCC) and is associated with recurrence and poor survival. However, the spatial organization and molecular programs that characterize tumor-nerve interactions in HNSCC remain incompletely understood. MethodsSingle-cell-resolution Xenium spatial transcriptomic data from 10 HNSCC patients were analyzed to define nerve-associated regions, cell-type composition, tumor-nerve proximity, and perineural transcriptional programs. Complementary Visium spatial transcriptomic datasets were used to assess broader transcriptomic features of nerve-associated regions, including epithelial-mesenchymal transition and inferred ligand-receptor signaling. Clinical relevance was evaluated using bulk transcriptomic validation cohorts from TCGA-HNSC and GSE65858. ResultsSpatial mapping identified a distinct nerve-proximal microenvironment characterized by depletion of mature dendritic cells and altered immune and stromal composition, consistent with localized disruption of antigen-presenting support at the tumor-nerve interface. HPV- tumors exhibited closer tumor-nerve proximity and ",
+      "source": "bioRxiv (Cancer Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-05-29",
+      "id": "52ed99e4c10e4d6b",
+      "score": 57,
+      "category": "Research/Methods",
+      "why": "10x Xenium study of HNSCC perineural invasion using spatial transcriptomics; competitive platform validation but no RNAscope or smFISH multiplexing mentioned.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 7,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T19:35:08+00:00"
+    },
+    {
+      "title": "Alveolar niche disruption and aberrant epithelial reprogramming are early hallmarks of idiopathic pulmonary fibrosis",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.27.727792v1?rss=1",
+      "summary": "Idiopathic pulmonary fibrosis (IPF) is a progressive interstitial lung disease in which the earliest cellular events driving fibrosis remain poorly defined. Here, we analyzed lung samples from three independent and unique cohorts of patients with early disease and preserved lung function (Florence, NIH, Forli), applying an integrated multi-modal approach combining single-nucleus RNA sequencing, bulk transcriptomics, immunostaining, and spatial transcriptomics. Single nuclear RNA sequencing of samples obtained by diagnostic bronchoscopic cryobiopsy (Florence, n= 22) revealed that early IPF is characterized by a marked shift in alveolar epithelial composition, with loss of AT1 and AT2 cells and the emergence of aberrant basaloid cells and alveolar epithelial intermediate cells. These populations exhibited transcriptional programs associated with epithelial plasticity and profibrotic signaling and closely resembled those observed in end-stage IPF. Higher proportions of aberrant basaloid and alveolar epithelial intermediate cells were associated with subsequent disease progression, whereas AT2 cell abundance correlated with preserved lung function. Fibrotic CTHRC1+ fibroblasts are larg",
+      "source": "bioRxiv (Genomics)",
+      "category_hint": "Research/Methods",
+      "date": "2026-05-30",
+      "id": "2f5a3d725d0e57b2",
+      "score": 57,
+      "category": "Research/Methods",
+      "why": "IPF study uses spatial transcriptomics alongside snRNA-seq and immunostaining; lung tissue research relevant to RNAscope user base but methods unclear.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 6,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T19:33:12+00:00"
+    },
+    {
+      "title": "Iron-deficiency in the tumor microenvironment reprograms tumor-immune interactions in a sex biased manner",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.29.728615v1?rss=1",
+      "summary": "Background: Glioblastoma (GBM) is a sex-biased disease characterized by higher incidence and poorer survival in males. These sex differences are primarily driven by metabolic and immune signatures, with iron metabolism playing a major role. While iron is essential for tumor cell proliferation, it is also critical for T cell recruitment and function within the tumor microenvironment (TME). Clinical data indicates that iron deficiency impacts GBM survival in a sex-biased manner; however, the underlying mechanisms remain unexplored. Methods: We employed a FTH1 heterozygous knockdown mouse model to induce tumor iron deficiency in GBM-bearing mice. TME dynamics were interrogated using flow cytometry and spatial transcriptomics (10X Xenium) to analyze immune infiltration, localization, and ligand-receptor signaling between GBM and immune cells. Results: FTH1 knockdown resulted in iron deficiency in the GBM TME. Iron deficiency altered the TME dynamics in a sex biased manner. FTH1 knockdown in females caused an anti-inflammatory, cytokine deficient TME which failed to recruit CD4 and CD8 T cells. In males, FTH1 knockdown caused a proinflammatory environment by activating the innate immune",
+      "source": "bioRxiv (Cancer Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-02",
+      "id": "9f4bab161c44a87f",
+      "score": 52,
+      "category": "Competitor Move",
+      "why": "Active lab using 10X Xenium for spatial transcriptomics in GBM immune profiling; watch for RNAscope validation needs or Xenium expansion.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 3,
+        "competitive_urgency": 7,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T19:34:34+00:00"
+    },
+    {
+      "title": "Transcriptomic, Specific Marker, and Pathway Analysis of Smooth Muscle Cell Foam Cells Compared to Macrophage Foam Cells in Human Atherosclerosis",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.27.728334v1?rss=1",
+      "summary": "BACKGROUND: Smooth muscle cells (SMCs) comprise the majority of cells in human atherosclerotic lesions and are thought to be a major source of cholesterol-overloaded foam cells in human and mouse atheromas. However, the transcriptomic profile, specific markers, and biologic itinerary of SMC foam cells relative to macrophage foam cells remain poorly defined. METHODS: Single-cell RNA sequencing (scRNA-seq) was performed on fresh coronary artery segments from heart transplant recipients with early- to intermediate-stage atherosclerosis. Gene expression in a putative SMC foam cell cluster was compared with cultured SMCs loaded with aggregated low-density lipoprotein (agLDL) or cholesterol-methyl-{beta}-cyclodextrin (Chol-M{beta}CD). Candidate markers distinguishing SMC from macrophage foam cells were validated using additional publicly-available scRNA-seq datasets, Xenium spatial transcriptomics, and immunofluorescence microscopy of human coronary atheromas. Pathway analysis was performed using Gene Set Enrichment Analysis Hallmark gene sets. RESULTS: A distinct SMC foam cell cluster derived from fibromyocytes ('lipomyocytes') was identified using markers induced by in vitro cholestero",
+      "source": "bioRxiv (Genomics)",
+      "category_hint": "Research/Methods",
+      "date": "2026-05-30",
+      "id": "8f52e04441fa84a5",
+      "score": 52,
+      "category": "Research/Methods",
+      "why": "Atherosclerosis scRNA-seq validated with Xenium spatial transcriptomics; academic rigor but no RNAscope or ISH method focus.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 3,
+        "recency": 7
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T19:33:22+00:00"
+    },
+    {
+      "title": "A spatial transit-retention axis reveals adaptive immune organisation in psoriatic disease.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42228270/",
+      "summary": "Mol Cell Biochem. Molecular and cellular biochemistry",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 2",
+      "id": "180eeb7fbab8bdc6",
+      "score": 32,
+      "category": "Research/Methods",
+      "why": "Psoriasis immunology study likely uses spatial methods; no RNAscope, smFISH, or in situ detail evident from title/abstract.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 0,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T19:36:17+00:00"
     }
   ]
 }
