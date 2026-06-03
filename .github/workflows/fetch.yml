@@ -1,0 +1,38 @@
+name: Fetch and score spatial news
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run fetch and score
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/fetch_and_score.py
+
+      - name: Commit updated data
+        run: |
+          git config user.name "spatial-radar-bot"
+          git config user.email "actions@github.com"
+          git add data.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update spatial news data [skip ci]"
+            git push
+          fi
