@@ -1,7 +1,397 @@
 {
-  "updated": "",
-  "count": 0,
-  "new_this_run": 0,
-  "categories": ["Competitor Move", "Research/Methods", "Funded Lab", "Own/Bio-Techne"],
-  "items": []
+  "updated": "2026-06-03T21:19:18+00:00",
+  "count": 18,
+  "new_this_run": 18,
+  "categories": [
+    "Competitor Move",
+    "Research/Methods",
+    "Funded Lab",
+    "Own/Bio-Techne"
+  ],
+  "items": [
+    {
+      "title": "Vizgen Launches New Panels and AI Segmentation Tools to Advance Spatial Biology Research",
+      "link": "https://vizgen.com/vizgen-launches-new-panels-and-ai-segmentation-tools-to-advance-spatial-biology-research/",
+      "summary": "Pre-designed and Add-on gene panels are a new means of accessing Vizgen’s validation and customization capabilities Extended range of cell segmentation models reflective of ongoing initiative to streamline advanced downstream analysis Waltham, Mass. – April... The post Vizgen Launches New Panels and AI Segmentation Tools to Advance Spatial Biology Research appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Wed, 15 Apr 2026 08:56:29 +0000",
+      "id": "c5d80cc4824bdd3a",
+      "score": 87,
+      "category": "Competitor Move",
+      "why": "Vizgen expands MERSCOPE with pre-designed panels and AI segmentation, directly competing on ease-of-use and throughput vs. RNAscope custom design workflows.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:17:51+00:00"
+    },
+    {
+      "title": "A spatial atlas of the healthy human liver redefines mammalian liver zonation",
+      "link": "https://vizgen.com/a-spatial-atlas-of-the-healthy-human-liver-redefines-mammalian-liver-zonation/",
+      "summary": "Yakubovsky et al., Nature, 2026 A new spatial transcriptomics atlas of the healthy human liver, published in Nature by Yakubovsky and colleagues at the Weizmann Institute of Science with collaborators at Sheba Medical Center and... The post A spatial atlas of the healthy human liver redefines mammalian liver zonation appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Sun, 24 May 2026 08:49:03 +0000",
+      "id": "cdac4a980660de3f",
+      "score": 83,
+      "category": "Competitor Move",
+      "why": "Vizgen-driven Nature paper on liver zonation with MERSCOPE; high-impact validation of competitor platform in a major tissue.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 8,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:17:49+00:00"
+    },
+    {
+      "title": "EX-99.1: BRUKER CORP  (BRKR, BRKRP)  (CIK 0001109354)",
+      "link": "https://www.sec.gov/cgi-bin/browse-edgar",
+      "summary": "BRUKER CORP  (BRKR, BRKRP)  (CIK 0001109354) filed a EX-99.1. Mentions: spatial transcriptomics OR multiplexed imaging OR spatial biology.",
+      "source": "SEC EDGAR",
+      "category_hint": "Competitor Move",
+      "date": "2026-04-01",
+      "institution": "BRUKER CORP  (BRKR, BRKRP)  (CIK 0001109354)",
+      "id": "3263e311d3171ea8",
+      "score": 81,
+      "category": "Competitor Move",
+      "why": "Bruker spatial transcriptomics or multiplexed imaging filing signals product, partnership, or market positioning update. Monitor for CosMx/GeoMx competitive threat or bundling strategy.",
+      "subscores": {
+        "relevance": 8,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:19:11+00:00"
+    },
+    {
+      "title": "10-Q: BRUKER CORP  (BRKR, BRKRP)  (CIK 0001109354)",
+      "link": "https://www.sec.gov/cgi-bin/browse-edgar",
+      "summary": "BRUKER CORP  (BRKR, BRKRP)  (CIK 0001109354) filed a 10-Q. Mentions: spatial transcriptomics OR multiplexed imaging OR spatial biology.",
+      "source": "SEC EDGAR",
+      "category_hint": "Competitor Move",
+      "date": "2026-05-07",
+      "institution": "BRUKER CORP  (BRKR, BRKRP)  (CIK 0001109354)",
+      "id": "602c69367ea90725",
+      "score": 73,
+      "category": "Competitor Move",
+      "why": "Bruker spatial transcriptomics portfolio (CosMx, GeoMx) under active commercial push. Monitor Q growth, pricing moves, and new instrument launches.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 6,
+        "competitive_urgency": 8,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:19:14+00:00"
+    },
+    {
+      "title": "EX-99.1: 10x Genomics, Inc.  (TXG)  (CIK 0001770787)",
+      "link": "https://www.sec.gov/cgi-bin/browse-edgar",
+      "summary": "10x Genomics, Inc.  (TXG)  (CIK 0001770787) filed a EX-99.1. Mentions: spatial transcriptomics OR multiplexed imaging OR spatial biology.",
+      "source": "SEC EDGAR",
+      "category_hint": "Competitor Move",
+      "date": "2026-05-07",
+      "institution": "10x Genomics, Inc.  (TXG)  (CIK 0001770787)",
+      "id": "d2f2a942f7481a8c",
+      "score": 73,
+      "category": "Competitor Move",
+      "why": "10x Genomics spatial transcriptomics (Xenium/Visium) remains direct RNAscope/smFISH competitor. SEC filing likely signals strategic shift, partnership, or market repositioning-field must monitor.",
+      "subscores": {
+        "relevance": 8,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 2
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:19:13+00:00"
+    },
+    {
+      "title": "10-Q: 10x Genomics, Inc.  (TXG)  (CIK 0001770787)",
+      "link": "https://www.sec.gov/cgi-bin/browse-edgar",
+      "summary": "10x Genomics, Inc.  (TXG)  (CIK 0001770787) filed a 10-Q. Mentions: spatial transcriptomics OR multiplexed imaging OR spatial biology.",
+      "source": "SEC EDGAR",
+      "category_hint": "Competitor Move",
+      "date": "2026-05-08",
+      "institution": "10x Genomics, Inc.  (TXG)  (CIK 0001770787)",
+      "id": "f242cfbbc04612be",
+      "score": 68,
+      "category": "Competitor Move",
+      "why": "10x Genomics quarterly filing; monitor Xenium spatial transcriptomics pipeline, pricing, and market positioning against RNAscope.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 5,
+        "competitive_urgency": 8,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:19:06+00:00"
+    },
+    {
+      "title": "Vizgen Founder Professor Xiaowei Zhuang Awarded 2026 Ernest Solvay Prize",
+      "link": "https://vizgen.com/vizgen-founder-professor-xiaowei-zhuang-awarded-2026-ernest-solvay-prize/",
+      "summary": "Prize celebrates breakthrough work that resulted in the MERSCOPE® Platform Waltham, Mass. – March 31, 2026 – Xiaowei Zhuang, PhD, the David B. Arnold, Jr. Professor of Science at Harvard University and Howard Hughes Medical... The post Vizgen Founder Professor Xiaowei Zhuang Awarded 2026 Ernest Solvay Prize appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Wed, 01 Apr 2026 06:51:48 +0000",
+      "id": "d58e1651885bf9be",
+      "score": 65,
+      "category": "Competitor Move",
+      "why": "Vizgen founder Zhuang wins Ernest Solvay Prize for MERSCOPE breakthrough; signals competitor prestige and reinforces market positioning against RNAscope.",
+      "subscores": {
+        "relevance": 8,
+        "buying_signal": 3,
+        "competitive_urgency": 7,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:17:52+00:00"
+    },
+    {
+      "title": "Tumour architecture shapes polarized epithelial states that predict survival in high-grade serous ovarian cancer",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.27.727977v1?rss=1",
+      "summary": "Epithelial heterogeneity defines high-grade serous ovarian carcinoma (HGSC), yet principles that generate this diversity within and across tumours remain unclear. Integrating single-cell RNA sequencing (scRNA-seq) data from 13 studies (1,980,703 cells, 371 samples), we resolve a dominant axis of secretory cell polarization spanning proliferative, progenitor-like SecA cells and quiescent SecB cells expressing a mucosal injury response program. Targeted spatial transcriptomics across 8 whole HGSC tissues and a 97-patient tissue microarray shows this axis is spatially deterministic: tumour architecture shapes a hypoxic gradient along which SecB cells localize to avascular, luminal regions, where HIF/NF-{kappa}B-driven survival and glycolysis displace the mitogenic signalling of SecA. Within this niche, SecB cells rewire adhesion, ECM-remodelling, and immune-regulatory programs. Transcriptionally reprogrammed macrophages are enriched in this niche, while lymphocytes are excluded or dysfunctional. These cells assemble a coordinated multicellular niche poised for dissemination. SecB cells are enriched both in ascites and after chemotherapy, and are progressively lost in patientderived or",
+      "source": "bioRxiv (Cancer Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-01",
+      "id": "9975c8ee6631d45f",
+      "score": 62,
+      "category": "Research/Methods",
+      "why": "Spatial transcriptomics study of HGSC with tissue microarray validation; identifies polarized epithelial states and niche biology relevant to immuno-oncology labs.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 6,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:17:17+00:00"
+    },
+    {
+      "title": "Alveolar niche disruption and aberrant epithelial reprogramming are early hallmarks of idiopathic pulmonary fibrosis",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.27.727792v1?rss=1",
+      "summary": "Idiopathic pulmonary fibrosis (IPF) is a progressive interstitial lung disease in which the earliest cellular events driving fibrosis remain poorly defined. Here, we analyzed lung samples from three independent and unique cohorts of patients with early disease and preserved lung function (Florence, NIH, Forli), applying an integrated multi-modal approach combining single-nucleus RNA sequencing, bulk transcriptomics, immunostaining, and spatial transcriptomics. Single nuclear RNA sequencing of samples obtained by diagnostic bronchoscopic cryobiopsy (Florence, n= 22) revealed that early IPF is characterized by a marked shift in alveolar epithelial composition, with loss of AT1 and AT2 cells and the emergence of aberrant basaloid cells and alveolar epithelial intermediate cells. These populations exhibited transcriptional programs associated with epithelial plasticity and profibrotic signaling and closely resembled those observed in end-stage IPF. Higher proportions of aberrant basaloid and alveolar epithelial intermediate cells were associated with subsequent disease progression, whereas AT2 cell abundance correlated with preserved lung function. Fibrotic CTHRC1+ fibroblasts are larg",
+      "source": "bioRxiv (Genomics)",
+      "category_hint": "Research/Methods",
+      "date": "2026-05-30",
+      "id": "2f5a3d725d0e57b2",
+      "score": 62,
+      "category": "Research/Methods",
+      "why": "IPF study uses spatial transcriptomics plus snRNA-seq to map early disease; lung research cohort signals potential RNAscope validation studies for AT1/AT2/basaloid markers.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 6,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:15:41+00:00"
+    },
+    {
+      "title": "A spatial in situ hybridization approach to T cell clonotype analysis using T cell receptor variable gene probes.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42228574/",
+      "summary": "Cell Rep. Cell reports",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 1",
+      "id": "5153a7633fd71b83",
+      "score": 61,
+      "category": "Research/Methods",
+      "why": "Published spatial ISH method for TCR clonotype mapping; demonstrates active use case for multiplexed in situ but no clear PI, institution, or funding signal for outreach.",
+      "subscores": {
+        "relevance": 8,
+        "buying_signal": 6,
+        "competitive_urgency": 2,
+        "recency": 2
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:18:25+00:00"
+    },
+    {
+      "title": "Spatial Neuroimmune Crosstalk Driving Perineural Invasion in Head and Neck Squamous Cell Carcinoma",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.26.727931v1?rss=1",
+      "summary": "BackgroundPerineural invasion (PNI) is a clinically important feature of aggressive head and neck squamous cell carcinoma (HNSCC) and is associated with recurrence and poor survival. However, the spatial organization and molecular programs that characterize tumor-nerve interactions in HNSCC remain incompletely understood. MethodsSingle-cell-resolution Xenium spatial transcriptomic data from 10 HNSCC patients were analyzed to define nerve-associated regions, cell-type composition, tumor-nerve proximity, and perineural transcriptional programs. Complementary Visium spatial transcriptomic datasets were used to assess broader transcriptomic features of nerve-associated regions, including epithelial-mesenchymal transition and inferred ligand-receptor signaling. Clinical relevance was evaluated using bulk transcriptomic validation cohorts from TCGA-HNSC and GSE65858. ResultsSpatial mapping identified a distinct nerve-proximal microenvironment characterized by depletion of mature dendritic cells and altered immune and stromal composition, consistent with localized disruption of antigen-presenting support at the tumor-nerve interface. HPV- tumors exhibited closer tumor-nerve proximity and ",
+      "source": "bioRxiv (Cancer Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-05-29",
+      "id": "52ed99e4c10e4d6b",
+      "score": 59,
+      "category": "Competitor Move",
+      "why": "10x Xenium used as primary spatial method in HNSCC neuroimmune study; Visium complementary. Direct competitor deployed at scale.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 8,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:17:46+00:00"
+    },
+    {
+      "title": "Iron-deficiency in the tumor microenvironment reprograms tumor-immune interactions in a sex biased manner",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.29.728615v1?rss=1",
+      "summary": "Background: Glioblastoma (GBM) is a sex-biased disease characterized by higher incidence and poorer survival in males. These sex differences are primarily driven by metabolic and immune signatures, with iron metabolism playing a major role. While iron is essential for tumor cell proliferation, it is also critical for T cell recruitment and function within the tumor microenvironment (TME). Clinical data indicates that iron deficiency impacts GBM survival in a sex-biased manner; however, the underlying mechanisms remain unexplored. Methods: We employed a FTH1 heterozygous knockdown mouse model to induce tumor iron deficiency in GBM-bearing mice. TME dynamics were interrogated using flow cytometry and spatial transcriptomics (10X Xenium) to analyze immune infiltration, localization, and ligand-receptor signaling between GBM and immune cells. Results: FTH1 knockdown resulted in iron deficiency in the GBM TME. Iron deficiency altered the TME dynamics in a sex biased manner. FTH1 knockdown in females caused an anti-inflammatory, cytokine deficient TME which failed to recruit CD4 and CD8 T cells. In males, FTH1 knockdown caused a proinflammatory environment by activating the innate immune",
+      "source": "bioRxiv (Cancer Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-02",
+      "id": "9f4bab161c44a87f",
+      "score": 56,
+      "category": "Competitor Move",
+      "why": "Active lab using 10X Xenium for spatial transcriptomics in GBM immune profiling; competitive platform gaining traction in TME research.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 7,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:17:00+00:00"
+    },
+    {
+      "title": "10-K: STANDARD BIOTOOLS INC.  (LAB)  (CIK 0001162194)",
+      "link": "https://www.sec.gov/cgi-bin/browse-edgar",
+      "summary": "STANDARD BIOTOOLS INC.  (LAB)  (CIK 0001162194) filed a 10-K. Mentions: spatial transcriptomics OR multiplexed imaging OR spatial biology.",
+      "source": "SEC EDGAR",
+      "category_hint": "Competitor Move",
+      "date": "2026-03-16",
+      "institution": "STANDARD BIOTOOLS INC.  (LAB)  (CIK 0001162194)",
+      "id": "8d9cc8cbede5f46b",
+      "score": 52,
+      "category": "Competitor Move",
+      "why": "Standard BioTools (Hyperion imaging mass cytometry) competes in spatial proteomics; 10-K filing signals financial health and strategic direction. Review for new partnerships or market positioning shifts.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 7,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:19:18+00:00"
+    },
+    {
+      "title": "Spatially confined niches support hypoxia-associated transcriptional plasticity contributing to malignant progression in IDH-mutant gliomas",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.31.729105v1?rss=1",
+      "summary": "Background While hypoxia is a well-established driver of glioblastoma progression, its role in IDH-mutant gliomas, characterized by localized hypoxic microenvironments rather than overt necrosis, remains poorly understood. Here, we investigate how hypoxia and microenvironmental-adaptations shape cellular heterogeneity and transcriptional plasticity in these tumors. Methods We integrated bulk, single-cell, and spatial-transcriptomics datasets from IDH-mutant glioma patients (Astrocytomas and Oligodendrogliomas) to characterize cellular-states and map the localization of hypoxic niches. To uncover tumor microenvironment effects, we established co-culture models using primary IDH-mutant glioma cells with human microglia and astrocytes, maintained under hypoxic and normoxic conditions, followed by bulk RNA-sequencing. Results We identified a hypoxia-associated astrocyte-like (AC-like) program that defines a quiescent, non-cycling population with a distinct transcription factor profile indicative of functional plasticity in IDH-mutant gliomas. These cells harbor glioma stem cell (GSC)-like features and are poised for a quiescent-to-activated (Q-to-A) transition that drives tumor progres",
+      "source": "bioRxiv (Cancer Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-03",
+      "id": "b422fa7fcbdb0199",
+      "score": 42,
+      "category": "Research/Methods",
+      "why": "Spatial transcriptomics study of IDH-mutant gliomas; integrated spatial datasets but no mention of RNAscope, smFISH, or spatial ISH validation or methods.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:16:51+00:00"
+    },
+    {
+      "title": "Transcriptomic, Specific Marker, and Pathway Analysis of Smooth Muscle Cell Foam Cells Compared to Macrophage Foam Cells in Human Atherosclerosis",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.27.728334v1?rss=1",
+      "summary": "BACKGROUND: Smooth muscle cells (SMCs) comprise the majority of cells in human atherosclerotic lesions and are thought to be a major source of cholesterol-overloaded foam cells in human and mouse atheromas. However, the transcriptomic profile, specific markers, and biologic itinerary of SMC foam cells relative to macrophage foam cells remain poorly defined. METHODS: Single-cell RNA sequencing (scRNA-seq) was performed on fresh coronary artery segments from heart transplant recipients with early- to intermediate-stage atherosclerosis. Gene expression in a putative SMC foam cell cluster was compared with cultured SMCs loaded with aggregated low-density lipoprotein (agLDL) or cholesterol-methyl-{beta}-cyclodextrin (Chol-M{beta}CD). Candidate markers distinguishing SMC from macrophage foam cells were validated using additional publicly-available scRNA-seq datasets, Xenium spatial transcriptomics, and immunofluorescence microscopy of human coronary atheromas. Pathway analysis was performed using Gene Set Enrichment Analysis Hallmark gene sets. RESULTS: A distinct SMC foam cell cluster derived from fibromyocytes ('lipomyocytes') was identified using markers induced by in vitro cholestero",
+      "source": "bioRxiv (Genomics)",
+      "category_hint": "Research/Methods",
+      "date": "2026-05-30",
+      "id": "8f52e04441fa84a5",
+      "score": 42,
+      "category": "Research/Methods",
+      "why": "Uses Xenium spatial transcriptomics to validate foam cell markers in atherosclerotic tissue; active spatial methods but no RNAscope or smFISH use.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:15:50+00:00"
+    },
+    {
+      "title": "A spatial transit-retention axis reveals adaptive immune organisation in psoriatic disease.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42228270/",
+      "summary": "Mol Cell Biochem. Molecular and cellular biochemistry",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 2",
+      "id": "180eeb7fbab8bdc6",
+      "score": 38,
+      "category": "Research/Methods",
+      "why": "Psoriatic disease immunology study; likely uses spatial techniques but abstract lacks explicit RNAscope, FISH, or multiplexed imaging mention. Weak buying signal.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 0,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:18:29+00:00"
+    },
+    {
+      "title": "10-Q: BIO-TECHNE Corp  (TECH)  (CIK 0000842023)",
+      "link": "https://www.sec.gov/cgi-bin/browse-edgar",
+      "summary": "BIO-TECHNE Corp  (TECH)  (CIK 0000842023) filed a 10-Q. Mentions: spatial transcriptomics OR multiplexed imaging OR spatial biology.",
+      "source": "SEC EDGAR",
+      "category_hint": "Competitor Move",
+      "date": "2026-05-06",
+      "institution": "BIO-TECHNE Corp  (TECH)  (CIK 0000842023)",
+      "id": "2b9fc57b878590ab",
+      "score": 32,
+      "category": "Own/Bio-Techne",
+      "why": "Bio-Techne 10-Q filing confirms spatial transcriptomics and multiplexed imaging in portfolio; internal strategic signaling, not competitor threat. Flag for pipeline insight only.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 3,
+        "competitive_urgency": 1,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:19:08+00:00"
+    },
+    {
+      "title": "The applications of single cell RNA-seq and spatial transcriptomics in organ transplantation.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42229097/",
+      "summary": "Transplant Rev (Orlando). Transplantation reviews (Orlando, Fla.)",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 1",
+      "id": "d311de61bf422feb",
+      "score": 32,
+      "category": "Research/Methods",
+      "why": "Review of spatial transcriptomics in transplant; identifies organ rejection/tolerance as a use case but lacks concrete lab names or product specifics.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 0,
+        "recency": 0
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-03T21:18:21+00:00"
+    }
+  ]
 }
