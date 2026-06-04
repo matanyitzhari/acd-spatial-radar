@@ -1,7 +1,7 @@
 {
-  "updated": "2026-06-04T00:12:15+00:00",
-  "count": 50,
-  "new_this_run": 19,
+  "updated": "2026-06-04T13:19:58+00:00",
+  "count": 61,
+  "new_this_run": 11,
   "categories": [
     "Competitor Move",
     "Research/Methods",
@@ -433,6 +433,27 @@
       "fetched": "2026-06-03T23:38:21+00:00"
     },
     {
+      "title": "Accelerated amyloid neurodegeneration in HIV-1-infected APP-KI Alzheimer's disease mice.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42239074/",
+      "summary": "bioRxiv. bioRxiv : the preprint server for biology",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 May 19",
+      "id": "72aedd1f5932c724",
+      "score": 67,
+      "category": "Research/Methods",
+      "why": "HIV-AD intersection in transgenic mice requires in situ validation of amyloid, tau, and viral tropism markers; strong RNAscope prospect for neuropathology.",
+      "subscores": {
+        "relevance": 8,
+        "buying_signal": 7,
+        "competitive_urgency": 0,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T13:18:02+00:00"
+    },
+    {
       "title": "Dynamics of HIV Nuclear Interactions",
       "link": "https://reporter.nih.gov/project-details/11325403",
       "summary": "PI: Alan N. Engelman. Institution: . Award: $646,620. ABSTRACT, PROJECT 2 After infecting a cell, HIV reverse transcribes its RNA into viral DNA (vDNA) that integrates into the host cell genome. The vDNA must enter the nucleus to access the host DNA for integration, but how the vDNA gains nuclear entry, migrates to sites of integration, and selects sites of integration are essential yet poorly understood steps in HIV replication. A thorough understanding of how the virus exploits host factors to complete these key steps in replication is needed to identify promising molecular targets for development of new antiretroviral therapies. Following nuclear import, intact viral cores are transported to interchromatin domains called nuclear speckles where they uncoat so that the preintegration complex (PIC) can integrate the vDNA into nearby chromatin",
@@ -542,6 +563,31 @@
       "fetched": "2026-06-03T23:37:17+00:00"
     },
     {
+      "title": "Deep mutational scanning of MYH7 in genome-edited cardiomyocytes",
+      "link": "https://reporter.nih.gov/project-details/11311357",
+      "summary": "PI: Kai-Chun Daniel Yang. Institution: UNIVERSITY OF WASHINGTON. Award: $857,580. Project Summary Hypertrophic cardiomyopathy (HCM) is a heritable hypertrophy of the left ventricle that can present as sudden cardiac death and heart failure. Autosomal dominant missense variants in myosin heavy chain 7 (MYH7) can cause up to 40% of the familial HCM cases. While accurate interpretation of MYH7 variants can help identify patients at risk for developing HCM, there are currently ~1,800 MYH7 missense variants in ClinVar that are variants of unknown significance (VUS), creating diagnostic challenges for clinicians and emotional distress for patients. Furthermore, because clinical guidelines now recommend that all HCM patients undergo genetic testing, the number of MYH7 VUS is growing rapidly. Deep mutational scanning (DMS) can help address the VUS problem by determining the fun",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-05-28T00:00:00",
+      "institution": "UNIVERSITY OF WASHINGTON",
+      "pi": "Kai-Chun Daniel Yang",
+      "state": "WA",
+      "city": "SEATTLE",
+      "id": "5a754436f2419283",
+      "score": 63,
+      "category": "Funded Lab",
+      "why": "Genome-edited cardiomyocytes need MYH7 variant validation in situ; RNAscope validates transgene and splicing outcomes post-editing.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 7,
+        "competitive_urgency": 0,
+        "recency": 9
+      },
+      "territory": "NWA",
+      "region": "West",
+      "fetched": "2026-06-04T13:19:57+00:00"
+    },
+    {
       "title": "Tumour architecture shapes polarized epithelial states that predict survival in high-grade serous ovarian cancer",
       "link": "https://www.biorxiv.org/content/10.64898/2026.05.27.727977v1?rss=1",
       "summary": "Epithelial heterogeneity defines high-grade serous ovarian carcinoma (HGSC), yet principles that generate this diversity within and across tumours remain unclear. Integrating single-cell RNA sequencing (scRNA-seq) data from 13 studies (1,980,703 cells, 371 samples), we resolve a dominant axis of secretory cell polarization spanning proliferative, progenitor-like SecA cells and quiescent SecB cells expressing a mucosal injury response program. Targeted spatial transcriptomics across 8 whole HGSC tissues and a 97-patient tissue microarray shows this axis is spatially deterministic: tumour architecture shapes a hypoxic gradient along which SecB cells localize to avascular, luminal regions, where HIF/NF-{kappa}B-driven survival and glycolysis displace the mitogenic signalling of SecA. Within this niche, SecB cells rewire adhesion, ECM-remodelling, and immune-regulatory programs. Transcriptionally reprogrammed macrophages are enriched in this niche, while lymphocytes are excluded or dysfunctional. These cells assemble a coordinated multicellular niche poised for dissemination. SecB cells are enriched both in ascites and after chemotherapy, and are progressively lost in patientderived or",
@@ -624,6 +670,48 @@
       "territory": "National",
       "region": "National",
       "fetched": "2026-06-03T23:37:08+00:00"
+    },
+    {
+      "title": "Spatially resolved single-cell landscape of tumor immunotypes reveals the central role of interferon signaling and plasmacytoid dendritic cells in triple-negative breast cancer.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42236117/",
+      "summary": "J Immunother Cancer. Journal for immunotherapy of cancer",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 3",
+      "id": "1fac2916b21223b9",
+      "score": 60,
+      "category": "Research/Methods",
+      "why": "Triple-negative breast cancer TME spatial profiling using immunotyping; lab likely needs RNAscope for IFN signaling and cytokine validation in tissue.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 7,
+        "competitive_urgency": 2,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T13:18:17+00:00"
+    },
+    {
+      "title": "Single-fiber morphometry and spatial transcriptomics reveal selective oxidative muscle fiber atrophy in non-metastatic breast cancer.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42238445/",
+      "summary": "medRxiv. medRxiv : the preprint server for health sciences",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 May 20",
+      "id": "0057053ba4995fa5",
+      "score": 59,
+      "category": "Research/Methods",
+      "why": "Spatial transcriptomics on muscle tissue in cancer cachexia; validates fiber-type-specific gene expression, likely uses ISH or multiplexed imaging for marker localization.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 6,
+        "competitive_urgency": 2,
+        "recency": 5
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T13:18:04+00:00"
     },
     {
       "title": "Spatial Neuroimmune Crosstalk Driving Perineural Invasion in Head and Neck Squamous Cell Carcinoma",
@@ -739,6 +827,31 @@
       "fetched": "2026-06-03T23:39:06+00:00"
     },
     {
+      "title": "Admin Core",
+      "link": "https://reporter.nih.gov/project-details/11325395",
+      "summary": "PI: Bruce Edward Torbett. Institution: SEATTLE CHILDREN'S HOSPITAL. Award: $646,622. ABSTRACT, ADMINISTRATIVE CORE The Administrative Core will be the central hub of the BHIVE Center and jointly directed by Stefan Sarafianos and Bruce Torbett. The Administrative Core will help to ensure that the Center achieves its full scientific potential by fostering a Centerwide collaborative and expansive environment that will make it greater than the sum of its parts. Our mission will be actualized through collaborative leadership. The goal for achieving a successful Center will rely on our collaborative leadership and support to ensure investigator connectivity and cohesiveness, a shared and committed scientific vision amongst Center Investigators, and strategic planning. Throughout all of our proposed scientific activities, we will focus on training the next generation of HIV scien",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-05-28T00:00:00",
+      "institution": "SEATTLE CHILDREN'S HOSPITAL",
+      "pi": "Bruce Edward Torbett",
+      "state": "WA",
+      "city": "SEATTLE",
+      "id": "4612b04022088d44",
+      "score": 53,
+      "category": "Funded Lab",
+      "why": "BHIVE HIV Center at Seattle Children's-viral reservoir work likely needs RNAscope for integrated viral RNA detection in lymphoid tissue.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 5,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "NWA",
+      "region": "West",
+      "fetched": "2026-06-04T13:19:30+00:00"
+    },
+    {
       "title": "Matched pancreatic cancer liver metastatic model system reveals cancer cell-dependent organotropism and site-specific tumor microenvironment reflective of human disease",
       "link": "https://www.biorxiv.org/content/10.64898/2026.05.27.728281v1?rss=1",
       "summary": "Pancreatic ductal adenocarcinoma (PDAC) is a deadly, highly metastatic disease, driven by an interplay between cancer cells and the metastatic site-specific microenvironment. However, pre-clinical models that robustly capture these interactions within the context of matched primary and metastatic tumors are limited. Here, we present a novel transplant model system for matched pancreas and liver tumors to study PDAC metastatic progression. Using this model, we identified murine PDAC cell lines with distinct liver tropism potentials and defined a transcriptional program associated with enhanced liver metastasis. This signature was enriched in malignant cells from human PDAC liver metastases across multiple independent datasets and was predictive of survival. Integrative ligand-receptor interaction analyses, multiplex protein profiling, and spatial immune cell profiling revealed that PDAC liver metastases develop within a distinct immunosuppressive microenvironment characterized by predicted enhanced inhibitory signaling and altered immune organization. Notably, CD4 and CD8 T cells were more proximal to cancer cells in liver metastases compared to primary pancreatic tumors, suggesting",
@@ -802,6 +915,90 @@
       "fetched": "2026-06-03T23:38:00+00:00"
     },
     {
+      "title": "Spatial transcriptomics reveals clonal relationships between intraductal carcinoma and adjacent invasive prostate cancer.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42236150/",
+      "summary": "Histopathology. Histopathology",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 3",
+      "id": "6db90cae68618174",
+      "score": 48,
+      "category": "Research/Methods",
+      "why": "Spatial transcriptomics in prostate cancer histology suggests RNAscope validation need for clonal marker validation and tumor microenvironment profiling.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 6,
+        "competitive_urgency": 2,
+        "recency": 2
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T13:18:16+00:00"
+    },
+    {
+      "title": "Atlas-Level Single-Cell and Spatial Transcriptomics Data Integration via PRIME.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42239079/",
+      "summary": "bioRxiv. bioRxiv : the preprint server for biology",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 May 28",
+      "id": "c32406588e2752a0",
+      "score": 42,
+      "category": "Research/Methods",
+      "why": "PRIME integrates single-cell and spatial transcriptomics; relevant to labs validating scRNA clusters in situ but no direct RNAscope or commercial hook.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 4,
+        "competitive_urgency": 1,
+        "recency": 5
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T13:18:01+00:00"
+    },
+    {
+      "title": "Basal gland localization and focal distribution of OLFM4-expressing cells in increasing severity of gastric intestinal metaplasia.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42239144/",
+      "summary": "bioRxiv. bioRxiv : the preprint server for biology",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 1",
+      "id": "01efbaba6e68c882",
+      "score": 42,
+      "category": "Research/Methods",
+      "why": "OLFM4 spatial localization in gastric tissue during intestinal metaplasia; RNAscope validation likely needed for marker mapping in gastric pathology.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 6,
+        "competitive_urgency": 0,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T13:17:57+00:00"
+    },
+    {
+      "title": "Potential of Clinical Care-Collected Gut Biopsies for Advancing Personalised Medicine in Inflammatory Bowel Disease.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42239996/",
+      "summary": "United European Gastroenterol J. United European gastroenterology journal",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun",
+      "id": "5054dd29c0f0ea5c",
+      "score": 41,
+      "category": "Research/Methods",
+      "why": "IBD gut biopsy work aligns with barrier-organ inflammation persona; RNAscope validates epithelial and immune markers in inflamed tissue where antibodies fail.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 5,
+        "competitive_urgency": 0,
+        "recency": 2
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T13:17:43+00:00"
+    },
+    {
       "title": "Kindlin-1 loss disrupts vascular and extracellular matrix organisation to sustain hypoxia in cutaneous squamous cell carcinoma",
       "link": "https://www.biorxiv.org/content/10.64898/2026.06.01.728760v1?rss=1",
       "summary": "Kindlin-1, encoded by FERMT1, is an essential integrin co-activator that regulates cell extracellular matrix (ECM) adhesion, tissue architecture, and microenvironment signalling. Loss-of-function mutations in FERMT1 cause Kindler epidermolysis bullosa, which is strongly associated with aggressive cutaneous squamous cell carcinoma (cSCC). Although Kindlin-1 deficiency promotes hypoxia and invasion, the impacts on ECM-vascular organisation and oxygen homeostasis are not known. Here, using genetic deletion of Kindlin-1 in a murine model of cSCC across 2D cultures, 3D spheroids, and in vivo tumours, combined with collagen and vascular imaging and spatial mixed-effects modelling, we show that Kindlin-1 loss uncouples ECM-vascular regulation, driving hypoxia and tumour progression. Tumours in which Kindlin-1 was deleted displayed a dense but dysfunctional vascular network, with reduced tissue-to-vessel and inter-bifurcation distances, increased vessel alignment, and persistent hypoxia despite increased vascular density. Collagen deposition was reduced and fibres were straighter, indicating a simplified, invasion-permissive matrix. Hypoxia increased Vegfa and Angpt1 expression while reduc",
@@ -821,6 +1018,21 @@
       "territory": "National",
       "region": "National",
       "fetched": "2026-06-04T00:08:58+00:00"
+    },
+    {
+      "title": "Metabolic Intervention with Dimethyl Malonate Impairs Phagocytic Clearance but Fails to Protect Neurons",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.29.724314v1?rss=1",
+      "summary": "Secondary degeneration following optic nerve crush (ONC) is driven in part by mitochondrial dysfunction and microglial activation. Inspired by hibernation, where reduced succinate oxidation limits reactive oxygen species (ROS) production, we tested whether pharmacological inhibition of this pathway confers neuroprotection. Using in vivo ONC models and in vitro microglial assays, we evaluated the effects of dimethyl malonate (DMM), an inhibitor of succinate dehydrogenase, and a cell-permeable succinate analog (succinate-NV). Succinate-NV increased pro-inflammatory cytokine expression (IL-1{beta}) and reduced anti-inflammatory IL-10, whereas non-permeable succinate had no effect, indicating that intracellular succinate can drive microglial activation. In hibernating animals, succinate-NV disrupted neuroprotection and reduced retinal ganglion cell (RGC) survival following optic nerve injury. Although DMM partially reduced select inflammatory cytokines, it failed to normalize IL-1{beta} or IL-10 and suppressed microglial phagocytosis while exhibiting cytotoxic effects. In vivo, DMM-treated animals showed reduced IBA1 microglia but increased CD68 activation and accumulation of DAPI cell",
+      "source": "bioRxiv (Cell Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-02",
+      "id": "b9d054383f5a4212",
+      "score": 40,
+      "category": "Research/Methods",
+      "why": "Could not score automatically, review manually.",
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T13:16:11+00:00"
     },
     {
       "title": "Ukraine HIV Research Training Program",
@@ -971,6 +1183,27 @@
       "territory": "National",
       "region": "National",
       "fetched": "2026-06-03T23:38:26+00:00"
+    },
+    {
+      "title": "zFISHer: Automated 3D Registration, Detection, and Colocalization with Interactive Curation for Sequential Multiplexed FISH.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42239284/",
+      "summary": "bioRxiv. bioRxiv : the preprint server for biology",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 May 21",
+      "id": "4fb25e6eaf9c7d7c",
+      "score": 38,
+      "category": "Research/Methods",
+      "why": "zFISHer is a bioinformatics tool for sequential multiplexed FISH analysis and 3D registration. Relevant to RNAscope users analyzing complex spatial data, but a software aid rather than a product threat or clear buying signal.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 4,
+        "competitive_urgency": 1,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T13:17:54+00:00"
     },
     {
       "title": "Cell-type Specific Alteration of Dicer1 Accelerates Tumor Progression in Mouse Models of KRAS-driven Lung Adenocarcinoma",
