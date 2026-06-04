@@ -1,7 +1,7 @@
 {
-  "updated": "2026-06-04T13:19:58+00:00",
-  "count": 61,
-  "new_this_run": 11,
+  "updated": "2026-06-04T14:50:55+00:00",
+  "count": 64,
+  "new_this_run": 3,
   "categories": [
     "Competitor Move",
     "Research/Methods",
@@ -936,6 +936,27 @@
       "fetched": "2026-06-04T13:18:16+00:00"
     },
     {
+      "title": "AKR1B10 Serves as a Specific Biomarker for the Identification of Hepatocellular Ballooning Degeneration in MASH Patients.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42237432/",
+      "summary": "Liver Int. Liver international : official journal of the International Association for the Study of the Liver",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jul",
+      "id": "fa10ea58ec191792",
+      "score": 42,
+      "category": "Research/Methods",
+      "why": "MASH liver pathology lab validating AKR1B10 marker in tissue; needs spatial confirmation of ballooning cells. Fibrosis/tissue remodeling persona match.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 6,
+        "competitive_urgency": 0,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T14:49:27+00:00"
+    },
+    {
       "title": "Atlas-Level Single-Cell and Spatial Transcriptomics Data Integration via PRIME.",
       "link": "https://pubmed.ncbi.nlm.nih.gov/42239079/",
       "summary": "bioRxiv. bioRxiv : the preprint server for biology",
@@ -1018,6 +1039,21 @@
       "territory": "National",
       "region": "National",
       "fetched": "2026-06-04T00:08:58+00:00"
+    },
+    {
+      "title": "Interleukin-11 promotes the colonic epithelial organoid regeneration from mechanical disruption",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.29.727830v1?rss=1",
+      "summary": "The intestinal epithelium relies on rapid regeneration to maintain homeostasis after injury, and dysregulation of this process contributes to the pathogenesis of inflammatory bowel disease and colorectal cancer. Interleukin-11 (IL-11), a fibroblast-derived cytokine elevated in these diseases, has well-documented effects on stromal cells, but its direct action on intestinal epithelial cells remains poorly characterized. Here, we used mouse colon organoids as an isolated epithelial system to directly examine the effects of IL-11 on epithelial cells. IL-11 stimulation activated the canonical JAK/STAT3 pathway, as evidenced by increased STAT3 phosphorylation and Socs3 induction in a concentration-dependent manner. In a pipetting-based mechanical disruption model, IL-11 significantly enhanced organoid regeneration, increasing the number recovered. Although mechanical disruption dominated the overall transcriptional landscape, RNA-seq analysis identified coordinated upregulation of STAT3 target genes and proliferation-related pathways specifically in response to IL-11. Pharmacological inhibition of STAT3 attenuated the IL-11-induced promotion of organoid regeneration, confirming the requ",
+      "source": "bioRxiv (Cell Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-02",
+      "id": "22155f7773edfdff",
+      "score": 40,
+      "category": "Research/Methods",
+      "why": "Could not score automatically, review manually.",
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T14:47:30+00:00"
     },
     {
       "title": "Metabolic Intervention with Dimethyl Malonate Impairs Phagocytic Clearance but Fails to Protect Neurons",
@@ -1292,6 +1328,27 @@
       "territory": "National",
       "region": "National",
       "fetched": "2026-06-04T00:10:17+00:00"
+    },
+    {
+      "title": "Integrated spatial transcriptomic and metabolic profiling identifies molecular networks associated with cognitive performance in the porcine prefrontal cortex.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42237938/",
+      "summary": "Zool Res. Zoological research",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 May 18",
+      "id": "64da87eb6dd7b961",
+      "score": 32,
+      "category": "Research/Methods",
+      "why": "Porcine prefrontal cortex spatial transcriptomics study; neuroscience relevance but animal model and published work, no immediate lab or grant signal.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 0,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T14:49:25+00:00"
     }
   ]
 }
