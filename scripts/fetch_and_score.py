@@ -348,9 +348,9 @@ def fetch_nih_reporter(cfg):
                 "award_notice_date": {"from_date": cutoff, "to_date": ""},
             },
             "include_fields": [
-                "ProjectTitle", "AbstractText", "FiscalYear", "OrgName",
+                "ProjectTitle", "AbstractText", "FiscalYear", "Organization",
                 "PrincipalInvestigators", "AwardAmount", "ApplId", "ProjectNum",
-                "ProjectStartDate", "AwardNoticeDate", "OrgState", "OrgCity",
+                "ProjectStartDate", "AwardNoticeDate",
             ],
             "offset": 0,
             "limit": cfg.get("limit", 50),
