@@ -1,13 +1,118 @@
 {
-  "updated": "2026-06-03T23:40:11+00:00",
-  "count": 31,
-  "new_this_run": 31,
+  "updated": "2026-06-04T00:12:15+00:00",
+  "count": 50,
+  "new_this_run": 19,
   "categories": [
     "Competitor Move",
     "Research/Methods",
     "Funded Lab"
   ],
   "items": [
+    {
+      "title": "Indica Labs and Molecular Instruments Announce Partnership to Advance AI-Powered Quantitative Image Analysis with HCR™ RNA-ISH",
+      "link": "https://www.accesswire.com/849441/indica-labs-and-molecular-instruments-announce-partnership-to-advance-ai-powered-quantitative-image-analysis-with-hcr-rna-ish",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "April 5, 2024",
+      "id": "e59bafd8a113f621",
+      "score": 89,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments + Indica Labs (HALO) partnership integrates HCR RNA-ISH with AI quantification. Direct threat to RNAscope workflow automation and analysis pipeline. Urgent field briefing needed.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 10,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:12:12+00:00"
+    },
+    {
+      "title": "Molecular Instruments® RNA In Situ Hybridization (RNA-ISH) Technology Enables Breakthrough Laboratory-Developed Tests (LDTs) to Advance Precision Medicine for Inflammatory Skin Disease",
+      "link": "https://www.businesswire.com/news/home/20250210981648/en/Molecular-Instruments-RNA-In-Situ-Hybridization-RNA-ISH-Technology-Enables-Breakthrough-Laboratory-Developed-Tests-LDTs-to-Advance-Precision-Medicine-for-Inflammatory-Skin-Disease",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "February 12, 2025",
+      "id": "de7c95be5d8e5658",
+      "score": 89,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments expanding HCR RNA-ISH into clinical LDT space for dermatology; direct competitive threat to RNAscope commercialization pathway.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 10,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:12:04+00:00"
+    },
+    {
+      "title": "Molecular Instruments and Abcam Announce Broad Compatibility of the HCR™ HiFi Encoder with Abcam’s Best-in-Class RabMAb® and Mouse Antibody Portfolio",
+      "link": "https://www.businesswire.com/news/home/20251021687500/en/Molecular-Instruments-and-Abcam-Announce-Broad-Compatibility-of-the-HCR-HiFi-Encoder-with-Abcams-Best-in-Class-RabMAb-and-Mouse-Antibody-Portfolio",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "October 21, 2025",
+      "id": "62eb10862704f63b",
+      "score": 89,
+      "category": "Competitor Move",
+      "why": "MI expands HCR HiFi encoder compatibility with Abcam antibodies, directly competing against RNAscope on speed, cost, and workflow integration. Field must monitor adoption.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 10,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:11:55+00:00"
+    },
+    {
+      "title": "Leica Biosystems Announces Partnership With Molecular Instruments As HCR™ Pro RNA-ISH Technology Is Released On The BOND RX and BOND RX",
+      "link": "https://www.businesswire.com/news/home/20250122559585/en/Leica-Biosystems-Announces-Par[…]-On-The-BOND-RX-and-BOND-RXm-Research-Staining-Instruments",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "January 22, 2025",
+      "id": "80a6756e12d01731",
+      "score": 88,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments HCR Pro launched on Leica BOND RX automation. Direct RNAscope competitor securing lab workflow integration and ease-of-use advantage.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 10,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:12:07+00:00"
+    },
+    {
+      "title": "Molecular Instruments® Introduces the HCR™ HiFi Encoder: Game-Changing Multiplex Immunofluorescence",
+      "link": "https://www.businesswire.com/news/home/20250908322176/en/Molecular-Instruments-Introduces-the-HCR-HiFi-Encoder-Game-Changing-Multiplex-Immunofluorescence",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "September 11, 2025",
+      "id": "8e1634b13adfbc01",
+      "score": 88,
+      "category": "Competitor Move",
+      "why": "MI launches HCR HiFi Encoder for multiplex immunofluorescence, directly competitive to RNAscope speed and plex capacity. Field must know positioning NOW.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 10,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:11:57+00:00"
+    },
     {
       "title": "A spatial atlas of the healthy human liver redefines mammalian liver zonation",
       "link": "https://vizgen.com/a-spatial-atlas-of-the-healthy-human-liver-redefines-mammalian-liver-zonation/",
@@ -30,6 +135,48 @@
       "fetched": "2026-06-03T23:37:12+00:00"
     },
     {
+      "title": "Court Finds Advanced Cell Diagnostics Patents Invalid in Lawsuit with Molecular Instruments",
+      "link": "https://www.businesswire.com/news/home/20240424629037/en/",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "April 24, 2024",
+      "id": "3535c67fcab3760d",
+      "score": 87,
+      "category": "Competitor Move",
+      "why": "MI wins patent invalidation suit vs. ACD; removes legal barrier to MI's HCR platform competition. Field must address customer IP confidence immediately.",
+      "subscores": {
+        "relevance": 10,
+        "buying_signal": 4,
+        "competitive_urgency": 10,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:12:10+00:00"
+    },
+    {
+      "title": "Molecular Instruments Announces Fully Ambient-Temperature HCR™ Pro RNA-ISH on the BOND-III, Setting a New Standard for Clinical Automation",
+      "link": "https://www.businesswire.com/news/home/20260217882222/en/Molecular-Instruments-Announces-Fully-Ambient-Temperature-HCR-Pro-RNA-ISH-on-the-BOND-III-Setting-a-New-Standard-for-Clinical-Automation",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "February 17, 2026",
+      "id": "b6d9731d37c6d212",
+      "score": 87,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments launches ambient-temperature HCR on BOND-III automation; direct RNAscope competitive threat on speed, ease, and clinical/pathology channel.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 10,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:11:49+00:00"
+    },
+    {
       "title": "Vizgen Launches New Panels and AI Segmentation Tools to Advance Spatial Biology Research",
       "link": "https://vizgen.com/vizgen-launches-new-panels-and-ai-segmentation-tools-to-advance-spatial-biology-research/",
       "summary": "Pre-designed and Add-on gene panels are a new means of accessing Vizgen’s validation and customization capabilities Extended range of cell segmentation models reflective of ongoing initiative to streamline advanced downstream analysis Waltham, Mass. – April... The post Vizgen Launches New Panels and AI Segmentation Tools to Advance Spatial Biology Research appeared first on Vizgen .",
@@ -49,6 +196,174 @@
       "territory": "National",
       "region": "National",
       "fetched": "2026-06-03T23:37:14+00:00"
+    },
+    {
+      "title": "HistoWiz and Molecular Instruments® Collaborate to Advance ISH Services powered by HCR™ RNA-ISH",
+      "link": "https://www.einpresswire.com/article/701132032/histowiz-and-molecular-instruments-collaborate-to-advance-ish-services-powered-by-hcr-rna-ish",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "April 4, 2024",
+      "id": "f18a668e9dc09e0b",
+      "score": 86,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments expands HCR RNA-ISH market reach via HistoWiz service partnership; direct threat to RNAscope adoption in COGS-sensitive labs.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 9,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:12:13+00:00"
+    },
+    {
+      "title": "Molecular Instruments and Visiopharm Announce Strategic Partnership to Combine AI-Driven Precision Pathology with HCR™ Pro Assays to Advance Clinical-Grade RNA-ISH",
+      "link": "https://www.prnewswire.com/news-releases/molecular-instruments-and-visiopharm-announce-strategic-partnership-to-combine-ai-driven-precision-pathology-with-hcr-pro-assays-to-advance-clinical-grade-rna-ish-302297058.html",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "November 6, 2024",
+      "id": "3cf19bae193016da",
+      "score": 86,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments expands HCR clinical reach via Visiopharm AI integration; direct RNAscope competitive threat in pathology automation.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:12:08+00:00"
+    },
+    {
+      "title": "Molecular Instruments and Alpenglow Biosciences Partner to Advance 3D RNA Imaging in Intact Biological Samples",
+      "link": "https://www.businesswire.com/news/home/20250603189090/en/Molecular-Instruments-and-Alpenglow-Biosciences-Partner-to-Advance-3D-RNA-Imaging-in-Intact-Biological-Samples",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "June 3, 2025",
+      "id": "c90cd4bafd003ea0",
+      "score": 86,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments (direct HCR competitor) partnering to scale 3D RNA imaging in intact tissue-expands addressable market and threat surface vs. RNAscope.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 9,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:12:02+00:00"
+    },
+    {
+      "title": "Molecular Instruments Launches HCR™ Pro RNA-ISH for Manual Workflows, Enabling Extreme-Sensitivity RNA Imaging in an Accessible Format",
+      "link": "https://www.businesswire.com/news/home/20250616344958/en/Molecular-Instruments-Launches-HCR-Pro-RNA-ISH-for-Manual-Workflows-Enabling-Extreme-Sensitivity-RNA-Imaging-in-an-Accessible-Format",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "June 16, 2025",
+      "id": "d11d57c81e01a435",
+      "score": 86,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments launches HCR Pro for manual RNA-ISH with extreme sensitivity. Direct head-to-head RNAscope competitor on accessibility and speed. Field must address in deals now.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:12:01+00:00"
+    },
+    {
+      "title": "Molecular Instruments® Continues RNA Imaging Leadership with Next-Generation miRNA/siRNA Detection and Clinical-Grade Ready-to-Use Kits",
+      "link": "https://www.businesswire.com/news/home/20250723714279/en/Molecular-Instruments-Continues-RNA-Imaging-Leadership-with-Next-Generation-miRNAsiRNA-Detection-and-Clinical-Grade-Ready-to-Use-Kits",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "July 24, 2025",
+      "id": "cde34ef91ff06edf",
+      "score": 86,
+      "category": "Competitor Move",
+      "why": "MI launches clinical-grade miRNA/siRNA kits, expanding HCR RNA-FISH portfolio beyond mRNA. Direct threat to RNAscope's non-coding RNA validation capability and clinical adoption pathway.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:11:58+00:00"
+    },
+    {
+      "title": "Biocare Medical and Molecular Instruments Partner to Revolutionize Automated Bioimaging Through ONCORE Pro X and HCR™ RNA-ISH Assays",
+      "link": "https://www.prnewswire.com/news-releases/biocare-medical-and-molecular-instruments-partner-to-revolutionize-automated-bioimaging-through-oncore-pro-x-and-hcr-rna-ish-assays-302026805.html",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "January 5, 2024",
+      "id": "ae3de4b47fc2674e",
+      "score": 85,
+      "category": "Competitor Move",
+      "why": "MI partners with Biocare on automated HCR RNA-ISH via ONCORE Pro X; direct RNAscope competitor positioning on speed and workflow automation.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:12:14+00:00"
+    },
+    {
+      "title": "Molecular Instruments Launches the HCR™ Gold and HCR™ Pro Product Lines to Significantly Expand the HCR™ Imaging Platform",
+      "link": "https://www.businesswire.com/news/home/20250129339295/en/Molecular-Instruments-Launches-the-HCR™-Gold-and-HCR™-Pro-Product-Lines-to-Significantly-Expand-the-HCR™-Imaging-Platform",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "January 29, 2025",
+      "id": "7df8fd1faf0c25d4",
+      "score": 84,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments launches HCR Gold and Pro lines; direct head-to-head competitor expanding speed, pricing, and workflow-urgent field briefing needed.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:12:05+00:00"
+    },
+    {
+      "title": "Court Finds That Two Advanced Cell Diagnostics Patents Are Not Infringed by Molecular Instruments’ Proprietary HCR™ RNA-ISH Technology",
+      "link": "https://www.businesswire.com/news/home/20251125267575/en/Court-Finds-That-Two-Advanced-Cell-Diagnostics-Patents-Are-Not-Infringed-by-Molecular-Instruments-Proprietary-HCR-RNA-ISH-Technology",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "November 25, 2025",
+      "id": "a8e7604bc53d9374",
+      "score": 84,
+      "category": "Competitor Move",
+      "why": "Court ruling validates MI's HCR as non-infringing; removes legal barrier to MI's direct RNAscope competitor positioning. Field must address in deals now.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 3,
+        "competitive_urgency": 10,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:11:51+00:00"
     },
     {
       "title": "Vizgen to Debut Spatial Multiomics Roadmap at AGBT 2026",
@@ -183,6 +498,27 @@
       "territory": "National",
       "region": "National",
       "fetched": "2026-06-03T23:35:27+00:00"
+    },
+    {
+      "title": "Molecular Instruments and Standard BioTools Announce Collaboration to Bring Amplified Multi-Omic Readouts to Imaging Mass Cytometry",
+      "link": "https://www.businesswire.com/news/home/20251119210160/en/Molecular-Instruments-and-Standard-BioTools-Announce-Collaboration-to-Bring-Amplified-Multi-Omic-Readouts-to-Imaging-Mass-Cytometry",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "November 19, 2025",
+      "id": "6818a636d1d87102",
+      "score": 64,
+      "category": "Competitor Move",
+      "why": "MI expanding HCR into mass cytometry via Standard BioTools Hyperion; broadens their in situ footprint beyond RNA-FISH into spatial proteomics territory.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 3,
+        "competitive_urgency": 8,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:11:52+00:00"
     },
     {
       "title": "AGBT: Spatial Biology Field ‘Maturing’ as Updates Well-Received, if Not Flashy",
@@ -466,6 +802,52 @@
       "fetched": "2026-06-03T23:38:00+00:00"
     },
     {
+      "title": "Kindlin-1 loss disrupts vascular and extracellular matrix organisation to sustain hypoxia in cutaneous squamous cell carcinoma",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.01.728760v1?rss=1",
+      "summary": "Kindlin-1, encoded by FERMT1, is an essential integrin co-activator that regulates cell extracellular matrix (ECM) adhesion, tissue architecture, and microenvironment signalling. Loss-of-function mutations in FERMT1 cause Kindler epidermolysis bullosa, which is strongly associated with aggressive cutaneous squamous cell carcinoma (cSCC). Although Kindlin-1 deficiency promotes hypoxia and invasion, the impacts on ECM-vascular organisation and oxygen homeostasis are not known. Here, using genetic deletion of Kindlin-1 in a murine model of cSCC across 2D cultures, 3D spheroids, and in vivo tumours, combined with collagen and vascular imaging and spatial mixed-effects modelling, we show that Kindlin-1 loss uncouples ECM-vascular regulation, driving hypoxia and tumour progression. Tumours in which Kindlin-1 was deleted displayed a dense but dysfunctional vascular network, with reduced tissue-to-vessel and inter-bifurcation distances, increased vessel alignment, and persistent hypoxia despite increased vascular density. Collagen deposition was reduced and fibres were straighter, indicating a simplified, invasion-permissive matrix. Hypoxia increased Vegfa and Angpt1 expression while reduc",
+      "source": "bioRxiv (Cancer Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-03",
+      "id": "4bddf0211f867f52",
+      "score": 41,
+      "category": "Research/Methods",
+      "why": "Tumor microenvironment spatial profiling in cSCC with vascular and ECM imaging; RNAscope could validate Kindlin-1, integrin ligands, hypoxia markers in situ.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:08:58+00:00"
+    },
+    {
+      "title": "Ukraine HIV Research Training Program",
+      "link": "https://reporter.nih.gov/project-details/11321667",
+      "summary": "PI: Jack A DeHovitz, Tetiana Kiriazova. Institution: . Award: $1. PROJECT SUMMARY/ABSTRACT The New York State International Training and Research Program (NYS-ITRP) proposes to continue its research and training activities in Ukraine with local partners. The long-term goal will be to address the injection drug use HIV epidemic complicated by the humanitarian crisis sparked by the Russian invasion. This has direct relevance to the HIV injection drug use (IDU) epidemic in the United States because IDU remains a major risk factor domestically. However, there are few sites in the US with a concentrated IDU epidemic similar to Ukraine. Thus, in order to establish efficacy, there needs to be a sufficient number of infections, which settings such as Ukraine can provide. Trainees covered under this project will obtain advanced training in the United States at th",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-05-28T00:00:00",
+      "institution": "",
+      "pi": "Jack A DeHovitz, Tetiana Kiriazova",
+      "state": "",
+      "city": "",
+      "id": "fa7ba0a26b8d7538",
+      "score": 40,
+      "category": "Funded Lab",
+      "why": "HIV reservoir lab with tissue access potential; IDU cohorts may need viral RNA localization in lymph node, gut tissue requiring RNAscope validation.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:11:23+00:00"
+    },
+    {
       "title": "Neurofunctional Differences in Cognitive and Behavioral Impulsivity in Veterans with PTSD",
       "link": "https://reporter.nih.gov/project-details/11249124",
       "summary": "PI: Dmitri A. Young. Institution: . Award: n/a. Adverse outcomes, such as aggressive behavior, risk-taking, and suicide, associated with Posttraumatic Stress Disorder (PTSD) are an ongoing public health concern in Veteran populations. However, PTSD-related impulsive behavior has only recently become a major clinical research interest. Theoretical models suggest a link between PTSD and impulsivity. Cognitive neuroscience research indicates that impulsivity can be represented by two subdomains: cognitive impulsivity (also called choice impulsivity) or elevated sensitivity to immediate gratification and behavioral impulsivity (also called rapid response impulsivity) or difficulties with behavioral inhibition. Where cognitive impulsivity is associated with adverse outcomes such as risky sexual behavior and substance abuse, behavioral impuls",
@@ -656,6 +1038,27 @@
       "territory": "National",
       "region": "National",
       "fetched": "2026-06-03T23:38:14+00:00"
+    },
+    {
+      "title": "Spatial omics of immunity: Mapping cellular landscapes in tissue microenvironments.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42229080/",
+      "summary": "Curr Opin Immunol. Current opinion in immunology",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 2",
+      "id": "286f12e1333da663",
+      "score": 34,
+      "category": "Research/Methods",
+      "why": "Review on spatial immunity methods; broad scope without naming RNAscope, specific labs, or funded aims. Educational value but no immediate sales lead.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 0,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-04T00:10:17+00:00"
     }
   ]
 }
