@@ -72,11 +72,12 @@ def load_territories():
     return _TERR
 
 
-def classify_territory(state, institution=""):
-    """Return (territory_code, region) for a given state and institution.
+def classify_territory(state, institution="", city=""):
+    """Return (territory_code, region) for a given state, institution, and city.
     Region is 'East' or 'West'. Returns ('National', 'National') when no
     usable location is present (most research and competitor items).
-    Applies the MA and MD account-level overrides by institution name."""
+    Applies the MA and MD account-level overrides by institution name, and the
+    NY split (NYA = NYC 5 boroughs, CEA = upstate NY + Canada east) by city."""
     terr = load_territories()
     if not terr or not state:
         return ("National", "National")
@@ -89,6 +90,7 @@ def classify_territory(state, institution=""):
     region = "East" if state in east_states else "West"
 
     inst = (institution or "").lower()
+    cty = (city or "").lower().strip()
 
     # Account-level overrides where one state maps to two territories.
     if state == "MA":
@@ -104,6 +106,19 @@ def classify_territory(state, institution=""):
         if any(k in inst for k in ["johns hopkins", "hopkins", "university of maryland", "umd"]):
             return ("MDA", region)
         return ("MD (NIH/MDA)", region)
+    if state == "NY":
+        # NYA = NYC 5 boroughs; CEA = upstate NY + Canada east.
+        boroughs = ["new york", "manhattan", "bronx", "brooklyn", "queens",
+                    "staten island"]
+        if any(b in cty for b in boroughs):
+            return ("NYA", region)
+        # institution-name hints for NYC even if city field is odd
+        if any(k in inst for k in ["mount sinai", "memorial sloan", "weill cornell",
+                                   "rockefeller", "nyu", "new york university",
+                                   "columbia", "einstein", "city university of new york"]):
+            return ("NYA", region)
+        # default upstate
+        return ("CEA", region)
 
     # Single-territory states: find the first preset that owns this state.
     # Prefer East-coast territories when a state appears in multiple presets.
@@ -347,11 +362,6 @@ def fetch_nih_reporter(cfg):
                 "fiscal_years": fiscal_years,
                 "award_notice_date": {"from_date": cutoff, "to_date": ""},
             },
-            "include_fields": [
-                "ProjectTitle", "AbstractText", "FiscalYear", "Organization",
-                "PrincipalInvestigators", "AwardAmount", "ApplId", "ProjectNum",
-                "ProjectStartDate", "AwardNoticeDate",
-            ],
             "offset": 0,
             "limit": cfg.get("limit", 50),
             "sort_field": "award_notice_date",
@@ -359,21 +369,33 @@ def fetch_nih_reporter(cfg):
         }
         time.sleep(1.0)  # NIH asks for <= 1 request/second
         resp = http_post_json(cfg["url"], payload)
+        missing_org_logged = False
         for r in resp.get("results", []):
             title = clean_text(r.get("project_title", ""))
             if not title:
                 continue
+            # Organization can come back nested under 'organization' (standard) or
+            # occasionally as flat keys. Try every plausible shape.
             org_obj = r.get("organization") or {}
-            org = org_obj.get("org_name", "") or r.get("org_name", "")
-            org_state = org_obj.get("org_state", "") or r.get("org_state", "")
-            org_city = org_obj.get("org_city", "") or r.get("org_city", "")
+            org = (org_obj.get("org_name") or r.get("org_name")
+                   or org_obj.get("orgName") or "")
+            org_state = (org_obj.get("org_state") or r.get("org_state")
+                         or org_obj.get("orgState") or "")
+            org_city = (org_obj.get("org_city") or r.get("org_city")
+                        or org_obj.get("orgCity") or "")
+            # Diagnostic: if org is missing, log the keys actually returned for the
+            # first such record so we can see the real response shape in the run log.
+            if not org and not missing_org_logged:
+                warn(f"NIH org missing for '{title[:40]}'. Top-level keys: {list(r.keys())}. "
+                     f"organization keys: {list(org_obj.keys()) if isinstance(org_obj, dict) else type(org_obj)}")
+                missing_org_logged = True
             pis = ", ".join(
                 clean_text(pi.get("full_name", ""))
                 for pi in (r.get("principal_investigators") or [])
             )
             amt = r.get("award_amount")
             item_date = clean_text(str(r.get("award_notice_date") or r.get("project_start_date", "")))
-            summary = f"PI: {pis}. Institution: {org}. " \
+            summary = f"PI: {pis}. Institution: {org or 'n/a'}. " \
                       f"Award: {('$' + format(amt, ',')) if amt else 'n/a'}. " \
                       + clean_text(r.get("abstract_text", ""))[:800]
             # Build a reliable per-grant link. appl_id is always returned and
@@ -725,7 +747,7 @@ def main():
     for i, it in enumerate(new_items, 1):
         s = score_item(it)
         it.update(s)
-        terr_code, region = classify_territory(it.get("state", ""), it.get("institution", ""))
+        terr_code, region = classify_territory(it.get("state", ""), it.get("institution", ""), it.get("city", ""))
         it["territory"] = terr_code
         it["region"] = region
         it["fetched"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
