@@ -686,6 +686,84 @@ def score_item(item):
                 "why": "Could not score automatically, review manually."}
 
 
+IMPACT_BRIEF_SYSTEM = """You are a competitive intelligence analyst for Advanced Cell Diagnostics (ACD), a Bio-Techne brand that sells RNAscope in situ hybridization and spatial biology products. You write a short "Impact Brief" about a competitor's news, for a mixed internal audience: product managers, marketing, and sales leadership. The goal is shared understanding of what a competitor move means for ACD, not a field sales script.
+
+Ground everything in the provided item. If the item is a thin headline with little detail, keep the analysis appropriately high-level and do not invent specifics (no made-up deal terms, dollar figures, or product names).
+
+Be honest and balanced. Name real risks plainly; do not write reassurance. The "holding ground" points must be genuine ACD strengths relevant to this specific move, not generic boilerplate.
+
+ACD context for your analysis: RNAscope's strengths are single-molecule sensitivity and specificity, deep validation across tissue types, and platform-agnostic flexibility (it does not lock a customer into one company's instrument). ACD's exposure is generally to platform bundling and ecosystem lock-in by larger competitors (10x Genomics, Bruker/NanoString, Akoya/Quanterix, etc.), and to emerging head-to-head ISH rivals like Molecular Instruments (HCR).
+
+Do not use em dashes. Use commas, periods, parentheses, or "and"/"but" instead.
+
+Respond with ONLY a JSON object, no preamble, no markdown fences:
+{
+  "what_happened": "<2 to 3 sentences, plain language>",
+  "why_it_matters": "<2 to 3 sentences on the strategic meaning for ACD>",
+  "at_risk": ["<short point>", "<short point>"],
+  "holding_ground": ["<short point>", "<short point>"]
+}
+Each at_risk and holding_ground point is one scannable sentence or phrase. Provide 1 to 3 points each."""
+
+
+def fetch_article_text(url, max_chars=4000):
+    """Fetch an article page and return a cleaned text excerpt for deeper
+    analysis. Best-effort: returns empty string on any failure (paywall,
+    timeout, JS-only page). Strips tags, scripts, and boilerplate."""
+    if not url or not url.startswith("http"):
+        return ""
+    try:
+        raw = http_get(url, timeout=20)
+        # drop script/style blocks entirely
+        raw = re.sub(r"<(script|style|nav|header|footer)[^>]*>.*?</\1>", " ", raw, flags=re.I | re.S)
+        text = re.sub(r"<[^>]+>", " ", raw)
+        text = html.unescape(text)
+        text = re.sub(r"\s+", " ", text).strip()
+        return text[:max_chars]
+    except Exception:
+        return ""
+
+
+def generate_impact_brief(item):
+    """Generate a structured Impact Brief for a competitor item. Returns a dict
+    or None. Only called for Competitor Move items. Costs one extra API call per
+    competitor item, so it is gated by category upstream."""
+    if not ANTHROPIC_API_KEY:
+        return None
+    # Fetch the underlying article for deeper grounding (catches platform names,
+    # framing, deal detail the feed summary misses). Falls back to summary.
+    article = fetch_article_text(item.get("link", ""))
+    body = article if len(article) > len(item.get("summary", "")) else item.get("summary", "")
+    user = (
+        f"Source: {item.get('source','')}\n"
+        f"Title: {item.get('title','')}\n"
+        f"Article text: {body[:4000]}\n"
+        f"One-line take: {item.get('why','')}"
+    )
+    payload = {
+        "model": MODEL,
+        "max_tokens": 800,
+        "system": IMPACT_BRIEF_SYSTEM,
+        "messages": [{"role": "user", "content": user}],
+    }
+    headers = {"x-api-key": ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01"}
+    try:
+        resp = http_post_json(ANTHROPIC_URL, payload, headers=headers, timeout=60)
+        text = "".join(b.get("text", "") for b in resp.get("content", []) if b.get("type") == "text")
+        text = text.strip().replace("```json", "").replace("```", "").strip()
+        parsed = json.loads(text)
+        clean = lambda s: clean_text(s).replace("\u2014", "-")
+        return {
+            "what_happened": clean(parsed.get("what_happened", "")),
+            "why_it_matters": clean(parsed.get("why_it_matters", "")),
+            "at_risk": [clean(x) for x in (parsed.get("at_risk") or []) if x][:3],
+            "holding_ground": [clean(x) for x in (parsed.get("holding_ground") or []) if x][:3],
+        }
+    except Exception as e:
+        warn(f"Impact brief failed for '{item.get('title','')[:50]}': {e}")
+        return None
+
+
 # ----------------------------------------------------------------------
 # main
 # ----------------------------------------------------------------------
@@ -750,6 +828,12 @@ def main():
         terr_code, region = classify_territory(it.get("state", ""), it.get("institution", ""), it.get("city", ""))
         it["territory"] = terr_code
         it["region"] = region
+        # Impact Brief: extra analysis layer, competitor items only (one more API call each).
+        if it.get("category") == "Competitor Move":
+            brief = generate_impact_brief(it)
+            if brief:
+                it["impact_brief"] = brief
+            time.sleep(0.2)
         it["fetched"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
         if it.get("score", 0) < MIN_SCORE:
             dropped += 1
