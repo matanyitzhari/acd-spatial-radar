@@ -3,6 +3,12 @@ name: Fetch and score spatial news
 on:
   workflow_dispatch: {}   # manual only. Add a schedule: block here to automate.
 
+  # TO RUN AUTOMATICALLY ONCE A DAY: remove the # from the three lines below.
+  # Time is UTC. "0 11 * * *" is 11:00 UTC, which is about 6-7 AM US Eastern
+  # (7 AM EDT in summer, 6 AM EST in winter). Adjust the hour if you want.
+  # schedule:
+  #   - cron: "0 11 * * *"
+
 permissions:
   contents: write   # needed so the job can commit data.json back to the repo
 
