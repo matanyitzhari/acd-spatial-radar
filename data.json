@@ -1,7 +1,7 @@
 {
-  "updated": "2026-06-09T15:38:18+00:00",
-  "count": 98,
-  "new_this_run": 34,
+  "updated": "2026-06-09T19:27:28+00:00",
+  "count": 100,
+  "new_this_run": 2,
   "categories": [
     "Competitor Move",
     "Research/Methods",
@@ -1459,6 +1459,27 @@
       "fetched": "2026-06-03T23:36:19+00:00"
     },
     {
+      "title": "Meningioma Single-Cell Atlas Points to Informative Tumor, Microenvironment Cell States",
+      "link": "https://www.genomeweb.com/cancer/meningioma-single-cell-atlas-points-informative-tumor-microenvironment-cell-states",
+      "summary": "Researchers used single-cell and spatial transcriptomics to identify meningioma metaprograms, along with prognostically informative myeloid immune cell interactions.",
+      "source": "GenomeWeb",
+      "category_hint": "",
+      "date": "Tue, 09 Jun 2026 13:39:42 EDT",
+      "id": "9ce91e62bdabb63d",
+      "score": 50,
+      "category": "Research/Methods",
+      "why": "Meningioma TME profiling via spatial transcriptomics; myeloid and immune validation candidates for RNAscope, but no PI/institution/funding detail disclosed.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 7,
+        "competitive_urgency": 0,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-09T19:25:41+00:00"
+    },
+    {
       "title": "lncRNA-operated stem cell fate control: RPS3 mediates the in situ Gm16751-Zhx3 interactome to program spermatogonial stem cell differentiation.",
       "link": "https://pubmed.ncbi.nlm.nih.gov/42231399/",
       "summary": "Cell Biosci. Cell & bioscience",
@@ -2055,6 +2076,27 @@
       "territory": "National",
       "region": "National",
       "fetched": "2026-06-04T00:10:17+00:00"
+    },
+    {
+      "title": "Multi-modal comparison of primary and stem cell-derived β-cells nominates targets for maturation",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.04.730032v1?rss=1",
+      "summary": "Stem-cell-derived {beta}-like-cells (SC{beta}-cells) provide a promising platform for diabetes modelling and cell replacement therapy, but their incomplete functional maturation remains a challenge. Here, we compared immature SC{beta}-cells to human primary {beta}-cells utilizing a multi-omic, single-cell framework integrating patch-clamp electrophysiology with scRNA sequencing (patch-seq), regulatory network inference, and functional phenotyping. Despite low insulin secretion and reduced insulin content, SC{beta}-cells displayed larger Na+ and Ca2+ currents and depolarization-induced exocytosis. Ultrastructural and metabolic profiling revealed immature insulin granules, altered mitochondrial morphology, elevated basal respiration and proton leak, and diminished spare respiratory capacity and glucose-responsive metabolism. Patch-seq linked exocytotic activity in SC{beta}-cells to oxidative phosphorylation and MYC target programs, consistent with incomplete terminal differentiation, whereas SC{beta}-cells expressing higher levels of mature identity markers showed reduced ion channel hyperactivity. Multi-omics profiling showed that electrophysiological features in SC{beta}-cells were",
+      "source": "bioRxiv (Cell Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-09",
+      "id": "ef524103abc468d4",
+      "score": 32,
+      "category": "Research/Methods",
+      "why": "Stem cell differentiation work using scRNA-seq; needs marker validation in situ (OCT4, NANOG, insulin, maturation markers) but no spatial/ISH methods mentioned yet.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 0,
+        "recency": 7
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-09T19:24:03+00:00"
     },
     {
       "title": "Integrated spatial transcriptomic and metabolic profiling identifies molecular networks associated with cognitive performance in the porcine prefrontal cortex.",
