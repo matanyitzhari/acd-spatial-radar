@@ -94,6 +94,20 @@
   .why { font-size: 0.95rem; color: var(--ink); background: var(--whybg); border-left: 2px solid var(--catcolor, var(--accent)); padding: 8px 14px; border-radius: 0 6px 6px 0; margin-bottom: 10px; }
   .summary { font-size: 0.85rem; color: var(--ink-2); display: none; }
   .card.open .summary { display: block; margin-top: 9px; }
+  .rawsum { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); color: var(--ink-dim); font-size: 0.8rem; }
+  .impact { background: var(--whybg); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+  .ib-label { font-family: 'Space Mono', monospace; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--catcolor, var(--accent)); margin-bottom: 9px; }
+  .impact p { font-size: 0.88rem; color: var(--ink); margin-bottom: 8px; line-height: 1.5; }
+  .impact p b { color: var(--ink); }
+  .ib-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+  .ib-sub span { font-family: 'Space Mono', monospace; font-size: 0.64rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 5px; }
+  .ib-sub ul { margin: 0; padding-left: 16px; }
+  .ib-sub li { font-size: 0.82rem; color: var(--ink-2); margin-bottom: 4px; line-height: 1.4; }
+  .ib-risk { border-left: 3px solid var(--cat-competitor); padding-left: 10px; }
+  .ib-risk span { color: var(--cat-competitor); }
+  .ib-hold { border-left: 3px solid var(--cat-funded); padding-left: 10px; }
+  .ib-hold span { color: var(--cat-funded); }
+  @media (max-width: 620px) { .ib-cols { grid-template-columns: 1fr; } }
   .expand { font-family: 'Space Mono', monospace; font-size: 0.66rem; color: var(--accent); cursor: pointer; background: none; border: none; padding: 4px 0 0; }
   .empty { text-align: center; color: var(--ink-dim); font-family: 'Space Mono', monospace; padding: 70px 0; font-size: 0.85rem; }
   footer { margin-top: 54px; text-align: center; font-family: 'Space Mono', monospace; font-size: 0.66rem; color: var(--ink-dim); }
@@ -193,16 +207,30 @@ function render(){
   if(!items.length){ feed.innerHTML='<div class="empty">no items match this filter</div>'; return; }
   feed.innerHTML = items.map((i,n)=>{
     const color = CAT_COLOR[i.category]||"var(--accent)";
-    const has = i.summary && i.summary.length>0;
+    const brief = i.impact_brief ? impactBriefHTML(i.impact_brief) : "";
+    const has = (i.summary && i.summary.length>0) || brief;
     return `<article class="card" style="--catcolor:${color}; animation-delay:${Math.min(n*0.035,0.5)}s">
       <div class="scorebox"><div class="score">${i.score??"--"}<small>SIGNAL</small></div>
       <div class="meter" aria-hidden="true"><span style="width:${Math.max(0,Math.min(100,i.score||0))}%"></span></div>${subbars(i.subscores)}</div>
       <div class="body"><div class="toprow"><span class="tag">${esc(i.category||"")}</span>${i.territory && i.territory!=="National" ? `<span class="terr">${esc(i.territory)}</span>`:""}<span class="src">${esc(i.source||"")}</span><span class="date">${fmtDate(i.date)}</span></div>
       <h2><a href="${esc(i.link||"#")}" target="_blank" rel="noopener">${esc(i.title||"Untitled")}</a></h2>
       ${i.why? `<div class="why">${esc(i.why)}</div>`:""}
-      ${has? `<button class="expand" aria-expanded="false" onclick="const c=this.closest('.card');const o=c.classList.toggle('open');this.setAttribute('aria-expanded',o);this.textContent=o?'hide details \u25b4':'details \u25be'">details \u25be</button><div class="summary">${esc(i.summary)}</div>`:""}
+      ${has? `<button class="expand" aria-expanded="false" onclick="const c=this.closest('.card');const o=c.classList.toggle('open');this.setAttribute('aria-expanded',o);this.textContent=o?'hide details \u25b4':'details \u25be'">details \u25be</button><div class="summary">${brief}${i.summary?`<div class="rawsum">${esc(i.summary)}</div>`:""}</div>`:""}
       </div></article>`;
   }).join("");
+}
+
+function impactBriefHTML(b){
+  if(!b) return "";
+  const list = arr => (arr||[]).map(x=>`<li>${esc(x)}</li>`).join("");
+  const atRisk = (b.at_risk&&b.at_risk.length)? `<div class="ib-sub ib-risk"><span>At risk</span><ul>${list(b.at_risk)}</ul></div>`:"";
+  const hold = (b.holding_ground&&b.holding_ground.length)? `<div class="ib-sub ib-hold"><span>Holding ground</span><ul>${list(b.holding_ground)}</ul></div>`:"";
+  return `<div class="impact">
+    <div class="ib-label">Impact Brief</div>
+    ${b.what_happened?`<p><b>What happened.</b> ${esc(b.what_happened)}</p>`:""}
+    ${b.why_it_matters?`<p><b>Why it matters to ACD.</b> ${esc(b.why_it_matters)}</p>`:""}
+    ${(atRisk||hold)?`<div class="ib-cols">${atRisk}${hold}</div>`:""}
+  </div>`;
 }
 function boot(data){
   DATA = data;
