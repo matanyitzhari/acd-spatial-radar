@@ -1,11 +1,1426 @@
 {
-  "updated": "",
-  "count": 0,
-  "new_this_run": 0,
+  "updated": "2026-06-10T20:36:23+00:00",
+  "count": 50,
+  "new_this_run": 50,
   "categories": [
     "Competitor Move",
     "Research/Methods",
     "Funded Lab"
   ],
-  "items": []
+  "items": [
+    {
+      "title": "Molecular Instruments Announces Fully Ambient-Temperature HCR™ Pro RNA-ISH on the BOND-III, Setting a New Standard for Clinical Automation",
+      "link": "https://www.businesswire.com/news/home/20260217882222/en/Molecular-Instruments-Announces-Fully-Ambient-Temperature-HCR-Pro-RNA-ISH-on-the-BOND-III-Setting-a-New-Standard-for-Clinical-Automation",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "February 17, 2026",
+      "id": "b6d9731d37c6d212",
+      "score": 92,
+      "category": "Competitor Move",
+      "why": "MI launches ambient HCR Pro on BOND-III automation; direct RNAscope threat on speed, cost, clinical workflow integration. Field must counter.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 8,
+        "competitive_urgency": 10,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Molecular Instruments announced HCR Pro RNA-ISH compatibility with the Leica BOND-III automated platform, running at ambient temperature. This integrates their HCR chemistry with a widely deployed clinical immunostainer, removing temperature and workflow friction points that have historically favored RNAscope in routine labs.",
+        "why_it_matters": "HCR Pro on BOND-III directly targets RNAscope's clinical and pathology installed base by combining a competing ISH chemistry with an established automation standard. Ambient temperature operation and BOND-III integration lower adoption barriers for labs already invested in Leica infrastructure. This is a head-to-head competitive move, not a niche technology play.",
+        "at_risk": [
+          "Clinical and anatomic pathology adoption, especially in labs with existing BOND-III systems who see HCR Pro as a drop-in reagent upgrade.",
+          "Market narrative around ease of use and clinical workflow; BOND-III is trusted, and Leica's endorsement carries real weight in pathology."
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and deep validation across tissue types remain differentiated; ambient HCR does not inherently match that specificity or cross-tissue robustness.",
+          "RNAscope's platform agnosticity means labs are not locked into one automation vendor; BOND-III compatibility helps HCR but does not guarantee it outperforms RNAscope on non-Leica systems.",
+          "Established RNAscope user base and method validation in clinical labs; migration cost and re-validation are real friction points for customers, even if HCR Pro is convenient."
+        ]
+      },
+      "fetched": "2026-06-10T20:31:25+00:00"
+    },
+    {
+      "title": "HistoWiz and Molecular Instruments® Collaborate to Advance ISH Services powered by HCR™ RNA-ISH",
+      "link": "https://www.einpresswire.com/article/701132032/histowiz-and-molecular-instruments-collaborate-to-advance-ish-services-powered-by-hcr-rna-ish",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "April 4, 2024",
+      "id": "f18a668e9dc09e0b",
+      "score": 91,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments expands HCR RNA-ISH distribution via HistoWiz CRO partnership; direct threat to RNAscope service adoption and ISH outsourcing market.",
+      "subscores": {
+        "relevance": 10,
+        "buying_signal": 7,
+        "competitive_urgency": 10,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Molecular Instruments (MI) and HistoWiz, a major histology and pathology CRO, have formed a co-marketing and service partnership in which HistoWiz becomes a qualified service provider for MI's HCR RNA-ISH technology. HistoWiz will integrate HCR into its automated histology and slide processing workflow, offering customers a bundled ISH/IHC/IF service option with MI's protease-free, multiplex-capable HCR chemistry.",
+        "why_it_matters": "This partnership directly targets the outsourced ISH services market, where RNAscope has historically held strong footing through CROs and core facilities. By embedding HCR into HistoWiz's high-volume, automated processing pipeline and marketing it as clinical-grade and workflow-native, MI is lowering adoption friction for researchers who already use HistoWiz for routine histology, creating a platform bundling risk analogous to what ACD faces from 10x and Bruker. The emphasis on protease-free sample prep and seamless IHC/IF integration also signals competitive positioning on ease-of-use and multiplexing.",
+        "at_risk": [
+          "Service adoption: HistoWiz's customers may default to HCR for ISH outsourcing rather than comparing RNAscope, particularly for projects already routed through HistoWiz's platform.",
+          "Workflow stickiness: Embedding HCR into an automated, validated CRO pipeline with image analysis and pathologist consultation creates switching cost and reduces per-sample comparison incentive.",
+          "Immuno-oncology focus: Joint research on AAV/CRISPR in immuno-oncology may establish HCR as a preferred assay in these high-value segments before RNAscope can develop equivalent service partnerships."
+        ],
+        "holding_ground": [
+          "Single-molecule sensitivity and specificity remain RNAscope's foundational advantage; protease-free prep is a convenience claim, not a biological superiority claim.",
+          "Deep, multi-tissue validation of RNAscope is not easily replicated; HistoWiz partnership does not instantly overcome HCR's narrower historical application dataset.",
+          "RNAscope's platform-agnostic strength: researchers are not forced into HistoWiz's ecosystem and can still choose RNAscope with any imaging or analysis partner, whereas this deal locks HCR into one CRO's workflow."
+        ]
+      },
+      "fetched": "2026-06-10T20:36:14+00:00"
+    },
+    {
+      "title": "Leica Biosystems Announces Partnership With Molecular Instruments As HCR™ Pro RNA-ISH Technology Is Released On The BOND RX and BOND RX",
+      "link": "https://www.businesswire.com/news/home/20250122559585/en/Leica-Biosystems-Announces-Par[…]-On-The-BOND-RX-and-BOND-RXm-Research-Staining-Instruments",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "January 22, 2025",
+      "id": "80a6756e12d01731",
+      "score": 91,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments HCR Pro now automated on Leica BOND RX; direct RNAscope automation threat with speed/cost positioning.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 10,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Molecular Instruments announced that its HCR Pro RNA in situ hybridization technology is now available on Leica Biosystems' BOND RX automated platform. This integration brings HCR Pro into a fully automated, high-throughput workflow that positions it as a direct competitor to RNAscope on an established clinical/research instrument.",
+        "why_it_matters": "HCR Pro gains significant distribution and ease-of-use advantage through Leica's installed base and automation, while bundling creates customer lock-in risk similar to threats from 10x and Bruker. RNAscope's platform-agnostic flexibility is neutralized if customers perceive HCR Pro on BOND RX as a turnkey, simpler alternative. Leica's clinical focus and high-volume automation appeal directly to core RNAscope segments.",
+        "at_risk": [
+          "High-throughput clinical and pathology labs evaluating automation to reduce hands-on labor and technical burden.",
+          "Customers already invested in Leica BOND RX workflow who now see HCR Pro as the native, validated choice.",
+          "Price-sensitive segments if HCR Pro is marketed as lower per-sample cost in automated batch mode."
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and deep tissue-type validation remain differentiated if HCR Pro detection performance is comparable but not superior.",
+          "RNAscope works on any fluorescence or brightfield microscope, preserving customer freedom; HCR Pro on BOND RX locks users into Leica instrumentation.",
+          "Existing RNAscope user base and assay libraries represent installed validation advantage, but only if ACD can articulate speed/cost parity or clinical validation wins on automated platforms."
+        ]
+      },
+      "fetched": "2026-06-10T20:35:19+00:00"
+    },
+    {
+      "title": "Biocare Medical and Molecular Instruments Partner to Revolutionize Automated Bioimaging Through ONCORE Pro X and HCR™ RNA-ISH Assays",
+      "link": "https://www.prnewswire.com/news-releases/biocare-medical-and-molecular-instruments-partner-to-revolutionize-automated-bioimaging-through-oncore-pro-x-and-hcr-rna-ish-assays-302026805.html",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "January 5, 2024",
+      "id": "ae3de4b47fc2674e",
+      "score": 89,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments (HCR RNA-ISH) partners with Biocare Medical automation platform, directly competing with RNAscope on speed, ease, and integrated workflow.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 10,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Molecular Instruments and Biocare Medical announced an integration of MI's HCR RNA-ISH assays with Biocare's ONCORE Pro X automated platform. The partnership positions HCR as a turnkey, high-throughput solution for researchers seeking automated in situ hybridization without protease digestion, room-temperature chemistry, and both fluorescent and brightfield output.",
+        "why_it_matters": "This is a direct competitive threat to RNAscope in the automation and workflow convenience space. By bundling HCR assays with a widely respected open automation platform, MI removes friction for labs seeking integrated ISH solutions and signals serious investment in the clinical diagnostics and drug development markets where ACD also competes. The emphasis on speed, high throughput, and seamless IHC/IF workflow integration targets pain points that drive adoption away from manual RNAscope protocols.",
+        "at_risk": [
+          "Academic research and CRO labs that prioritize hands-off automation and fast turnaround may view HCR-on-ONCORE as a simpler entry point than RNAscope implementation.",
+          "Clinical diagnostics labs already using Biocare instruments (intelliPATH, ONCORE Pro) may default to HCR assays to consolidate vendors and workflows.",
+          "Market perception that RNAscope requires more hands-on optimization or longer sample prep compared to HCR's room-temperature, no-protease chemistry."
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and deep validation across diverse tissue types remain a technical advantage; HCR's claims on speed and ease should be validated against real-world performance in complex tissues.",
+          "ACD's platform-agnostic model (RNAscope works on any imaging system, not locked to one instrument) preserves flexibility; Biocare's open philosophy may not guarantee long-term commitment to MI or prevent future shifts.",
+          "RNAscope's established installed base, reagent breadth, and clinical/research validation create switching costs; this partnership is nascent and must prove clinical and regulatory parity to displace installed workflows."
+        ]
+      },
+      "fetched": "2026-06-10T20:36:23+00:00"
+    },
+    {
+      "title": "Molecular Instruments and Visiopharm Announce Strategic Partnership to Combine AI-Driven Precision Pathology with HCR™ Pro Assays to Advance Clinical-Grade RNA-ISH",
+      "link": "https://www.prnewswire.com/news-releases/molecular-instruments-and-visiopharm-announce-strategic-partnership-to-combine-ai-driven-precision-pathology-with-hcr-pro-assays-to-advance-clinical-grade-rna-ish-302297058.html",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "November 6, 2024",
+      "id": "3cf19bae193016da",
+      "score": 89,
+      "category": "Competitor Move",
+      "why": "MI + Visiopharm clinical-grade HCR integration threatens RNAscope's diagnostic pathway. Field must know NOW.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 10,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Molecular Instruments has partnered with Visiopharm to bundle HCR Pro RNA-ISH assays with Oncotopix Discovery, an AI-driven image analysis software optimized for spot counting and segmentation in complex tissues. The collaboration aims to position HCR as a clinical-grade, end-to-end RNA-ISH solution that handles both chromogenic and fluorescent detection plus multiplex IHC/IF co-detection.",
+        "why_it_matters": "This is a direct ecosystem play that threatens RNAscope's traditional strength: platform agnosticity and flexibility. By coupling HCR assays with best-in-class analysis software, MI is reducing friction for clinical adoption and creating a compelling bundled workflow. ACD has historically won on assay performance and open-platform compatibility, but this move signals that diagnostic customers increasingly value integrated, validated end-to-end solutions with proven AI analysis.",
+        "at_risk": [
+          "Clinical/diagnostic pipeline adoption where image analysis capability and regulatory validation are gating factors, especially in oncology",
+          "Customers who value workflow convenience and vendor-backed software integration over assay-only flexibility",
+          "Market perception that RNAscope lacks a native, clinically validated analysis layer to match HCR + Visiopharm"
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and cross-tissue validation are assay fundamentals that remain unmatched and orthogonal to software partnerships",
+          "Platform agnosticity remains a genuine clinical advantage: RNAscope works with any imaging system and any analysis software, reducing lock-in risk for large institutions",
+          "Visiopharm partnership does not address HCR's known workflow friction (protease-free claims notwithstanding) or deliver new assay capability, only better image post-processing"
+        ]
+      },
+      "fetched": "2026-06-10T20:35:28+00:00"
+    },
+    {
+      "title": "Molecular Instruments Launches the HCR™ Gold and HCR™ Pro Product Lines to Significantly Expand the HCR™ Imaging Platform",
+      "link": "https://www.businesswire.com/news/home/20250129339295/en/Molecular-Instruments-Launches-the-HCR™-Gold-and-HCR™-Pro-Product-Lines-to-Significantly-Expand-the-HCR™-Imaging-Platform",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "January 29, 2025",
+      "id": "7df8fd1faf0c25d4",
+      "score": 89,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments launches HCR Gold and Pro lines, directly competitive to RNAscope multiplexing. Urgent field brief required.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 10,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Molecular Instruments has launched HCR Gold and HCR Pro product lines, expanding their HCR (Hybridization Chain Reaction) platform. This move signals a direct scaling play aimed at the multiplexing and throughput segment where RNAscope competes.",
+        "why_it_matters": "Molecular Instruments is consolidating HCR as a full-featured alternative to RNAscope across more use cases and customer segments. Product line expansion typically precedes aggressive sales and partnership push, raising the competitive intensity in spatial biology ISH.",
+        "at_risk": [
+          "Mid-market and emerging-lab customers evaluating multiplex ISH may now see HCR as a more complete, single-vendor solution with Gold and Pro tiers",
+          "Sales cycles on RNAscope bundles with imaging partners could face longer evaluation cycles as customers compare HCR platform depth"
+        ],
+        "holding_ground": [
+          "RNAscope maintains platform-agnostic flexibility; HCR's own product line expansion implies potential lock-in that does not exist with ACD",
+          "ACD's single-molecule sensitivity and deep tissue validation remain differentiated technical anchors independent of competitor product positioning",
+          "RNAscope's installed base and validation depth across tissue types are not displaced by a new product line announcement alone"
+        ]
+      },
+      "fetched": "2026-06-10T20:35:11+00:00"
+    },
+    {
+      "title": "Molecular Instruments Launches HCR™ Pro RNA-ISH for Manual Workflows, Enabling Extreme-Sensitivity RNA Imaging in an Accessible Format",
+      "link": "https://www.businesswire.com/news/home/20250616344958/en/Molecular-Instruments-Launches-HCR-Pro-RNA-ISH-for-Manual-Workflows-Enabling-Extreme-Sensitivity-RNA-Imaging-in-an-Accessible-Format",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "June 16, 2025",
+      "id": "d11d57c81e01a435",
+      "score": 89,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments launches HCR Pro for manual RNA-ISH workflows. Direct competitor positioning against RNAscope on accessibility and sensitivity. Field urgency: messaging on speed, cost, hands-on advantage.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 10,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Molecular Instruments launched HCR Pro, a manual workflow version of its HCR (Hybridization Chain Reaction) RNA in situ hybridization platform. The product is positioned on accessibility and extreme sensitivity, directly competing with RNAscope on ease of use and detection capability.",
+        "why_it_matters": "HCR Pro targets RNAscope's core market by lowering barriers to entry (manual, non-instrument-dependent workflow) and claiming sensitivity parity. This extends Molecular Instruments' threat beyond automation and higher-end labs into the broader research bench segment where RNAscope is strongest.",
+        "at_risk": [
+          "Manual workflow accessibility appeal: HCR Pro removes instrument dependency, matching RNAscope's platform-agnostic advantage and reducing friction for labs with budget or space constraints.",
+          "Single-molecule sensitivity messaging: if HCR Pro delivers claimed extreme sensitivity without RNAscope's complexity, it weakens RNAscope's historical differentiation on detection limits.",
+          "Mid-market adoption: labs evaluating ISH methods may now see a validated competitor with lower perceived barriers to adoption."
+        ],
+        "holding_ground": [
+          "Established validation and tissue coverage: RNAscope has years of published science and proven performance across diverse tissue types and disease models; HCR Pro launch does not retroactively validate those thousands of studies.",
+          "Multiplex scalability and compatibility: RNAscope's proven track record multiplexing across imaging platforms (confocal, bright-field, spatial instruments) is not displaced by a new manual assay.",
+          "Field support and commercialization maturity: ACD has established field presence, training, and troubleshooting infrastructure; Molecular Instruments is still building that ecosystem at scale."
+        ]
+      },
+      "fetched": "2026-06-10T20:34:10+00:00"
+    },
+    {
+      "title": "Molecular Instruments® Introduces the HCR™ HiFi Encoder: Game-Changing Multiplex Immunofluorescence",
+      "link": "https://www.businesswire.com/news/home/20250908322176/en/Molecular-Instruments-Introduces-the-HCR-HiFi-Encoder-Game-Changing-Multiplex-Immunofluorescence",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "September 11, 2025",
+      "id": "8e1634b13adfbc01",
+      "score": 89,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments launches HCR HiFi Encoder for multiplexed immunofluorescence. Direct competitive threat to RNAscope on speed, multiplexing, and ease. Urgent field brief needed.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 10,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Molecular Instruments announced the HCR HiFi Encoder, a new tool designed to streamline multiplexed immunofluorescence workflows. The launch emphasizes speed, multiplexing capability, and ease of use as core value propositions.",
+        "why_it_matters": "This is a direct competitive move in the multiplexed spatial biology space where RNAscope holds significant market share. HCR has been positioned as a faster, simpler alternative to probe-based ISH; this product iteration signals Molecular Instruments is investing to reduce friction and expand addressable applications, particularly in high-plex immunofluorescence where customers currently balance RNAscope adoption against turnkey convenience.",
+        "at_risk": [
+          "Adoption in labs prioritizing speed and ease-of-use over single-molecule sensitivity, especially in immunofluorescence-centric workflows.",
+          "Market share in multiplexing applications where HCR's claim of simplified protocols resonates with time-constrained research groups."
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and validation depth across diverse tissue types and disease contexts remain unmatched by HCR.",
+          "Platform agnosticity: RNAscope integrates with any microscope and any image analysis software, while HCR Encoder likely bundles downstream tools and may create vendor lock-in.",
+          "Established customer base and IP moat in RNA detection; Molecular Instruments' immunofluorescence focus is tangential to RNA as the primary analyte."
+        ]
+      },
+      "fetched": "2026-06-10T20:33:16+00:00"
+    },
+    {
+      "title": "Molecular Instruments and Abcam Announce Broad Compatibility of the HCR™ HiFi Encoder with Abcam’s Best-in-Class RabMAb® and Mouse Antibody Portfolio",
+      "link": "https://www.businesswire.com/news/home/20251021687500/en/Molecular-Instruments-and-Abcam-Announce-Broad-Compatibility-of-the-HCR-HiFi-Encoder-with-Abcams-Best-in-Class-RabMAb-and-Mouse-Antibody-Portfolio",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "October 21, 2025",
+      "id": "62eb10862704f63b",
+      "score": 89,
+      "category": "Competitor Move",
+      "why": "MI expands HCR HiFi encoder compatibility with Abcam antibodies, directly positioning against RNAscope multiplexing speed and ease. Field must address workflow integration threat immediately.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 10,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Molecular Instruments announced that its HCR HiFi Encoder is now compatible with Abcam's RabMAb and mouse antibody portfolios, broadening the utility of HCR for protein detection alongside RNA. This positions HCR as a more complete multiplex solution by reducing friction around antibody selection and validation.",
+        "why_it_matters": "HCR's core advantage over RNAscope has been speed and simplicity of multiplexing. By partnering with a major antibody vendor and ensuring pre-validated compatibility, MI removes a practical adoption barrier and strengthens the pitch that HCR is a faster, easier path to multimodal (RNA and protein) spatial analysis. This directly challenges RNAscope's position in customers choosing between multiplexed RNA workflows and integrated RNA-protein assays.",
+        "at_risk": [
+          "Customers evaluating multiplex RNA-protein assays may perceive HCR plus validated antibodies as a simpler, faster alternative to RNAscope plus separate antibody sourcing and optimization.",
+          "Abcam's endorsement and pre-validation signal credibility and reduce perceived risk for labs considering HCR adoption, especially if they already trust Abcam's reagent quality.",
+          "If this partnership creates a strong 'plug and play' narrative, it may narrow ACD's window to win new spatial biology programs, particularly in pharma and academic screening workflows."
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and specificity remain unmatched for challenging transcripts and have deep, published validation across diverse tissue types and disease states.",
+          "RNAscope is platform-agnostic and does not lock customers into one vendor's instrument ecosystem, whereas HCR still depends on compatible imaging systems and compatible processing partners.",
+          "ACD's broad antibody and probe library, combined with RNAscope's proven multiplexing depth in publications, gives us credibility for complex, multiplex biomarker panels that drive decision-making in translational research."
+        ]
+      },
+      "fetched": "2026-06-10T20:32:48+00:00"
+    },
+    {
+      "title": "Vizgen Launches New Panels and AI Segmentation Tools to Advance Spatial Biology Research",
+      "link": "https://vizgen.com/vizgen-launches-new-panels-and-ai-segmentation-tools-to-advance-spatial-biology-research/",
+      "summary": "Pre-designed and Add-on gene panels are a new means of accessing Vizgen’s validation and customization capabilities Extended range of cell segmentation models reflective of ongoing initiative to streamline advanced downstream analysis Waltham, Mass. – April... The post Vizgen Launches New Panels and AI Segmentation Tools to Advance Spatial Biology Research appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Wed, 15 Apr 2026 08:56:29 +0000",
+      "id": "c5d80cc4824bdd3a",
+      "score": 87,
+      "category": "Competitor Move",
+      "why": "Vizgen expands MERSCOPE gene panel library and AI segmentation; direct threat to RNAscope multiplexing workflow and ease-of-use positioning.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 9,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Vizgen announced pre-designed gene panels, customizable add-on panels, and new AI-powered cell segmentation tools (Cellpose-SAM and InstanSeg) for its MERSCOPE and MERSCOPE Ultra platforms. The move aims to lower the barrier to entry for spatial transcriptomics by eliminating panel design and validation work while improving downstream analysis speed and accuracy.",
+        "why_it_matters": "Vizgen is directly addressing workflow friction points that RNAscope users may currently solve through manual design and external bioinformatic resources. By bundling curated panels with advanced segmentation models and a proprietary post-processing tool, Vizgen strengthens ecosystem lock-in and makes MERSCOPE more attractive to labs seeking an integrated, turnkey solution from experimental design through data interpretation.",
+        "at_risk": [
+          "RNAscope adoption among researchers new to spatial biology who value speed and simplicity over customization, particularly in oncology and pre-clinical discovery where Vizgen's panel portfolio is targeted.",
+          "Perceived differentiation on ease-of-use and analytical rigor, as Vizgen now offers validated, pre-designed workflows and open-source segmentation options that reduce friction relative to manual RNAscope panel optimization.",
+          "Multiplexing workflow flexibility, if customers perceive MERSCOPE's integrated panel and segmentation ecosystem as sufficiently convenient to offset RNAscope's instrument-agnostic advantage."
+        ],
+        "holding_ground": [
+          "RNAscope's platform-agnostic architecture means customers retain freedom to run assays on their existing instruments and choose segmentation tools independently, avoiding vendor lock-in to MERSCOPE hardware.",
+          "Single-molecule sensitivity and deep cross-tissue validation remain core technical moats that pre-designed panels alone do not replicate; customers with rigorous detection and specificity requirements will still depend on RNAscope's proven performance.",
+          "Complementary positioning with custom gene panels and open-source segmentation tools suggests RNAscope can partner with Vizgen-style bioinformatic workflows rather than compete head-to-head on panel curation, provided ACD continues to invest in ease-of-use resources for customers."
+        ]
+      },
+      "fetched": "2026-06-10T20:24:32+00:00"
+    },
+    {
+      "title": "A spatial atlas of the healthy human liver redefines mammalian liver zonation",
+      "link": "https://vizgen.com/a-spatial-atlas-of-the-healthy-human-liver-redefines-mammalian-liver-zonation/",
+      "summary": "Yakubovsky et al., Nature, 2026 A new spatial transcriptomics atlas of the healthy human liver, published in Nature by Yakubovsky and colleagues at the Weizmann Institute of Science with collaborators at Sheba Medical Center and... The post A spatial atlas of the healthy human liver redefines mammalian liver zonation appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Sun, 24 May 2026 08:49:03 +0000",
+      "id": "cdac4a980660de3f",
+      "score": 87,
+      "category": "Competitor Move",
+      "why": "Vizgen MERSCOPE Nature publication on human liver spatial transcriptomics; high-profile validation of competitor platform in marquee journal.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Vizgen published a high-profile Nature study of human liver zonation using MERFISH on their MERSCOPE platform. The work combined sequencing-based spatial methods with MERFISH single-molecule validation to create a reference atlas from live healthy donor tissue, revealing human-specific patterns of hepatocyte zonation that differ from mouse models.",
+        "why_it_matters": "This Nature publication positions MERSCOPE as a validated tool for single-cell, single-molecule spatial validation in a premium translational context, reinforcing Vizgen's ecosystem appeal to academic and pharma customers working on organ biology and disease modeling. The multimodal workflow narrative (sequencing plus targeted MERFISH validation) strengthens Vizgen's pitch for platform complementarity and reduces friction around MERSCOPE's targeted-gene-panel limitations versus transcriptome-wide methods.",
+        "at_risk": [
+          "High-impact publication in marquee journal may drive MERSCOPE adoption among hepatology and cell biology researchers who see MERFISH validation as necessary for rigor, particularly if RNAscope is not yet established in this tissue context.",
+          "Vizgen's framing of MERFISH as a validation layer for spatial sequencing may resonate with customers building multimodal workflows, positioning targeted ISH as complementary rather than standalone."
+        ],
+        "holding_ground": [
+          "RNAscope's platform-agnostic approach (not tied to Vizgen's hardware) remains an advantage for customers who want to integrate multiple spatial methods and avoid ecosystem lock-in.",
+          "This study validates MERFISH in healthy tissue; RNAscope's deep validation portfolio across disease states, cell types, and tissue types (particularly pathology-relevant contexts) is a distinct holding point if disease modeling becomes the use case."
+        ]
+      },
+      "fetched": "2026-06-10T20:24:22+00:00"
+    },
+    {
+      "title": "Indica Labs and Molecular Instruments Announce Partnership to Advance AI-Powered Quantitative Image Analysis with HCR™ RNA-ISH",
+      "link": "https://www.accesswire.com/849441/indica-labs-and-molecular-instruments-announce-partnership-to-advance-ai-powered-quantitative-image-analysis-with-hcr-rna-ish",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "April 5, 2024",
+      "id": "e59bafd8a113f621",
+      "score": 86,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments pairs HCR RNA-ISH with Indica Labs HALO for AI-powered quantification; direct RNAscope competitive positioning on workflow integration and analysis automation.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 9,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Molecular Instruments (HCR RNA-ISH) has partnered with Indica Labs (HALO image analysis software) to co-market integrated compatibility, enabling AI-powered quantitative analysis of HCR stained slides. The partnership emphasizes HCR's mild sample prep (no protease digestion), preserved tissue morphology, and seamless integration with existing IHC/IF workflows.",
+        "why_it_matters": "This directly positions HCR as a head-to-head alternative to RNAscope by bundling validated image analysis capability upstream. Molecular Instruments is addressing a key customer pain point (downstream quantification) that RNAscope users must currently solve independently or via third-party tools. The emphasis on workflow ease and AI automation targets research labs seeking turnkey solutions rather than platform-agnostic flexibility.",
+        "at_risk": [
+          "RNAscope customers in research and drug development evaluating workflow consolidation may perceive HCR plus HALO as simpler than RNAscope plus ad hoc analysis tools",
+          "Indica Labs HALO is widely deployed; this partnership gives HCR preferential positioning and ease-of-use narrative in that installed base",
+          "HCR's claim of no protease digestion and superior morphology preservation could resonate with labs frustrated by RNAscope prep complexity or image quality tradeoffs"
+        ],
+        "holding_ground": [
+          "RNAscope's established single-molecule sensitivity and specificity remain unmatched and deeply validated across diverse tissue types and disease contexts",
+          "RNAscope's platform-agnostic design means customers are not locked into one analysis vendor; they retain freedom to pair with HALO, Qupath, or other tools",
+          "This partnership is still co-marketing compatibility; it is not a proprietary integration, so RNAscope customers can achieve similar workflows with HALO or other analysis platforms"
+        ]
+      },
+      "fetched": "2026-06-10T20:36:03+00:00"
+    },
+    {
+      "title": "Molecular Instruments and Alpenglow Biosciences Partner to Advance 3D RNA Imaging in Intact Biological Samples",
+      "link": "https://www.businesswire.com/news/home/20250603189090/en/Molecular-Instruments-and-Alpenglow-Biosciences-Partner-to-Advance-3D-RNA-Imaging-in-Intact-Biological-Samples",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "June 3, 2025",
+      "id": "c90cd4bafd003ea0",
+      "score": 86,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments (HCR RNA-FISH) partners on 3D RNA imaging; direct competitive threat to RNAscope multiplexing and tissue penetration claims.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Molecular Instruments, maker of HCR (Hybridization Chain Reaction) RNA-FISH, has partnered with Alpenglow Biosciences to develop 3D RNA imaging capabilities in intact tissue samples. The partnership appears focused on improving depth penetration and multiplexing capacity in thick or whole tissues, areas where RNAscope has historically held claims around sensitivity and tissue compatibility.",
+        "why_it_matters": "HCR is already a credible head-to-head alternative to RNAscope in single-molecule ISH. If Molecular Instruments can credibly demonstrate superior 3D penetration and multiplexing in intact samples through this collaboration, it directly challenges two of RNAscope's key differentiators: deep tissue performance and ability to detect multiple targets simultaneously without loss of signal or specificity. This could accelerate HCR adoption in research labs and eventually clinical workflows where 3D spatial context is critical.",
+        "at_risk": [
+          "RNAscope's positioning as the gold standard for multiplexed RNA detection in thick tissues and whole organ imaging",
+          "Customer narrative around RNAscope's superior performance in challenging tissue types (dense, pigmented, or fibrotic samples) if Alpenglow partnership delivers visible technical wins",
+          "Market share in neuroscience and developmental biology, where 3D spatial resolution and multiplex capacity are key purchasing drivers"
+        ],
+        "holding_ground": [
+          "RNAscope's deep validation heritage across diverse tissue types and established reference standard status in peer-reviewed literature",
+          "Platform independence and lack of instrument lock-in, which appeals to labs hesitant to depend on a single vendor's hardware ecosystem",
+          "Single-molecule sensitivity and specificity remain unmatched in head-to-head comparisons; partnership announcements alone do not prove technical parity"
+        ]
+      },
+      "fetched": "2026-06-10T20:34:37+00:00"
+    },
+    {
+      "title": "Molecular Instruments® Continues RNA Imaging Leadership with Next-Generation miRNA/siRNA Detection and Clinical-Grade Ready-to-Use Kits",
+      "link": "https://www.businesswire.com/news/home/20250723714279/en/Molecular-Instruments-Continues-RNA-Imaging-Leadership-with-Next-Generation-miRNAsiRNA-Detection-and-Clinical-Grade-Ready-to-Use-Kits",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "July 24, 2025",
+      "id": "cde34ef91ff06edf",
+      "score": 85,
+      "category": "Competitor Move",
+      "why": "MI launches clinical-grade miRNA/siRNA detection kits; direct HCR threat to RNAscope's non-coding RNA and ready-to-use positioning. Field must counter.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Molecular Instruments announced clinical-grade, ready-to-use kits for miRNA and siRNA detection using their HCR platform. The release emphasizes ease of use and clinical readiness, positioning HCR as a turnkey alternative to manual workflows.",
+        "why_it_matters": "This directly challenges RNAscope in two areas where we have traction: non-coding RNA applications (a growing focus for spatial studies) and the simplicity/convenience narrative. MI is packaging HCR as clinical-ready, which could appeal to labs seeking to de-skill protocols and reduce hands-on time, especially in clinical or GLP-regulated settings.",
+        "at_risk": [
+          "Market share in miRNA/siRNA spatial profiling, a segment where RNAscope has established credibility but lacks a pre-packaged clinical-grade offering",
+          "Positioning advantage in 'ready-to-use' and workflow simplification messaging, which resonates with high-throughput and regulated labs",
+          "Customer adoption in clinical diagnostics pipelines where clinical-grade kits and validation packages are table stakes"
+        ],
+        "holding_ground": [
+          "Single-molecule sensitivity and specificity remain RNAscope's core technical moat; HCR's clinical claim does not diminish our detection performance on non-coding RNAs",
+          "Platform agnosticity: RNAscope works across multiple microscopy systems and detection chemistries, while HCR locks customers into MI's reagent ecosystem",
+          "Deep, published validation on miRNA/siRNA across diverse tissues and applications gives us credibility that a new kit announcement alone cannot immediately displace"
+        ]
+      },
+      "fetched": "2026-06-10T20:33:43+00:00"
+    },
+    {
+      "title": "Vizgen® to Advance Cell Atlases with New Volumetric Tissue Mapping Spatial Data and Services at HCA 2026 Meeting",
+      "link": "https://vizgen.com/vizgen-to-advance-cell-atlases-with-new-volumetric-tissue-mapping-spatial-data-and-services-at-hca-2026-meeting/",
+      "summary": "Company plans to showcase new volumetric MERFISH datasets in mouse brain and human neurodegenerative brain tissue, generated on the existing MERSCOPE Ultra™ Platform WALTHAM, Mass. – June 8, 2026 – Vizgen, Inc., a leader in spatial multiomics and developer of the MERSCOPE Ultra™ Platform, today... The post Vizgen® to Advance Cell Atlases with New Volumetric Tissue Mapping Spatial Data and Services at HCA 2026 Meeting appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Mon, 08 Jun 2026 12:03:13 +0000",
+      "id": "8957380162f973cc",
+      "score": 85,
+      "category": "Competitor Move",
+      "why": "Vizgen showcasing volumetric MERFISH on brain tissue at HCA 2026; direct competitor momentum on neurodegeneration and cell atlas work.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Vizgen announced volumetric MERFISH datasets and new Volumetric Tissue Mapping services at the Human Cell Atlas 2026 meeting, demonstrating 3D spatial transcriptomics on their MERSCOPE Ultra platform in mouse brain and human neurodegenerative tissue. They are also launching a Cell Atlasing Hub (datasets, case studies, expert consultation) and offering project-based data generation services to accelerate adoption.",
+        "why_it_matters": "Vizgen is moving aggressively into the high-value neurodegenerative and cell atlas segment with true 3D volumetric capability, a dimension RNAscope does not natively address. The bundling of instrument, chemistry, services, and community hub is classic ecosystem lock-in strategy; customers investing in MERSCOPE Ultra for volumetric work face switching friction. Success here would deepen Vizgen's moat in spatial genomics and solidify platform loyalty among atlas-building consortia and neuroscience labs.",
+        "at_risk": [
+          "ACD's foothold in cell atlas projects and neurodegenerative disease studies, where volumetric resolution and 3D tissue context are becoming table-stakes expectations.",
+          "Narrative momentum: Vizgen's public commitment to 3D and disease applications may shape perception of RNAscope as suited for 2D or single-cell work.",
+          "Services model risk: Vizgen's Volumetric Tissue Mapping services and Cell Atlasing Hub lower the barrier for researchers without internal spatial imaging expertise, capturing workflow and mindshare early."
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and specificity remain differentiated for rare cell detection and subcellular precision, independent of imaging geometry.",
+          "Platform agnosticism is ACD's structural advantage: RNAscope can be deployed on any compatible microscope (conventional, volumetric, or future systems), whereas MERSCOPE Ultra binds customers to Vizgen hardware.",
+          "ACD has deep validation history and adoption in neuroscience and pathology; moving into volumetric workflows does not require abandoning existing RNAscope data or expertise."
+        ]
+      },
+      "fetched": "2026-06-10T20:24:15+00:00"
+    },
+    {
+      "title": "The barcode project: a strategy to track the early naïve reservoir",
+      "link": "https://reporter.nih.gov/project-details/11401086",
+      "summary": "PI: Una T O'Doherty. Institution: EMORY UNIVERSITY. Award: $775,512. Memory CD4+ T cells are believed to be the primary reservoir for HIV; however, emerging evidence suggests an important role for naïve CD4+ T cells. Specifically, sequencing studies suggest the naïve reservoir contributes substantially to the intact HIV reservoir in chronic progressors, but is practically absent in elite controllers. While the naïve reservoir is small, it may have outsized effects on the overall reservoir since we find the naïve reservoir repopulates the memory based on preliminary clone tracking studies. Objective: The long-term goal is to dissect the role of the naïve reservoir on the overall reservoir in acutely infected individuals and in a primary model of latency. We will first determine the extent and frequency of naïve infection in acutely treated individuals. The n",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-06-05T00:00:00",
+      "institution": "EMORY UNIVERSITY",
+      "pi": "Una T O'Doherty",
+      "state": "GA",
+      "city": "ATLANTA",
+      "id": "f9e6685fea13dc1a",
+      "score": 83,
+      "category": "Funded Lab",
+      "why": "HIV reservoir lab at Emory tracking naïve CD4+ T cells; will need RNAscope to localize viral RNA and validate reservoir markers in tissue.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 8,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "SEA",
+      "region": "West",
+      "outreach_angle": {
+        "hook": "O'Doherty's lab is tracking HIV infection in naive CD4+ T cells using sequencing and clone tracking, but will need spatial validation to localize viral RNA and confirm marker expression in lymphoid tissues where the naïve reservoir resides. This is a classic single-cell-to-tissue validation use case where RNAscope can map reservoir markers and viral transcripts in their primary latency models.",
+        "way_in": "RNAscope multiplexing lets them visualize naive T cell markers (like CCR7, CD45RA) alongside HIV RNA in lymph node or spleen tissue sections, confirming which cells harbor virus and validating their sequencing findings in native tissue context. This bridges their molecular tracking data with spatial anatomy, critical for understanding naïve reservoir repopulation dynamics.",
+        "routing": "West territory (SEA) rep, infectious disease and immunology focus. Lead with in situ viral RNA detection and T cell subset co-localization."
+      },
+      "fetched": "2026-06-10T20:30:25+00:00"
+    },
+    {
+      "title": "Court Finds Advanced Cell Diagnostics Patents Invalid in Lawsuit with Molecular Instruments",
+      "link": "https://www.businesswire.com/news/home/20240424629037/en/",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "April 24, 2024",
+      "id": "3535c67fcab3760d",
+      "score": 82,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments patent victory undermines RNAscope IP moat; field must expect aggressive MI pricing and positioning in all deals.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 3,
+        "competitive_urgency": 10,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "A court has ruled that Advanced Cell Diagnostics patents are invalid in litigation brought by Molecular Instruments, a competitor in in situ hybridization. This represents a legal win for Molecular Instruments and removal of a potential barrier to their market activity.",
+        "why_it_matters": "Patent invalidation weakens ACD's intellectual property defense against Molecular Instruments' HCR technology and its variants. This opens the field for more direct competitive pressure without the risk of infringement claims, likely emboldening Molecular Instruments to pursue aggressive pricing and account penetration strategies.",
+        "at_risk": [
+          "Installed base and reorder revenue from customers who face lower switching costs now that patent risk to competitors is removed",
+          "Negotiating leverage in enterprise deals where customers may demand price concessions citing reduced IP moat",
+          "Market share in emerging use cases where Molecular Instruments can now compete without patent encumbrance"
+        ],
+        "holding_ground": [
+          "RNAscope's established track record of single-molecule sensitivity and deep validation across tissue types remains independent of patent status",
+          "Platform agnosticity and lack of instrument bundling continue to be a structural advantage versus ecosystem-locked competitors",
+          "Customer switching still carries scientific and workflow revalidation costs even without patent barriers"
+        ]
+      },
+      "fetched": "2026-06-10T20:35:54+00:00"
+    },
+    {
+      "title": "Molecular Instruments® RNA In Situ Hybridization (RNA-ISH) Technology Enables Breakthrough Laboratory-Developed Tests (LDTs) to Advance Precision Medicine for Inflammatory Skin Disease",
+      "link": "https://www.businesswire.com/news/home/20250210981648/en/Molecular-Instruments-RNA-In-Situ-Hybridization-RNA-ISH-Technology-Enables-Breakthrough-Laboratory-Developed-Tests-LDTs-to-Advance-Precision-Medicine-for-Inflammatory-Skin-Disease",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "February 12, 2025",
+      "id": "de7c95be5d8e5658",
+      "score": 82,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments expanding HCR RNA-ISH into clinical LDTs for inflammatory skin disease; direct RNAscope competitive threat in precision medicine.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Molecular Instruments is moving its HCR (Hybridization Chain Reaction) RNA-ISH technology into clinical laboratory-developed tests (LDTs) for inflammatory skin disease diagnosis and stratification. This represents a shift from research-focused applications toward precision medicine workflows where RNAscope is already established.",
+        "why_it_matters": "LDT deployment signals MI's intent to compete directly in the clinical diagnostic space, where RNAscope has built validation and adoption. If MI achieves clinical traction with HCR, it could shift perception of HCR from a research tool to a clinically viable alternative, particularly in dermatopathology where tissue accessibility and standardization favor ISH platforms.",
+        "at_risk": [
+          "Clinical adoption in inflammatory skin disease, where RNAscope's single-molecule sensitivity and tissue validation are key differentiators but not yet the sole standard.",
+          "Narrative that HCR is limited to research; clinical LDT success would legitimize HCR as a rival for precision medicine workflows."
+        ],
+        "holding_ground": [
+          "RNAscope's established validation track record across diverse tissue types and disease states, including skin, gives clinical labs and pathologists confidence in standardization and reproducibility.",
+          "Platform independence: RNAscope works on standard pathology infrastructure (brightfield, fluorescence, multiplex), avoiding dependency on MI's proprietary instrumentation or ecosystem lock-in."
+        ]
+      },
+      "fetched": "2026-06-10T20:35:05+00:00"
+    },
+    {
+      "title": "Molecular Instruments and Standard BioTools Announce Collaboration to Bring Amplified Multi-Omic Readouts to Imaging Mass Cytometry",
+      "link": "https://www.businesswire.com/news/home/20251119210160/en/Molecular-Instruments-and-Standard-BioTools-Announce-Collaboration-to-Bring-Amplified-Multi-Omic-Readouts-to-Imaging-Mass-Cytometry",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "November 19, 2025",
+      "id": "6818a636d1d87102",
+      "score": 81,
+      "category": "Competitor Move",
+      "why": "Molecular Instruments partners with Standard BioTools to integrate HCR RNA-CISH into Hyperion imaging mass cytometry, expanding competitor footprint in spatial proteomics and multiplexed in situ detection.",
+      "subscores": {
+        "relevance": 8,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Molecular Instruments and Standard BioTools announced a collaboration to integrate HCR (Hybridization Chain Reaction) RNA-CISH into the Hyperion imaging mass cytometry platform, enabling combined RNA and protein detection in spatial biology workflows.",
+        "why_it_matters": "This move strengthens Molecular Instruments' position as a direct competitor to RNAscope by embedding HCR into an established, high-end spatial proteomics instrument ecosystem. Standard BioTools' installed base and sales channels give HCR real distribution leverage in labs already committed to Hyperion, creating a bundled alternative that competes on convenience and integrated workflow.",
+        "at_risk": [
+          "Labs evaluating spatial RNA-protein profiling may now see HCR-plus-Hyperion as a one-stop-shop, reducing consideration of RNAscope as an agnostic layer on top of proteomics platforms.",
+          "Standard BioTools' sales and marketing reach amplifies HCR's visibility among imaging mass cytometry users, a growing segment in spatial biology.",
+          "RNAscope's platform-agnostic strength becomes less relevant if customers perceive bundled solutions as operationally simpler."
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and deep validation across tissue types remain differentiators that HCR does not automatically match, particularly for fixed tissue applications.",
+          "ACD's independence from any single instrument vendor preserves flexibility for customers who want to combine RNA profiling with multiple downstream detection modalities, not just mass cytometry.",
+          "This partnership addresses only spatial proteomics integration; it does not displace RNAscope's established use in brightfield, fluorescence, and other detection modes where platform lock-in is less of a concern."
+        ]
+      },
+      "fetched": "2026-06-10T20:32:19+00:00"
+    },
+    {
+      "title": "Vizgen Founder Professor Xiaowei Zhuang Awarded 2026 Ernest Solvay Prize",
+      "link": "https://vizgen.com/vizgen-founder-professor-xiaowei-zhuang-awarded-2026-ernest-solvay-prize/",
+      "summary": "Prize celebrates breakthrough work that resulted in the MERSCOPE® Platform Waltham, Mass. – March 31, 2026 – Xiaowei Zhuang, PhD, the David B. Arnold, Jr. Professor of Science at Harvard University and Howard Hughes Medical... The post Vizgen Founder Professor Xiaowei Zhuang Awarded 2026 Ernest Solvay Prize appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Wed, 01 Apr 2026 06:51:48 +0000",
+      "id": "d58e1651885bf9be",
+      "score": 79,
+      "category": "Competitor Move",
+      "why": "Vizgen founder Zhuang wins Ernest Solvay Prize for MERSCOPE; validates competitor platform prestige and Harvard institutional reach.",
+      "subscores": {
+        "relevance": 8,
+        "buying_signal": 4,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Vizgen founder and Harvard professor Xiaowei Zhuang won the 2026 Ernest Solvay Prize for her pioneering work on genome-scale imaging and the development of MERFISH technology, which powers Vizgen's MERSCOPE platform. The award highlights Zhuang's extensive scientific credentials and reinforces Vizgen's positioning as a leader in spatial genomics.",
+        "why_it_matters": "This prestigious award amplifies Vizgen's brand authority and academic credibility at a time when spatial biology adoption is accelerating. It strengthens Vizgen's ability to attract top talent, secure partnerships with academic institutions, and influence scientific discourse around best practices in spatial genomics, potentially shaping customer perceptions of platform legitimacy.",
+        "at_risk": [
+          "Vizgen's MERSCOPE platform gains scientific prestige and institutional endorsement that may sway academic customers evaluating RNAscope against MERFISH-based approaches.",
+          "Zhuang's extensive honors and National Academy memberships amplify Vizgen's narrative that MERFISH represents the cutting edge, potentially positioning RNAscope as a complementary rather than preferred technology in customer minds."
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and deep validation across diverse tissue types are orthogonal to MERFISH throughput claims and remain defensible for targeted, high-confidence applications.",
+          "ACD's platform-agnostic design avoids lock-in and integrates with existing customer workflows and instruments, whereas MERSCOPE bundles chemistry and hardware, creating switching costs that benefit ACD in multi-platform labs."
+        ]
+      },
+      "fetched": "2026-06-10T20:24:40+00:00"
+    },
+    {
+      "title": "Court Finds That Two Advanced Cell Diagnostics Patents Are Not Infringed by Molecular Instruments’ Proprietary HCR™ RNA-ISH Technology",
+      "link": "https://www.businesswire.com/news/home/20251125267575/en/Court-Finds-That-Two-Advanced-Cell-Diagnostics-Patents-Are-Not-Infringed-by-Molecular-Instruments-Proprietary-HCR-RNA-ISH-Technology",
+      "summary": "Molecular Instruments press release via newswire.",
+      "source": "Molecular Instruments",
+      "category_hint": "Competitor Move",
+      "date": "November 25, 2025",
+      "id": "a8e7604bc53d9374",
+      "score": 72,
+      "category": "Competitor Move",
+      "why": "Court ruling validates MI's HCR as non-infringing; removes patent moat around RNAscope. Alert sales to competitive positioning change.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 3,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "A court has ruled that Molecular Instruments' HCR (Hybridization Chain Reaction) RNA in situ hybridization technology does not infringe two of ACD's patents. This removes a legal barrier that had protected RNAscope from direct HCR competition and validates MI's ability to market their platform independently.",
+        "why_it_matters": "ACD's patent portfolio has been a key differentiator against HCR, a head-to-head ISH rival with comparable single-molecule sensitivity. This ruling eliminates patent-based defensibility and shifts competition to pure product merit, validation, ease of use, and ecosystem integration. MI can now scale without licensing constraints or litigation risk.",
+        "at_risk": [
+          "Sales reliance on patent moat argument to disqualify HCR in competitive situations",
+          "Market perception that RNAscope has exclusive or superior legal protection against multiplexed ISH alternatives",
+          "Potential upside from any settlement or licensing deal with MI"
+        ],
+        "holding_ground": [
+          "RNAscope's deep validation across tissue types and disease models; HCR still has narrower published performance library",
+          "Platform agnosticity and lack of instrument lock-in remains a genuine advantage over bundled competitors (10x, Bruker, Akoya), even if not against MI",
+          "Single-molecule sensitivity and specificity remain core technical strengths independent of patent status; win on data, not legal barriers"
+        ]
+      },
+      "fetched": "2026-06-10T20:31:52+00:00"
+    },
+    {
+      "title": "Harnessing microglia-neuron communication to improve habituation in neurodevelopment disorders",
+      "link": "https://reporter.nih.gov/project-details/11540694",
+      "summary": "PI: Jose H Ledo. Institution: MEDICAL UNIVERSITY OF SOUTH CAROLINA. Award: $226,500. This research proposal explores the role of microglial cells in neurodevelopmental and neuropsychiatric disorders, particularly focusing on habituation deficits induced by maternal immune activation (MIA). Novelty habituation, a fundamental form of behavioral plasticity where the response to a repeated stimulus diminishes over time, is often disrupted in conditions like autism spectrum disorders (ASD). The underlying brain circuits and cellular mechanisms responsible for these deficits remain poorly understood, posing a significant barrier to developing effective therapeutic interventions. Our study hypothesizes that MIA, a model for prenatal infection, shifts microglial cells from a homeostatic to a reactive state, impairing their ability to regulate neuronal activity and thus disrupting ",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-06-05T00:00:00",
+      "institution": "MEDICAL UNIVERSITY OF SOUTH CAROLINA",
+      "pi": "Jose H Ledo",
+      "state": "SC",
+      "city": "CHARLESTON",
+      "id": "79c1f8a7c5fde388",
+      "score": 72,
+      "category": "Funded Lab",
+      "why": "Neurodevelopmental/psychiatric lab (ASD, MIA model) validating microglia-neuron markers; needs in situ RNA localization for circuit mapping and cell-type confirmation.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 8,
+        "competitive_urgency": 0,
+        "recency": 9
+      },
+      "territory": "SEA",
+      "region": "West",
+      "outreach_angle": {
+        "hook": "This lab is mapping microglia-neuron circuits disrupted in autism-relevant models and needs to validate cell-type markers and spatial relationships in brain tissue. RNAscope enables them to confirm microglial activation state and neuronal response markers in situ, directly supporting their circuit-mapping hypothesis.",
+        "way_in": "They're likely relying on immunofluorescence or bulk sequencing to infer microglia state and neuronal activity, but in situ RNA probes would let them visualize marker colocalization and regional expression patterns in intact brain tissue without antibody limitations. This is the concrete way to validate their MIA model's cellular mechanism.",
+        "routing": "SEA West territory, Neurodevelopmental/Circuit Biology persona."
+      },
+      "fetched": "2026-06-10T20:30:54+00:00"
+    },
+    {
+      "title": "TGF-β1-induced differentiation enhances chemotherapy response in metastatic colorectal cancer organoids",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.04.730067v1?rss=1",
+      "summary": "BackgroundIn metastatic colorectal cancer, systemic therapies frequently fail, partly due to underlying phenotypic plasticity rooted in pre-existing multi-type cell populations. Intratumoral lineage hierarchies within colorectal tumors require renovated efforts to decode growth principles, design rational therapeutic approaches, and accurately interpret drug response. Understanding the cell-state dynamics of untreated tumors and the degree of cell responsiveness to exogenous stimuli is therefore crucial to improving currently underwhelming therapeutic outcomes. MethodsHere, we leveraged patient-derived organoids established from hepatic metastases of colorectal cancer patients to deconstruct population hierarchies by combining single-cell transcriptomics with single-molecule RNA fluorescent in situ hybridization. Computational frameworks were used to identify independent gene modules. We then employed flow cytometry analysis to track cytokine-induced population shifts using a cell surface marker, validating our findings through bulk RNA analysis, functional assays, and viability assays in response to oxaliplatin. ResultsOur data substantiate the existence of a dual population confi",
+      "source": "bioRxiv (Cancer Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-08",
+      "id": "5890ae45d7e903ba",
+      "score": 68,
+      "category": "Research/Methods",
+      "why": "Patient-derived CRC organoids combining scRNA-seq with smFISH for lineage validation; active high-value stem cell/organoid lab needing in situ marker confirmation.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 7,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:23:34+00:00"
+    },
+    {
+      "title": "High resolution spatial transcriptomics decodes the microenvironmental determinants of response to Nr-CWS therapy in cervical precancerous lesions",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.02.729727v1?rss=1",
+      "summary": "Immunotherapy with Nocardia rubra cell wall skeleton (Nr-CWS) can clear human papillomavirus (HPV) and induce regression of cervical precancerous lesions, yet many patients do not respond. The cellular and molecular basis for this heterogeneous clinical outcome remains unknown. Using high-resolution spatial transcriptomics, we profiled squamous intraepithelial lesions (SIL) from patients stratified by their subsequent response to Nr-CWS therapy. We discovered that non-responders were characterized by an immunosuppressive epithelial phenotype, defined by aberrant expression of the pro-inflammatory alarmin S100A9 in squamous epithelial cells (SECs), which was associated with poorer overall survival in cervical cancer. Non-responding lesions were enriched in proliferative (MKI67+) and pro-angiogenic (VEGFA+) SEC subpopulations and spatially organized into a pro-tumorigenic cellular neighborhood (CN-10) overexpressing S100A9 and ANXA1. In contrast, responders exhibited protective glandular-cell-enriched neighborhoods (CN-13) and supportive spatial interactions between lymphatic endothelial cells and fibroblasts. The unfavorable microenvironment was further defined by an immunosuppressi",
+      "source": "bioRxiv (Cancer Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-07",
+      "id": "54df754d46c9030b",
+      "score": 67,
+      "category": "Research/Methods",
+      "why": "Active spatial transcriptomics study on cervical precancer immunotherapy response; validates tumor microenvironment markers (S100A9, VEGFA, MKI67) that require in situ confirmation.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 7,
+        "competitive_urgency": 3,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:24:03+00:00"
+    },
+    {
+      "title": "Epithelial Reprogramming Underpinning Euplastic versus Dysplastic Repair",
+      "link": "https://reporter.nih.gov/project-details/11275239",
+      "summary": "PI: Jaymin J Kathiriya. Institution: ICAHN SCHOOL OF MEDICINE AT MOUNT SINAI. Award: $873,801. PROJECT SUMMARY Lung possesses a remarkable ability to regenerate and restore normal lung function after severe acute injury. However, in the case of chronic injuries, the lung epithelial stem/progenitors fail to restore normal lung function and contribute to a pathologic regeneration, amounting to regenerative failure that typifies chronic restrictive lung diseases like Idiopathic Pulmonary Fibrosis (IPF). Both airway and alveolar epithelial stem cells are capable of differentiating into type 1 and type 2 alveolar epithelial cells (AT1 and AT2, respectively) via a series of intermediate cell states. During normal injury resolution, like in acute injuries in human lungs and murine models, both airway and alveolar epithelial stem cells go through a euplastic intermediate cell (EIC) state to",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-06-05T00:00:00",
+      "institution": "ICAHN SCHOOL OF MEDICINE AT MOUNT SINAI",
+      "pi": "Jaymin J Kathiriya",
+      "state": "NY",
+      "city": "NEW YORK",
+      "id": "254ae5e3623a9054",
+      "score": 66,
+      "category": "Funded Lab",
+      "why": "IPF lung epithelial differentiation tracking requires in situ validation of AT1/AT2 markers and intermediate states; RNAscope ideal for spatial marker mapping.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 7,
+        "competitive_urgency": 0,
+        "recency": 10
+      },
+      "territory": "NYA",
+      "region": "East",
+      "outreach_angle": {
+        "hook": "This lab is mapping epithelial stem cell differentiation pathways through intermediate states to AT1 and AT2 cells in IPF lungs, a process that demands spatial validation of cell-type-specific markers in native tissue context. The grant implies need for confirming marker expression patterns across distinct epithelial populations and intermediate states, which is a core RNAscope use case.",
+        "way_in": "RNAscope enables simultaneous detection of multiple AT1, AT2, and intermediate state markers in lung tissue sections, validating the transcriptional transitions the lab is characterizing. This in situ approach preserves tissue architecture and identifies rare intermediate cell populations that may be missed in single-cell sequencing alone.",
+        "routing": "NYA territory. Route to East region sales rep covering Mount Sinai and adjacent academic clusters."
+      },
+      "fetched": "2026-06-10T20:27:26+00:00"
+    },
+    {
+      "title": "Spatially resolved single-cell analyses of human meningioma identify novel cell states influencing tumor microenvironment and progression.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42265312/",
+      "summary": "Nat Genet. Nature genetics",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 9",
+      "id": "42735099eb2fa183",
+      "score": 65,
+      "category": "Research/Methods",
+      "why": "Spatially resolved single-cell work on brain tumor microenvironment; meningioma labs validating cell states will need in situ marker confirmation via RNAscope.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 7,
+        "competitive_urgency": 2,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:25:43+00:00"
+    },
+    {
+      "title": "Multi-omics reveals fibroblast subtypes with distinct roles in inflammatory bowel disease.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42265813/",
+      "summary": "Biol Direct. Biology direct",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 9",
+      "id": "c00c729259826f36",
+      "score": 62,
+      "category": "Research/Methods",
+      "why": "IBD fibroblast heterogeneity study needs spatial validation of subtype markers; RNAscope ideal for barrier-organ inflammation persona and tissue niche profiling.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 8,
+        "competitive_urgency": 0,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:25:36+00:00"
+    },
+    {
+      "title": "Single-cell transcriptomics of heterogeneous patient-derived organoids reveals novel therapeutic targets in high-grade serous ovarian cancer",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.05.730209v1?rss=1",
+      "summary": "High-grade serous ovarian carcinoma (HGSOC) is characterized by widespread peritoneal dissemination and poor long-term survival, largely driven by metastatic relapse following initial response to chemotherapy. Defining the molecular programs that enable tumor progression from the primary ovarian site to metastatic niches remains a key challenge. Here, we leverage patient-derived organoids (PDOs) coupled with single-cell RNA sequencing (scRNA-seq) to interrogate tumor evolution and identify regulators of metastatic competence in HGSOC. We profiled PDOs and matched formalin-fixed paraffin-embedded (FFPE) tumor samples from ovarian and omental disease sites across seven patients. Single-cell transcriptomic analysis revealed conserved and patient-specific cellular states and enabled reconstruction of inferred trajectories of tumor progression. Comparative trajectory analysis identified gene expression programs associated with metastatic transition from ovarian to omental tumors. Among these, the heparan sulfate proteoglycan AGRIN emerged as a consistently upregulated gene along the metastatic axis. Cell-cell communication analyses suggested that AGRIN-mediated signaling involves both e",
+      "source": "bioRxiv (Cancer Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-09",
+      "id": "7ecedea03dddb92b",
+      "score": 62,
+      "category": "Research/Methods",
+      "why": "scRNA-seq ovarian cancer lab with PDOs and FFPE tissue; validates candidate markers in situ next-strong RNAscope prospect for metastatic niche profiling.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 7,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:22:58+00:00"
+    },
+    {
+      "title": "Epigenetic de-repression of basal cell metaplasia in aging AT2 cells is a risk factor for idiopathic pulmonary fibrosis (IPF).",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.09.731212v1?rss=1",
+      "summary": "Idiopathic pulmonary fibrosis (IPF) is a fatal, age-associated lung disease in which alveolar type II (AT2) cells lose regenerative capacity and can adopt aberrant basal-like fates that promote fibrosis. Using 3D organoid co-cultures with primary human fibroblasts, we find that healthy human AT2 cell trans-differentiation into KRT5+/KRT17+ basal cells increases progressively with age, while differentiation into RAGE+ AT1-like cells decreases. We identify a shared gene signature in AT2 cells at downstream targets of p63 characterized both by acquisition of bivalent, poised chromatin marks with age and increased accessibility in IPF, indicating epigenetic ''priming'' towards a basal cell lineage. In vitro treatment of young AT2 cells with IL-1{beta} recapitulates this priming toward basal differentiation via a NF-kB-regulated histone demethylase, JMJD3. Conversion of primed AT2 cells to a basal fate requires recruitment of a shared transcription factor, KLF5, from AT1-specific to basal-specific promoters by HIF-1. AT2 cells instead convert to KRT5-/KRT17+ basaloid cells via a non-age-dependent pathway that requires KLF5-SMAD2/3 complexing through TGF{beta}1 signaling. These findings ",
+      "source": "bioRxiv (Cell Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-10",
+      "id": "0d759d60eba86cf0",
+      "score": 62,
+      "category": "Research/Methods",
+      "why": "IPF lung tissue biology lab validating KRT5, KRT17, RAGE, p63 targets in AT2 cells; organoid work needs in situ marker confirmation for spatial cellular fate mapping.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 6,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:22:31+00:00"
+    },
+    {
+      "title": "Development of novel NLRP3 inflammasome inhibitors for intervening in Alzheimer's disease",
+      "link": "https://reporter.nih.gov/project-details/11336344",
+      "summary": "PI: Shijun Zhang. Institution: VIRGINIA COMMONWEALTH UNIVERSITY. Award: $1,513,190. Neuroinflammation has been recognized as an essential player in the pathogenesis of Alzheimer’s disease (AD). Recently, the NOD-like receptor family pyrin domain containing 3 (NLRP3) inflammasome, a multimeric protein complex that tightly regulates the innate immune responses, has been suggested with critical roles in AD development and progression. Dysregulation of the NLRP3 inflammasome is responsible for the over production of pro-inflammatory interleukin (IL)-1β and IL-18, ultimately leading to inflammatory responses and cell death. Thus, NLRP3 inflammasome represents an attractive drug target for AD and offers promise to provide effective disease modifying potential. Over the past several years, our team has successfully developed novel small molecule NLRP3 inflammasome selective inhi",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-06-05T00:00:00",
+      "institution": "VIRGINIA COMMONWEALTH UNIVERSITY",
+      "pi": "Shijun Zhang",
+      "state": "VA",
+      "city": "RICHMOND",
+      "id": "b463f2f4eab7052a",
+      "score": 61,
+      "category": "Funded Lab",
+      "why": "VCU neuroinflammation lab with $1.5M NIH award on NLRP3/AD will need spatial validation of microglia, astrocyte, and cytokine markers in human AD brain tissue.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 7,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "MDA",
+      "region": "East",
+      "outreach_angle": {
+        "hook": "VCU's $1.5M NLRP3 inflammasome program targets neuroinflammatory drivers of Alzheimer's disease, with a focus on IL-1β and IL-18 dysregulation in the brain. They will need to spatially validate which cell types (microglia, astrocytes, infiltrating immune cells) express these pro-inflammatory cytokines in human AD tissue to confirm mechanistic findings.",
+        "way_in": "Cytokines like IL-1β and IL-18 lack reliable antibodies for immunohistochemistry, but RNAscope can detect their transcripts with high sensitivity and cellular resolution in fixed human AD brain tissue. This lets them map inflammasome activation across brain regions and cell types without the background and specificity problems of protein detection.",
+        "routing": "MDA territory rep, neuroscience vertical."
+      },
+      "fetched": "2026-06-10T20:29:08+00:00"
+    },
+    {
+      "title": "Single-cell spatial transcriptomics of formalin-fixed, paraffin-embedded biopsies reveals colitis-associated cell networks.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42262875/",
+      "summary": "J Clin Invest. The Journal of clinical investigation",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 9",
+      "id": "a348b2a76eba37a4",
+      "score": 61,
+      "category": "Research/Methods",
+      "why": "Active lab validating spatial transcriptomics in IBD tissue; FFPE compatibility signals RNAscope fit for clinical sample workflows.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 7,
+        "competitive_urgency": 2,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:26:16+00:00"
+    },
+    {
+      "title": "Single cells and spatial RNA profiling reveal that inflammatory fibroblasts arise from Edil3 stromal cells in the colon after irradiation.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42265413/",
+      "summary": "Cell Death Differ. Cell death and differentiation",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 9",
+      "id": "d4a301170b4da852",
+      "score": 61,
+      "category": "Research/Methods",
+      "why": "Spatial RNA profiling of colon fibroblasts post-irradiation; validates stromal differentiation and matches fibrosis/barrier-organ inflammation profile.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 7,
+        "competitive_urgency": 2,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:25:41+00:00"
+    },
+    {
+      "title": "A human lung organoid co-culture model of early bone sarcoma metastasis reveals contact-dependent epithelial remodeling at the metastatic interface",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.03.729838v1?rss=1",
+      "summary": "Lung metastasis drives mortality across cancer types, yet how infiltrating tumor cells remodel the lung epithelium to establish metastatic niches remains poorly understood. Here we establish MESCUL (MEtastatic Sarcoma Co-CULture), a co-culture platform combining human lung organoids with patient-derived bone sarcoma cells to model early tumor-lung epithelial interactions in a physiologically relevant 3D system. MESCUL reveals that direct tumor-epithelial contact induces rapid, reproducible lung epithelial remodeling across Ewing sarcoma (ES) and osteosarcoma (OS) models and multiple organoid donor backgrounds, which is contact-dependent and not recapitulated by paracrine signaling. Single-cell RNA sequencing identifies LIMES (Lung Interface Metastasis Signature), a shared transcriptional program encompassing focal adhesion assembly, matrix metalloprotease (MMP) upregulation, and emergence of a damage-associated transitional cell state, in both ES and OS. Mechanistically, tumor-derived fibronectin (FN1) engages epithelial integrin receptors to activate focal adhesion kinase (FAK), driving amphiregulin (AREG) induction and MMP-mediated remodeling; FN1 alone phenocopies this response,",
+      "source": "bioRxiv (Cancer Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-08",
+      "id": "8b894c0dcf6e1ff4",
+      "score": 61,
+      "category": "Research/Methods",
+      "why": "Lung organoid co-culture model with scRNA-seq needs spatial validation of epithelial remodeling markers (MMPs, focal adhesion genes, transitional states) in situ.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 7,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:23:57+00:00"
+    },
+    {
+      "title": "mTOR inhibition augments antitumor immune effector response by reprogramming the TP53-mutant, immune-cold HNSCC tumor microenvironment.",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.04.730026v1?rss=1",
+      "summary": "Introduction: Resistance to immunotherapy remains a major clinical challenge in TP53-mutant head and neck squamous cell carcinoma (HNSCC), a disease subset characterized by immune exclusion, high recurrence, and poor outcomes. Given the constitutive activation of PI3K/AKT/mTOR signaling in TP53-mutant HNSCC and its role in disease progression, we investigated whether the mTOR inhibition (mTORi) could overcome immune resistance and improve outcomes. Methods: We evaluated the effects of mTOR inhibitor everolimus in TP53-mutant, anti-PD-1-resistant syngeneic HNSCC cell lines and syngeneic tumor models. Tumor microenvironment (TME) changes, including immune cell infiltration, immune checkpoint expression, and key pathways associated with immune suppression and angiogenesis were assessed to define the mechanisms underlying TME remodeling. Results: Everolimus significantly suppressed tumor growth in syngeneic HNSCC models. At the cellular level, everolimus significantly increased intratumoral CD8+ T cell and dendritic cell (DC) infiltration while reducing the accumulation of regulatory T cells (Tregs). Mechanistically, everolimus induced a cytokine/chemokine response, marked by increased",
+      "source": "bioRxiv (Cancer Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-08",
+      "id": "8ddb8a541be50e1b",
+      "score": 61,
+      "category": "Research/Methods",
+      "why": "TP53-mutant HNSCC TME work studying immune infiltration and checkpoint markers; likely needs spatial validation of PD-1, PD-L1, immune subsets in tissue.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 7,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:23:38+00:00"
+    },
+    {
+      "title": "APOE interacts with COX-2 on lipid droplets to modulate inflammatory lipid signaling",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.09.730852v1?rss=1",
+      "summary": "Alzheimer's Disease (AD) is the leading cause of dementia worldwide. Expression of the E4 variant of apolipoprotein E (APOE) greatly increases individuals' risk of developing AD. In response to lipogenesis in astrocytes, APOE can escape secretion and traffic to the cytoplasmic surface of lipid droplets (LDs), but protein interactors of APOE at the LD were unknown. Here we find that LD-localized APOE physically interacts with the inflammatory lipid signaling enzyme cyclooxygenase-2 (COX-2). Like APOE, COX-2 can avoid the secretory pathway and traffic to LDs in response to lipogenesis. APOE3, but not APOE4, increases COX-2 localization to LDs. Computational modeling, microscopy-based assays, and targeted lipidomics reveal that APOE3 promotes while APOE4 suppresses COX-2 enzymatic activity at LDs and intracellular prostaglandin production. This work identifies a novel and targetable protein-protein interaction of APOE and provides a mechanistic link between APOE4 and dysregulated inflammatory lipid signaling.",
+      "source": "bioRxiv (Cell Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-10",
+      "id": "468fc4411bd54a02",
+      "score": 61,
+      "category": "Research/Methods",
+      "why": "AD astrocyte biology with subcellular protein localization; RNAscope validates APOE, COX2, and inflammatory markers in human brain tissue.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 7,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:22:42+00:00"
+    },
+    {
+      "title": "AGBT: Spatial Biology Field ‘Maturing’ as Updates Well-Received, if Not Flashy",
+      "link": "https://vizgen.com/agbt-spatial-biology-field-maturing-as-updates-well-received-if-not-flashy/",
+      "summary": "Mar 04, 2026 | Andrew P. Han | Huanjia Zhang NEW YORK – New developments in spatial biology technology had a muted reception at this year’s Advances in Genome Biology and Technology general meeting, as... The post AGBT: Spatial Biology Field ‘Maturing’ as Updates Well-Received, if Not Flashy appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Wed, 04 Mar 2026 20:52:47 +0000",
+      "id": "8041d5b2bf4c7d49",
+      "score": 60,
+      "category": "Competitor Move",
+      "why": "Vizgen signals maturation and market consolidation at AGBT; track product updates and positioning shifts against RNAscope's competitive landscape.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 3,
+        "competitive_urgency": 7,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "At AGBT 2026, Vizgen announced an on-instrument quality control assay for its spatial platform. The broader spatial biology field showed signs of maturation with incremental rather than breakthrough announcements, while some competitors (10x Genomics, Akoya/Quanterix) maintained low profiles or were absent.",
+        "why_it_matters": "Vizgen's QC move targets a real pain point (expensive samples requiring validation before sequencing), signaling that the spatial market is consolidating around ease-of-use and workflow integration rather than raw sensitivity. This reflects industry momentum toward bundled, turnkey systems that reduce friction for end-users, a dynamic that has historically favored integrated platforms over point solutions like RNAscope.",
+        "at_risk": [
+          "RNAscope's platform-agnostic model may face headwinds if customers increasingly prefer integrated workflows with built-in QC and data management.",
+          "Maturation-phase improvements (QC, ease-of-use) can lock customers into ecosystems faster than breakthrough science alone."
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and validated specificity across diverse tissue types remain orthogonal to workflow convenience and are essential for high-confidence discovery science.",
+          "Deep validation pedigree and lack of instrument lock-in give RNAscope flexibility to serve customers who need to integrate ISH results across multiple platforms or who cannot commit to one vendor's ecosystem."
+        ]
+      },
+      "fetched": "2026-06-10T20:24:48+00:00"
+    },
+    {
+      "title": "Thyroid hormone mediated reprogramming of the basolateral amygdala by adolescent social deprivation",
+      "link": "https://reporter.nih.gov/project-details/11420440",
+      "summary": "PI: Deena M. Walker. Institution: OREGON HEALTH & SCIENCE UNIVERSITY. Award: $625,866. PROJECT SUMMARY Social disconnection in humans, particularly during adolescence, is associated with substance use disorder vulnerability. In mice, adolescent social isolation profoundly alters reward processing in adulthood; increasing the preference for drugs of abuse, enhancing associative learning, altering dopaminergic signaling and transcription within the BLA and extended reward circuitry. Intriguingly, these phenomena are all also associated with thyroid hormone signaling. Further, dysregulation of thyroid hormone in early life is associated lifetime risk for reward-related mood disorders and altered development of monoaminergic systems. In adults, thyroid hormone dysregulation is associated with substance- and alcohol use disorders. Therefore, we propose that the persistent impacts",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-06-05T00:00:00",
+      "institution": "OREGON HEALTH & SCIENCE UNIVERSITY",
+      "pi": "Deena M. Walker",
+      "state": "OR",
+      "city": "PORTLAND",
+      "id": "05e9d235b7b63c7f",
+      "score": 59,
+      "category": "Funded Lab",
+      "why": "Neuro-psychiatric lab (social isolation, reward, dopamine, BLA) newly funded for brain tissue validation; RNAscope ideal for dopamine receptor and monoamine marker mapping.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 7,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "NWA",
+      "region": "West",
+      "outreach_angle": {
+        "hook": "Walker's lab is mapping how adolescent social isolation rewires dopamine and monoamine signaling in the basolateral amygdala (BLA), a core reward circuit implicated in substance use vulnerability. They'll need to validate changes in dopamine receptors and monoamine markers across BLA tissue regions and cell types to confirm their sequencing and functional findings.",
+        "way_in": "RNAscope multiplex in situ hybridization lets them localize dopamine receptors (D1, D2), monoamine synthesis genes, and thyroid hormone signaling markers directly in BLA tissue sections, revealing which neurons and circuits are altered by social deprivation. This spatial validation bridges their transcriptomic and behavioral data without relying on antibodies that may not exist for all monoamine targets.",
+        "routing": "Territory NWA (West). Walker at OHSU is a neuroscience PI with strong publication track record; route to West region rep for initial contact on spatial validation needs."
+      },
+      "fetched": "2026-06-10T20:30:35+00:00"
+    },
+    {
+      "title": "Blood-Brain Barrier Repair in Alzheimer’s Disease with Epilepsy",
+      "link": "https://reporter.nih.gov/project-details/11327334",
+      "summary": "PI: Bjoern Bauer, Anika M.S. Hartz. Institution: UNIVERSITY OF KENTUCKY. Award: $719,390. More than 25% of patients with Alzheimer’s disease (AD) develop epilepsy as co-morbidity. In AD with epilepsy (ADxEpi), seizures accelerate cognitive decline and further reduce life expectancy compared to AD alone. One hallmark of both AD and epilepsy is blood-brain barrier dysfunction. We discovered that barrier dysfunction is more severe in ADxEpi patients compared to seizure-free AD patients. Collectively, our data suggest that a combination of Ab and seizure-released glutamate (Aβ/Glu) triggers a dual positive feedback loop which exac- erbates barrier dysfunction, seizures, and cognitive decline in ADxEpi. However, the detailed mechanism(s) that leads to barrier dysfunction in ADxEpi is/are unknown, and treatment options for ADxEpi patients are limited to anti-seizure drugs that by the",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-06-05T00:00:00",
+      "institution": "UNIVERSITY OF KENTUCKY",
+      "pi": "Bjoern Bauer, Anika M.S. Hartz",
+      "state": "KY",
+      "city": "LEXINGTON",
+      "id": "a26782edfc0d8471",
+      "score": 59,
+      "category": "Funded Lab",
+      "why": "Active neurodegeneration lab (Bauer/Hartz, U Kentucky) studying AD and BBB dysfunction; will need in situ validation of barrier markers, glia, and neuroinflammation in human AD brain tissue.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 7,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "RBA",
+      "region": "East",
+      "outreach_angle": {
+        "hook": "The Bauer/Hartz lab is studying blood-brain barrier dysfunction in Alzheimer's disease with comorbid epilepsy, requiring tissue-level validation of barrier integrity markers, glial activation, and neuroinflammatory mediators across human brain regions. They fit the Neurobiology Researcher persona and need in situ localization of BBB markers and cytokines (like glutamate signaling components) that lack reliable antibodies or require subcellular resolution in diseased tissue.",
+        "way_in": "RNAscope enables them to map barrier dysfunction markers and neuroinflammatory transcripts (glia-derived cytokines, tight junction components, Aβ-responsive genes) directly in post-mortem AD and ADxEpi brain tissue, validating their mechanistic findings about the Aβ/glutamate feedback loop and distinguishing barrier pathology in seizure-free versus comorbid patients.",
+        "routing": "East territory (RBA). Assign to regional rep with neurobiology portfolio experience."
+      },
+      "fetched": "2026-06-10T20:27:36+00:00"
+    },
+    {
+      "title": "Maintenance of mucosal homeostasis by commensal Th17 cells",
+      "link": "https://reporter.nih.gov/project-details/11076773",
+      "summary": "PI: Ivaylo Ivanov Ivanov. Institution: COLUMBIA UNIVERSITY HEALTH SCIENCES. Award: $567,000. Mucosa are sites of conventional immune system attack for defense against invasive pathogens. Mucosa were also once regarded simply as inert barriers preventing commensal microbes from accessing sterile tissues. Instead, emerging evidence suggests a complex interplay between commensal microbes, barrier epithelial cells, and the immune system that is essential for local and systemic homeostasis of the host. We have recently provided insight into how recognition of commensal components by epithelial and innate immune cells triggers a specific immune reaction and why the nature of this reaction could foster host- microbe symbiosis instead of outright microbial rejection. Specifically, we showed that antigen acquisition be intestinal epithelial cells (IECs) of commensal antigens drives a non-p",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-06-05T00:00:00",
+      "institution": "COLUMBIA UNIVERSITY HEALTH SCIENCES",
+      "pi": "Ivaylo Ivanov Ivanov",
+      "state": "NY",
+      "city": "NEW YORK",
+      "id": "6859fab36a7a1ab1",
+      "score": 57,
+      "category": "Funded Lab",
+      "why": "Ivanov lab studying mucosal Th17 immunity and epithelial-immune crosstalk; likely needs cytokine and marker localization in gut tissue via RNAscope.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 6,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "NYA",
+      "region": "East",
+      "outreach_angle": {
+        "hook": "The Ivanov lab is dissecting epithelial-immune crosstalk at mucosal surfaces, specifically how commensal antigens and intestinal epithelial cells trigger localized Th17 responses. They will need to map Th17-associated cytokines (IL-17, IL-22) and cell-type markers across intact gut tissue to understand the spatial dynamics of this host-microbe symbiosis.",
+        "way_in": "RNAscope is ideal for validating Th17 markers and cytokine expression directly in mucosal tissue sections, where antibody performance is often poor and spatial context matters for understanding epithelial-immune interactions. This lets them confirm single-cell or bulk sequencing findings and visualize where specific immune reactions occur relative to epithelial compartments.",
+        "routing": "East territory (NYA). Columbia is in Manhattan, so NYC-based rep should lead outreach to Ivanov lab."
+      },
+      "fetched": "2026-06-10T20:27:21+00:00"
+    },
+    {
+      "title": "Dissecting Neuroglial Innate Immunity in vivo against Polyomavirus CNS Infection",
+      "link": "https://reporter.nih.gov/project-details/11350858",
+      "summary": "PI: Shareef Shaheen. Institution: PENNSYLVANIA STATE UNIV HERSHEY MED CTR. Award: $37,108. PRORJECT ABSTRACT: JC Polyomavirus (JCPyV) is a ubiquitous asymptomatic virus that infects up to 90% of humans. In immunocompromised individuals, JCPyV can cause progressive multifocal leukoencephalopathy (PML), an often-lethal demyelinating neurodegenerative disease. Because polyomaviruses (PyV) are species-specific, mechanisms of PML pathogenesis are incompletely understood. The Lukacher group studies Mouse Polyomavirus (MuPyV), a natural murine virus, to define virologic and immunologic factors involved in PyV CNS infection and disease. Published work from the Lukacher group has shown that Type I Interferons (IFNs) directly inhibit MuPyV replication and are necessary to mitigate MuPyV encephalitis. The pathway(s) of Type I IFN induction during PyV infection in vivo is unknown. In vitro,",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-06-05T00:00:00",
+      "institution": "PENNSYLVANIA STATE UNIV HERSHEY MED CTR",
+      "pi": "Shareef Shaheen",
+      "state": "PA",
+      "city": "HERSHEY",
+      "id": "0c873cc8c81c9b65",
+      "score": 56,
+      "category": "Funded Lab",
+      "why": "Neuroglial innate immunity lab funded to map viral tropism and IFN response in CNS; likely needs in situ viral RNA and glial marker validation.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 7,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "PAA",
+      "region": "East",
+      "outreach_angle": {
+        "hook": "Shareef Shaheen's lab is dissecting how glial cells mount innate immune responses to polyomavirus in the CNS, including Type I interferon induction pathways. They will need to map viral tropism across brain tissue and validate which glial populations (microglia, astrocytes, oligodendrocytes) express infection markers and interferon-response genes in situ.",
+        "way_in": "RNAscope excels at localizing viral RNA and low-abundance innate immune transcripts (like interferons and pattern-recognition receptors) directly in brain tissue while preserving cellular and regional context. This avoids the antibody limitations common in neuroimmunology and lets them correlate viral presence with glial cell-type-specific immune activation.",
+        "routing": "East territory (PAA). Penn State Hershey is core academic neuroscience research; open with neuroimmunology expertise angle."
+      },
+      "fetched": "2026-06-10T20:29:45+00:00"
+    },
+    {
+      "title": "Spatial transcriptomics reveals differences in bronchus-associated lymphoid tissue composition in stable and rejecting human lung allografts.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42263893/",
+      "summary": "J Heart Lung Transplant. The Journal of heart and lung transplantation : the official publication of the International Society for Heart Transplantation",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 9",
+      "id": "27bf9c5b20cd7369",
+      "score": 53,
+      "category": "Research/Methods",
+      "why": "Spatial transcriptomics in transplant rejection; lung allograft TME profiling suggests RNAscope validation need for immune markers in tissue rejection models.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 6,
+        "competitive_urgency": 0,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:25:55+00:00"
+    },
+    {
+      "title": "Senescent and reactive astrocytes display distinct expression profiles and divergent functional capacities.",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.05.729920v1?rss=1",
+      "summary": "Astrocytes assume multiple phenotypes in the brain in response to stress, injury, inflammation, and aging. Given the complexity of this critical cell type in the CNS, it is important to gain a greater understanding of the differences between these phenotypes and to potentially identify therapeutic approaches to modifying astrocyte function in the context of disease and aging. We compared senescent and reactive astrocytes using a strictly defined paradigm to induce these phenotypes in human astrocytes. Gene expression profiling reveals overlapping but distinct expression profiles. Reactive astrocytes predominantly express genes involved in inflammatory responses while senescent astrocytes express genes and a secretome that suggests a role in synaptic pruning. Unexpectedly, functional analysis in a simplified neurite outgrowth assay suggests that senescent astrocytes retain the ability to support neurite outgrowth while reactive astrocytes lose this capacity. The data suggests that senescent and reactive astrocytes play distinct functional roles in the physiology of the aging brain. However, the overlapping inflammatory nature of senescent and reactive astrocytes makes it difficult t",
+      "source": "bioRxiv (Cell Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-10",
+      "id": "7f76aa05942401bd",
+      "score": 53,
+      "category": "Research/Methods",
+      "why": "Astrocyte phenotyping by gene expression; likely needs marker validation in human brain tissue via RNAscope or ISH for senescence and reactivity markers.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 6,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:22:15+00:00"
+    },
+    {
+      "title": "Organization of Retinothalamic Circuits and their Contributions to Visual Processing in Primary Visual Cortex",
+      "link": "https://reporter.nih.gov/project-details/11381012",
+      "summary": "PI: EDWARD M CALLAWAY, Benjamin Knoell Stafford. Institution: SALK INSTITUTE FOR BIOLOGICAL STUDIES. Award: $475,000. Project Summary/Abstract The goal of this proposal is to characterize the connectivity and functional role of specific circuits in the mammalian visual system. This proposal focuses on neural circuits that transmit visual information from retinal ganglion cells (RGCs) in the retina, through different regions of the dorsal lateral geniculate nucleus (dLGN) in the thalamus, to specific populations of neurons in the primary visual cortex (V1). The combined activity of these visual pathway circuits results in the generation of tuning properties in V1 neurons (eg. direction selectivity) that make important contributions to visual perception and behavior. The objective of this proposal is to understand how specific retino-geniculo-cortical circuits, carrying different types of visual information",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-06-05T00:00:00",
+      "institution": "SALK INSTITUTE FOR BIOLOGICAL STUDIES",
+      "pi": "EDWARD M CALLAWAY, Benjamin Knoell Stafford",
+      "state": "CA",
+      "city": "La Jolla",
+      "id": "b8072d8c6e28408d",
+      "score": 52,
+      "category": "Funded Lab",
+      "why": "Callaway lab (Salk) mapping neural circuits in V1; likely needs marker validation of RGC subtypes, dLGN populations, or V1 cell types in situ.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 6,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "NCA",
+      "region": "West",
+      "outreach_angle": {
+        "hook": "The Callaway lab is mapping retinothalamic circuits and their functional contributions to visual processing, which requires precise identification of retinal ganglion cell subtypes, thalamic populations, and V1 neuronal types across tissue sections. This circuit mapping work is a strong fit for RNAscope, since validating cell-type-specific markers in intact tissue (retina, dLGN, V1) is critical to correlating connectivity and anatomy with function.",
+        "way_in": "Circuit tracing and functional characterization often reveal unexpected cell populations or marker expression patterns that need spatial validation in situ. RNAscope can confirm RGC subtype markers, dLGN cell identity, and V1 layer-specific or morphology-specific populations without the antibody limitations that plague this tissue, and can be multiplexed to validate combinations of markers that define functionally distinct populations.",
+        "routing": "NCA territory, Salk-based lab with likely contacts in neuroscience and systems biology."
+      },
+      "fetched": "2026-06-10T20:30:06+00:00"
+    },
+    {
+      "title": "High resolution spatial transcriptomics identifies insufficient radiofrequency ablation induces hepatocellular carcinoma progression via CEBPD / CXCL2 axis.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42263221/",
+      "summary": "Hepatology. Hepatology (Baltimore, Md.)",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 8",
+      "id": "747276b6aa812362",
+      "score": 46,
+      "category": "Research/Methods",
+      "why": "Spatial transcriptomics on HCC tissue validates CEBPD/CXCL2 axis; lab likely needs RNAscope for gene-axis confirmation in clinical samples.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 6,
+        "competitive_urgency": 0,
+        "recency": 2
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:26:10+00:00"
+    },
+    {
+      "title": "Meningioma Single-Cell Atlas Points to Informative Tumor, Microenvironment Cell States",
+      "link": "https://www.genomeweb.com/cancer/meningioma-single-cell-atlas-points-informative-tumor-microenvironment-cell-states",
+      "summary": "Researchers used single-cell and spatial transcriptomics to identify meningioma metaprograms, along with prognostically informative myeloid immune cell interactions.",
+      "source": "GenomeWeb",
+      "category_hint": "",
+      "date": "Tue, 09 Jun 2026 13:39:42 EDT",
+      "id": "9ce91e62bdabb63d",
+      "score": 46,
+      "category": "Research/Methods",
+      "why": "Spatial transcriptomics study of meningioma TME with immune profiling; lab likely needs ISH validation of myeloid markers and tumor-immune interactions.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 6,
+        "competitive_urgency": 0,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:25:09+00:00"
+    },
+    {
+      "title": "Human 3D epithelioids enable continuous long-term clonal evolution studies across multiple epithelial tissues",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.07.730560v1?rss=1",
+      "summary": "Modeling human epithelia in vitro remains challenging because current systems do not fully preserve the combination of architecture, heterogeneity, clonal composition, and long-term dynamics shown in vivo. While 3D approaches such as organoids and organotypic cultures capture important aspects of lineage differentiation and niche signaling, they often lose stable organization over time, limiting studies of long-lasting processes such as clonal evolution and cell competition. Here, we present human epithelioids as continuous long-term, 3D epithelial cultures efficiently derived from eight adult human epithelia, including trachea, skin, buccal mucosa, esophagus, blader, urethra, submandibular gland and endometrium. Using immunostaining, electron microscopy, single-cell RNA sequencing, functional assays and somatic mutation analyses, we deeply characterized human epithelioids and confirmed that they recapitulate native architecture and cell diversity, sustain regenerative capacity, and preserve donor-specific mutational landscapes, establishing a robust and versatile platform for longitudinal interrogation of clonal evolution, tissue dynamics and responses to clinically relevant pertu",
+      "source": "bioRxiv (Cancer Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-08",
+      "id": "ee5ac3d24a14ca43",
+      "score": 42,
+      "category": "Research/Methods",
+      "why": "3D epithelial models need in situ validation of clonal markers and lineage; RNAscope ideal for spatial cell-type confirmation in epithelioids.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 6,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:23:49+00:00"
+    },
+    {
+      "title": "Transcriptional analyses identify pericyte-centered signaling programs altered by sex and brain region in Alzheimer's Disease.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42260160/",
+      "summary": "Commun Biol. Communications biology",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 8",
+      "id": "4148bdc2c817aaf2",
+      "score": 41,
+      "category": "Research/Methods",
+      "why": "AD brain pericyte biology with scRNA-seq; likely needs in situ validation of cell-type markers and sex-dependent signaling nodes in human tissue.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 6,
+        "competitive_urgency": 0,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:26:45+00:00"
+    },
+    {
+      "title": "scRNA-seq and genomics analyses reveal key mechanisms of inverted papilloma-associated sinonasal squamous cell carcinoma malignant transformation",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.01.729345v1?rss=1",
+      "summary": "Sinonasal inverted papilloma (IP) carries a 10% risk of malignant transformation to IP-associated sinonasal squamous cell carcinoma (IP-SNSCC), yet the molecular and immune drivers of this progression remain poorly defined. This study integrates single-cell RNA sequencing, multiplexed spatial proteomics, whole-exome sequencing, and functional assays across IP and IP-SNSCC cohorts to define mechanisms of malignant transformation. Respiratory epithelial basal cells are identified as the putative cell of origin, with progression marked by recurrent CDKN2A loss and TP53 mutations. Spatial profiling reveals immune reorganization at the lesional interface in IP-SNSCC, characterized by enrichment of alternatively activated M2 macrophages. CXCL14 is shown to directly induce an immunosuppressive myeloid phenotype that suppresses T-cell IFN{gamma} production through an IDO-pathway-dependent mechanism. Integration of these multimodal datasets defines a previously unrecognized CXCL14-IDO mechanism that constrains anti-tumor immunity at the tumor-stroma interface. These findings establish IDO-targeted immunomodulation as a rational adjuvant strategy and provide a comprehensive molecular framewo",
+      "source": "bioRxiv (Genomics)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-04",
+      "id": "ef8552303f3d384a",
+      "score": 38,
+      "category": "Research/Methods",
+      "why": "scRNA-seq and spatial proteomics study of sinonasal cancer; immune markers (M2, CXCL14, IDO, IFNγ) need in situ validation in tissue but no explicit RNAscope/smFISH mention.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 5,
+        "competitive_urgency": 0,
+        "recency": 7
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:21:39+00:00"
+    },
+    {
+      "title": "M6A-modified circEZH2 Protects Endothelial Cells from Senescence and Suppresses Atherosclerosis by Stabilizing ZNF326",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.05.730538v1?rss=1",
+      "summary": "Objective: Endothelial cell senescence induces endothelial dysfunction, thereby contributing to atherosclerosis progression. Circular RNAs (circRNAs) play diverse roles in multiple physiological and pathological processes. N6-methyladenosine (m6A) is the most abundant internal RNA modification in eukaryotic RNAs and dynamically regulates RNA fate and function. However, the functions and therapeutic potential of m6A-modified circRNAs in endothelial cell senescence remain unknown. Approach and Results: m6A-modified circRNAs associated with endothelial cell senescence were screened by circRNA expression and m6A-circRNA microarray profiling of endothelial cells and mouse aortic intima. circEZH2 expression was validated in endothelial cells, vascular tissues, and human atherosclerotic plaques by RT-qPCR, and RNA fluorescence in situ hybridization. The role of circEZH2 in endothelial senescence and atherosclerosis was assessed in vitro and in vivo. RNA pull-down, mass spectrometry, RNA immunoprecipitation, co-immunoprecipitation, ubiquitination assays, and rescue experiments were used to define the underlying mechanism. We identified A novel m6A-modified circRNA, circEZH2, that was downr",
+      "source": "bioRxiv (Cell Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-10",
+      "id": "0b3cc09dc25b216b",
+      "score": 34,
+      "category": "Research/Methods",
+      "why": "circRNA validation uses RNA FISH in vascular tissue; atherosclerosis TME interest but non-spatial transcriptomics focus limits urgency.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:22:08+00:00"
+    },
+    {
+      "title": "SPACE-seq integrates spatial transcriptomics and lineage tracing in native tissues.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42263684/",
+      "summary": "Cell Stem Cell. Cell stem cell",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 9",
+      "id": "33df011e3b16a3c5",
+      "score": 32,
+      "category": "Research/Methods",
+      "why": "Spatial transcriptomics method combining lineage tracing; adjacent to RNAscope but not in situ imaging. Monitor for adoption signals.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 4,
+        "competitive_urgency": 0,
+        "recency": 3
+      },
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T20:25:57+00:00"
+    }
+  ]
 }
