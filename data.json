@@ -1,7 +1,7 @@
 {
-  "updated": "2026-06-10T21:18:40+00:00",
-  "count": 50,
-  "new_this_run": 2,
+  "updated": "2026-06-10T21:35:33+00:00",
+  "count": 60,
+  "new_this_run": 11,
   "categories": [
     "Competitor Move",
     "Research/Methods",
@@ -111,6 +111,74 @@
         ]
       },
       "fetched": "2026-06-10T20:35:19+00:00"
+    },
+    {
+      "title": "10x Genomics, Inc. (Nasdaq: TXG), a leader in single cell and spatial biology, today announced a collaboration with Dana-Farber Cancer Institute to...",
+      "link": "https://www.prnewswire.com/kr/",
+      "summary": "10x Genomics (PR Newswire) press release via newswire.",
+      "source": "10x Genomics (PR Newswire)",
+      "category_hint": "Competitor Move",
+      "date": "Jan 12, 2026, 09:00 ET",
+      "id": "3f619b3be2c63275",
+      "score": 89,
+      "category": "Competitor Move",
+      "why": "10x Genomics deepening spatial biology footprint at major cancer center (Dana-Farber); Xenium/Visium integration threatens RNAscope adoption in immuno-oncology labs.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "10x Genomics announced a collaboration with Dana-Farber Cancer Institute to advance spatial biology research. The press release itself provides minimal detail on scope, deliverables, or technology focus, but the one-line take flags concern about Xenium/Visium adoption in immuno-oncology workflows.",
+        "why_it_matters": "10x Genomics is using prestigious research partnerships to validate and embed its spatial platforms (Xenium, Visium) in high-profile cancer centers, which can drive adoption in clinical and pharmaceutical labs. Dana-Farber's endorsement signals credibility and may steer immuno-oncology research toward 10x's closed ecosystem rather than open-platform alternatives like RNAscope.",
+        "at_risk": [
+          "RNAscope adoption in immuno-oncology labs at Dana-Farber and peer institutions if 10x partnership yields strong publication or clinical validation data.",
+          "Competitive positioning in spatial biology for cancer research, where 10x's bundle (instrument, reagents, software) creates switching friction even if RNAscope offers superior single-molecule sensitivity."
+        ],
+        "holding_ground": [
+          "RNAscope's platform independence lets researchers use spatial results on any detection system or microscope, avoiding lock-in that Dana-Farber may face with Xenium/Visium.",
+          "Single-molecule sensitivity and deep tissue validation remain differentiators for complex immuno-oncology applications where 10x's broader but shallower multiplex may underperform."
+        ]
+      },
+      "fetched": "2026-06-10T21:35:12+00:00"
+    },
+    {
+      "title": "10x Genomics, Inc. (Nasdaq: TXG), a leader in single cell and spatial biology, today announced Atera, a new in situ spatial biology platform...",
+      "link": "https://www.prnewswire.com/account/online-account-form/",
+      "summary": "10x Genomics (PR Newswire) press release via newswire.",
+      "source": "10x Genomics (PR Newswire)",
+      "category_hint": "Competitor Move",
+      "date": "Apr 15, 2026, 16:05 ET",
+      "id": "9407a7b7a0b65b74",
+      "score": 89,
+      "category": "Competitor Move",
+      "why": "10x launches Atera in situ platform; direct head-to-head threat to RNAscope in spatial transcriptomics. Field must prep positioning immediately.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 10,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "10x Genomics announced Atera, a new in situ spatial biology platform, entering direct competition with RNAscope in the spatial transcriptomics market. The press release itself lacks detailed technical specifications, but the headline signals 10x is moving beyond single-cell sequencing into probe-based spatial detection.",
+        "why_it_matters": "10x has massive installed base, brand trust, and ecosystem reach in spatial biology (Visium, Xenium). Atera likely bundles with their instruments and data pipeline, creating lock-in advantage that has historically challenged RNAscope's platform-agnostic positioning. This is a core threat vector we have long anticipated from 10x.",
+        "at_risk": [
+          "Existing and prospective customers may default to Atera if it integrates seamlessly with their 10x workflows and instruments, reducing RNAscope's pull-through.",
+          "10x's sales and marketing machine can position Atera as the 'complete spatial solution,' commoditizing standalone ISH probes.",
+          "If Atera matches RNAscope's sensitivity and specificity at competitive pricing, lock-in becomes the primary decision driver rather than technical merit."
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and deep cross-tissue validation remain differentiated; Atera's early maturity and limited field data work in our favor short-term.",
+          "Platform independence is a genuine advantage for labs already invested in non-10x instruments (Leica, Zeiss, etc.) or who want to avoid ecosystem lock-in.",
+          "RNAscope's established customer base and publication track record provide defensibility while Atera builds evidence and adoption."
+        ]
+      },
+      "fetched": "2026-06-10T21:34:32+00:00"
     },
     {
       "title": "Biocare Medical and Molecular Instruments Partner to Revolutionize Automated Bioimaging Through ONCORE Pro X and HCR™ RNA-ISH Assays",
@@ -529,6 +597,39 @@
       "fetched": "2026-06-10T20:24:15+00:00"
     },
     {
+      "title": "10x Genomics, Inc. (Nasdaq: TXG), a leader in single cell and spatial biology, today announced a collaboration with Brigham & Women's Hospital, a...",
+      "link": "https://www.prnewswire.com/jp/",
+      "summary": "10x Genomics (PR Newswire) press release via newswire.",
+      "source": "10x Genomics (PR Newswire)",
+      "category_hint": "Competitor Move",
+      "date": "Jan 12, 2026, 09:10 ET",
+      "id": "99ba3bcfcb5509db",
+      "score": 84,
+      "category": "Competitor Move",
+      "why": "10x Xenium/Visium partnership with Brigham & Women's signals competitive spatial bio footprint expansion in major academic medical center.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 7,
+        "competitive_urgency": 9,
+        "recency": 9
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "10x Genomics announced a collaboration with Brigham & Women's Hospital focused on spatial biology applications. The press release itself is not fully visible in the provided text, but the one-line take indicates this involves 10x's Xenium and Visium spatial platforms being deployed or validated at a major academic medical center.",
+        "why_it_matters": "This type of high-profile academic medical center partnership amplifies 10x's installed base, generates peer-reviewed publications that drive adoption, and cements spatial biology as a core clinical and research workflow within one of the leading U.S. hospital systems. It also deepens 10x's ecosystem lock-in by embedding their hardware and software into a prestigious institution's standard protocols.",
+        "at_risk": [
+          "Academic validation and publication momentum in spatial biology may increasingly flow through 10x platforms, setting reference standards that influence other medical centers and research groups.",
+          "Brigham & Women's adoption of Xenium/Visium as primary spatial tools could reduce laboratory consideration of platform-agnostic alternatives like RNAscope for spatial applications."
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and high specificity remain differentiated for validation and multiplexing, especially in tissue contexts where 10x performance is constrained.",
+          "RNAscope's platform flexibility means it can be integrated into Brigham's workflow without ecosystem lock-in, appealing to labs that need orthogonal or complementary spatial methods."
+        ]
+      },
+      "fetched": "2026-06-10T21:35:05+00:00"
+    },
+    {
       "title": "Vizgen to Debut Spatial Multiomics Roadmap at AGBT 2026",
       "link": "https://vizgen.com/vizgen-to-debut-spatial-multiomics-roadmap-at-agbt-2026/",
       "summary": "Vizgen will expand applications of MERSCOPE Ultra™ platform to include spatially-resolved molecular profiling of organoids; company has expansive pipeline and is progressing toward multiple breakthrough capabilities Waltham, Mass. – February 19, 2026 – Vizgen, Inc., a leader in spatial multiomics at single-cell resolution, today announced a series of innovations under development to help accelerate drug discovery, advance understanding of disease progression, and enable new research breakthroughs. The company will present its... The post Vizgen to Debut Spatial Multiomics Roadmap at AGBT 2026 appeared first on Vizgen .",
@@ -591,6 +692,72 @@
         "routing": "West territory (SEA) rep, infectious disease and immunology focus. Lead with in situ viral RNA detection and T cell subset co-localization."
       },
       "fetched": "2026-06-10T20:30:25+00:00"
+    },
+    {
+      "title": "10x Genomics, Inc. (Nasdaq: TXG), a leader in single cell and spatial biology, the Garvan Institute of Medical Research in Australia and the...",
+      "link": "https://www.prnewswire.com/vn/",
+      "summary": "10x Genomics (PR Newswire) press release via newswire.",
+      "source": "10x Genomics (PR Newswire)",
+      "category_hint": "Competitor Move",
+      "date": "Nov 11, 2025, 16:05 ET",
+      "id": "eeee93cd01a5a91c",
+      "score": 82,
+      "category": "Competitor Move",
+      "why": "10x Genomics spatial biology partnership with Garvan Institute signals market expansion; track Xenium adoption and positioning against RNAscope multiplexing claims.",
+      "subscores": {
+        "relevance": 8,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "10x Genomics announced a partnership with the Garvan Institute of Medical Research in Australia focused on spatial biology. The press release details are minimal in the provided text, but it appears to involve collaboration on single-cell and spatial biology research or applications.",
+        "why_it_matters": "10x continues to build institutional partnerships that drive Xenium adoption and validate its spatial platform in high-profile research settings. This type of collaboration can accelerate market penetration in academic centers and strengthen 10x's positioning as the integrated spatial biology leader, which directly competes with RNAscope's footprint in research institutions.",
+        "at_risk": [
+          "Academic and institutional adoption of Xenium in Australia and potentially Asia-Pacific, reducing RNAscope's greenfield opportunity in these regions.",
+          "Perception that 10x's integrated platform (sequencing, spatial, and instrument) is the de facto standard for spatial biology, potentially steering new labs toward bundled ecosystem rather than platform-agnostic tools."
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and specificity remain unmatched for high-resolution target detection, a strength that academic collaborations will continue to need regardless of platform preference.",
+          "RNAscope's flexibility to work with any downstream instrument or analysis pipeline protects customers from lock-in and appeals to labs that want to integrate multiple technologies in their workflow."
+        ]
+      },
+      "fetched": "2026-06-10T21:35:33+00:00"
+    },
+    {
+      "title": "10x Genomics, Inc. (Nasdaq: TXG), a leader in single cell and spatial biology, today announced preliminary, unaudited select results for the fourth...",
+      "link": "https://www.prnewswire.com/ae/",
+      "summary": "10x Genomics (PR Newswire) press release via newswire.",
+      "source": "10x Genomics (PR Newswire)",
+      "category_hint": "Competitor Move",
+      "date": "Dec 29, 2025, 16:05 ET",
+      "id": "296868e88807c9c8",
+      "score": 82,
+      "category": "Competitor Move",
+      "why": "10x Q4 earnings signal: Xenium and Visium spatial platforms gaining traction; monitor revenue, customer wins, and product roadmap shifts against RNAscope installed base.",
+      "subscores": {
+        "relevance": 8,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "10x Genomics announced preliminary Q4 results, signaling continued momentum in its Xenium and Visium spatial biology platforms. The company is actively promoting these integrated instrument and software solutions to the market.",
+        "why_it_matters": "10x remains ACD's primary ecosystem lock-in threat. If Xenium and Visium adoption accelerates, customers bundled into 10x workflows have less incentive to adopt RNAscope as an independent or complementary assay. Conversely, if growth stalls or customer satisfaction issues emerge, RNAscope's platform-agnostic model becomes a stronger value proposition.",
+        "at_risk": [
+          "RNAscope adoption in labs that standardize on Xenium or Visium and view in situ methods as solved within the 10x ecosystem.",
+          "Market share of ISH assay volume in spatial workflows where 10x instruments dominate the customer relationship and purchasing decisions."
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and deep cross-tissue validation differentiate it from 10x methods on technical merit, valuable for labs requiring orthogonal validation or ultra-specific detection.",
+          "Platform independence means RNAscope customers are not locked into 10x hardware cycles, pricing, or software constraints, and can combine RNAscope with any imaging or analysis platform."
+        ]
+      },
+      "fetched": "2026-06-10T21:35:26+00:00"
     },
     {
       "title": "Court Finds Advanced Cell Diagnostics Patents Invalid in Lawsuit with Molecular Instruments",
@@ -661,6 +828,72 @@
       "fetched": "2026-06-10T20:35:05+00:00"
     },
     {
+      "title": "10x Genomics, Inc. (Nasdaq: TXG), a leader in single cell and spatial biology, today announced a collaboration with the Cancer Research Institute...",
+      "link": "https://prnewswire.com/mx/",
+      "summary": "10x Genomics (PR Newswire) press release via newswire.",
+      "source": "10x Genomics (PR Newswire)",
+      "category_hint": "Competitor Move",
+      "date": "Jan 11, 2026, 12:00 ET",
+      "id": "7d84abb2cfc90c6e",
+      "score": 81,
+      "category": "Competitor Move",
+      "why": "10x Xenium/Visium partnership with Cancer Research Institute signals spatial oncology expansion; monitor deal scope and customer overlap.",
+      "subscores": {
+        "relevance": 8,
+        "buying_signal": 6,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "10x Genomics announced a collaboration with the Cancer Research Institute (CRI). The provided source material is incomplete and does not specify the collaboration details, scope, or whether it involves 10x's spatial biology platforms (Xenium, Visium) or other modalities.",
+        "why_it_matters": "10x continues to deepen relationships in the oncology and immunology space where spatial transcriptomics adoption is accelerating. A CRI partnership could expand 10x's installed base among cancer research centers and clinical labs, and validate their spatial platforms in high-impact disease areas where ACD also competes.",
+        "at_risk": [
+          "10x's continued ecosystem bundling (platform plus analytics plus research partnerships) may further entrench customers in their spatial biology workflow and reduce openness to alternative ISH technologies",
+          "CRI's reach into major cancer centers and academic institutions could amplify 10x's credibility in oncology, a key verticals for both spatial transcriptomics and validated ISH assays"
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and deep validation in tumor microenvironments remain differentiated; a partnership does not automatically validate a platform's technical performance",
+          "ACD's platform-agnostic model allows customers to use RNAscope on any imaging system, avoiding lock-in to 10x instruments and giving flexibility that bundled solutions cannot match"
+        ]
+      },
+      "fetched": "2026-06-10T21:35:20+00:00"
+    },
+    {
+      "title": "10x Genomics, Inc. (Nasdaq: TXG), a leader in single cell and spatial biology, today announced that PharosAI, a research consortium uniting four...",
+      "link": "https://prnewswire.com/br/",
+      "summary": "10x Genomics (PR Newswire) press release via newswire.",
+      "source": "10x Genomics (PR Newswire)",
+      "category_hint": "Competitor Move",
+      "date": "Jan 22, 2026, 16:05 ET",
+      "id": "8af9c24ba42cb8d1",
+      "score": 81,
+      "category": "Competitor Move",
+      "why": "10x announces PharosAI consortium expansion in spatial biology; monitor Xenium/Visium adoption and partnership leverage against RNAscope.",
+      "subscores": {
+        "relevance": 8,
+        "buying_signal": 4,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "10x Genomics announced participation in PharosAI, a research consortium that includes four partner organizations focused on spatial biology and related applications. The exact scope and 10x's role within the consortium are not detailed in the available text.",
+        "why_it_matters": "10x continues to build ecosystem partnerships and research alliances around its spatial biology platforms (Xenium and Visium), reinforcing its position as a primary reference in the field and potentially creating multi-institution validation and adoption pathways that compete directly with RNAscope's open-platform approach. Consortium membership can accelerate de facto standardization of 10x workflows and lock in early-adopter institutions.",
+        "at_risk": [
+          "Academic and research consortium preferences for 10x platforms, especially if PharosAI becomes a visible reference standard in spatial biology publications and protocol development",
+          "Potential bias in consortium-generated validation data or best practices that favor 10x instrument integration over platform-agnostic ISH approaches"
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and multi-tissue validation remain independent of consortium narratives and are directly comparable in head-to-head studies",
+          "Platform flexibility and instrument independence mean RNAscope is not threatened by 10x ecosystem bundling; researchers can use both technologies without vendor lock-in"
+        ]
+      },
+      "fetched": "2026-06-10T21:34:59+00:00"
+    },
+    {
       "title": "Molecular Instruments and Standard BioTools Announce Collaboration to Bring Amplified Multi-Omic Readouts to Imaging Mass Cytometry",
       "link": "https://www.businesswire.com/news/home/20251119210160/en/Molecular-Instruments-and-Standard-BioTools-Announce-Collaboration-to-Bring-Amplified-Multi-Omic-Readouts-to-Imaging-Mass-Cytometry",
       "summary": "Molecular Instruments press release via newswire.",
@@ -727,6 +960,74 @@
         ]
       },
       "fetched": "2026-06-10T20:24:40+00:00"
+    },
+    {
+      "title": "10x Genomics, Inc. (Nasdaq: TXG), a leader in single cell and spatial biology, today reported financial results for the fourth quarter and full year...",
+      "link": "https://www.prnewswire.com/apac/zh/",
+      "summary": "10x Genomics (PR Newswire) press release via newswire.",
+      "source": "10x Genomics (PR Newswire)",
+      "category_hint": "Competitor Move",
+      "date": "Feb 04, 2026, 09:00 ET",
+      "id": "e905d8f3dae113cc",
+      "score": 74,
+      "category": "Competitor Move",
+      "why": "10x earnings call signals spatial biology investment trajectory and Xenium adoption metrics; monitor customer wins and pricing pressure on RNAscope workflows.",
+      "subscores": {
+        "relevance": 8,
+        "buying_signal": 3,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "10x Genomics reported Q4 and full-year financial results. The provided text is a PR Newswire portal page with no actual earnings details, earnings call transcript, or 10x-specific financial data visible.",
+        "why_it_matters": "10x remains ACD's primary ecosystem threat in spatial biology through Xenium and bundled in situ hybridization offerings. Earnings calls typically reveal customer adoption rates, pricing strategy, and R&D investment in competing ISH modalities, all of which directly signal competitive pressure on RNAscope's installed base.",
+        "at_risk": [
+          "Xenium customer adoption and pricing momentum could accelerate if 10x reports strong spatial workflow adoption and retention metrics.",
+          "RNAscope workflows bundled into larger 10x instrument ecosystems face lock-in risk if 10x aggressively bundles ISH or lowers Xenium pricing."
+        ],
+        "holding_ground": [
+          "RNAscope's platform-agnostic design and single-molecule sensitivity remain differentiated if 10x's bundled ISH is instrument-dependent or lower in specificity.",
+          "Deep tissue validation and multiplexing flexibility across non-10x instruments preserve RNAscope's value for labs avoiding vendor lock-in."
+        ]
+      },
+      "fetched": "2026-06-10T21:34:46+00:00"
+    },
+    {
+      "title": "10x Genomics, Inc. (Nasdaq: TXG), a leader in single cell and spatial biology, today reported financial results for the first quarter ended March 31, ...",
+      "link": "https://www.prnewswire.com/account/online-account-form/",
+      "summary": "10x Genomics (PR Newswire) press release via newswire.",
+      "source": "10x Genomics (PR Newswire)",
+      "category_hint": "Competitor Move",
+      "date": "Apr 29, 2026, 16:05 ET",
+      "id": "90008875d540c3ce",
+      "score": 74,
+      "category": "Competitor Move",
+      "why": "10x Genomics Q1 earnings: watch for Xenium spatial transcriptomics traction, pricing moves, or partnership announcements that threaten RNAscope market share.",
+      "subscores": {
+        "relevance": 7,
+        "buying_signal": 3,
+        "competitive_urgency": 8,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "10x Genomics released Q1 2024 financial results. The provided text is a PR Newswire platform template and does not contain the actual earnings report, so specific financial performance, product updates, or strategic announcements are not accessible from this source.",
+        "why_it_matters": "10x Genomics is ACD's most significant competitive threat in spatial biology, particularly with their Xenium platform, which directly competes with RNAscope for in situ gene expression detection. Q1 results typically include commentary on spatial product adoption, instrument placements, and pricing strategy, all of which would signal 10x's momentum and potential bundling or ecosystem lock-in pressures on ACD customers.",
+        "at_risk": [
+          "Xenium adoption and installed base growth could accelerate lock-in of RNAscope-addressable customer segments into 10x's integrated platform.",
+          "Pricing competition or promotional bundling by 10x could pressure RNAscope margins or customer acquisition in academic and biopharma research.",
+          "Strategic partnerships announced by 10x (e.g., with CROs, pharma, or instrument makers) could expand their market reach in oncology or drug development workflows where RNAscope has strong presence."
+        ],
+        "holding_ground": [
+          "RNAscope's platform-agnostic design and lack of instrument lock-in remain compelling for customers seeking flexibility across multiple imaging modalities and equipment vendors.",
+          "Single-molecule sensitivity and deep tissue validation across diverse histology types give RNAscope durability in research and clinical diagnostics applications where accuracy and reproducibility matter most.",
+          "RNAscope's mature customer base and extensive publication record create switching costs and credibility that cannot be displaced by Q1 momentum alone."
+        ]
+      },
+      "fetched": "2026-06-10T21:34:20+00:00"
     },
     {
       "title": "Court Finds That Two Advanced Cell Diagnostics Patents Are Not Infringed by Molecular Instruments’ Proprietary HCR™ RNA-ISH Technology",
@@ -1352,6 +1653,36 @@
       "fetched": "2026-06-10T20:25:09+00:00"
     },
     {
+      "title": "Schwann Cell Reprogramming after Nerve Injury",
+      "link": "https://reporter.nih.gov/project-details/11336347",
+      "summary": "PI: Rajeshwar B Awatramani, John P Svaren. Institution: UNIVERSITY OF WISCONSIN-MADISON. Award: $475,401. Abstract Myelination of axons in the nervous system is critical for not only conduction of action potentials, but also for providing tropic support to ensure long term survival of neurons in both the central and peripheral nervous systems. Myelin disorders are a major cause of neurological disease, and can be caused by genetic disorders, infectious disease, and inflammation. The peripheral nervous system has substantial plasticity in being able to regenerate after nerve injury, and critical transcription factors and their target gene networks have begun to be elucidated. Schwann cell reprogramming to a new differentiated state is a critical and rate limiting factor in peripheral nerve regeneration, particularly when regeneration is impaired as a function of aging/chronic denervation. There",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-06-05T00:00:00",
+      "institution": "UNIVERSITY OF WISCONSIN-MADISON",
+      "pi": "Rajeshwar B Awatramani, John P Svaren",
+      "state": "WI",
+      "city": "MADISON",
+      "id": "be14b63324891f10",
+      "score": 42,
+      "category": "Funded Lab",
+      "why": "Neuroscience nerve regeneration lab mapping Schwann cell transcription factors; will need in situ validation of TF targets and cell-type markers in peripheral nerve tissue.",
+      "subscores": {
+        "relevance": 6,
+        "buying_signal": 5,
+        "competitive_urgency": 0,
+        "recency": 8
+      },
+      "territory": "MWA",
+      "region": "West",
+      "outreach_angle": {
+        "hook": "This lab is mapping transcription factor networks that drive Schwann cell reprogramming after nerve injury, making them a strong fit for in situ RNA validation of TF target genes and cell-state markers in peripheral nerve tissue. They will need to confirm which genes are actually expressed in which Schwann cell populations across injured vs. uninjured nerve, a classic RNAscope use case.",
+        "way_in": "RNAscope multiplexing can validate their transcription factor target predictions directly in nerve sections, showing co-expression of TF markers and downstream targets in the same Schwann cells without antibody dependency. This bridges their transcriptomics findings to tissue context and supports claims about cell reprogramming kinetics.",
+        "routing": "MWA territory (West) - field rep should lead with peripheral nerve regeneration biology and spatial validation angle."
+      },
+      "fetched": "2026-06-10T21:33:04+00:00"
+    },
+    {
       "title": "Human 3D epithelioids enable continuous long-term clonal evolution studies across multiple epithelial tissues",
       "link": "https://www.biorxiv.org/content/10.64898/2026.06.07.730560v1?rss=1",
       "summary": "Modeling human epithelia in vitro remains challenging because current systems do not fully preserve the combination of architecture, heterogeneity, clonal composition, and long-term dynamics shown in vivo. While 3D approaches such as organoids and organotypic cultures capture important aspects of lineage differentiation and niche signaling, they often lose stable organization over time, limiting studies of long-lasting processes such as clonal evolution and cell competition. Here, we present human epithelioids as continuous long-term, 3D epithelial cultures efficiently derived from eight adult human epithelia, including trachea, skin, buccal mucosa, esophagus, blader, urethra, submandibular gland and endometrium. Using immunostaining, electron microscopy, single-cell RNA sequencing, functional assays and somatic mutation analyses, we deeply characterized human epithelioids and confirmed that they recapitulate native architecture and cell diversity, sustain regenerative capacity, and preserve donor-specific mutational landscapes, establishing a robust and versatile platform for longitudinal interrogation of clonal evolution, tissue dynamics and responses to clinically relevant pertu",
@@ -1394,6 +1725,21 @@
       "fetched": "2026-06-10T20:26:45+00:00"
     },
     {
+      "title": "Multi-modal comparison of primary and stem cell-derived β-cells nominates targets for maturation",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.04.730032v1?rss=1",
+      "summary": "Stem-cell-derived {beta}-like-cells (SC{beta}-cells) provide a promising platform for diabetes modelling and cell replacement therapy, but their incomplete functional maturation remains a challenge. Here, we compared immature SC{beta}-cells to human primary {beta}-cells utilizing a multi-omic, single-cell framework integrating patch-clamp electrophysiology with scRNA sequencing (patch-seq), regulatory network inference, and functional phenotyping. Despite low insulin secretion and reduced insulin content, SC{beta}-cells displayed larger Na+ and Ca2+ currents and depolarization-induced exocytosis. Ultrastructural and metabolic profiling revealed immature insulin granules, altered mitochondrial morphology, elevated basal respiration and proton leak, and diminished spare respiratory capacity and glucose-responsive metabolism. Patch-seq linked exocytotic activity in SC{beta}-cells to oxidative phosphorylation and MYC target programs, consistent with incomplete terminal differentiation, whereas SC{beta}-cells expressing higher levels of mature identity markers showed reduced ion channel hyperactivity. Multi-omics profiling showed that electrophysiological features in SC{beta}-cells were",
+      "source": "bioRxiv (Cell Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-09",
+      "id": "ef524103abc468d4",
+      "score": 40,
+      "category": "Research/Methods",
+      "why": "Could not score automatically, review manually.",
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T21:29:20+00:00"
+    },
+    {
       "title": "Loss of Arginase 2 Promotes Lung Metastasis in immune-competent hosts via Nitric Oxide Synthase 2-Dependent Th17 Response",
       "link": "https://www.biorxiv.org/content/10.64898/2026.06.04.730112v1?rss=1",
       "summary": "Distant metastasis is the leading cause of mortality in many cancers. Although metabolic reprogramming is recognized as a hallmark of cancer, how tumor-intrinsic metabolic enzymes regulate tumor-immune crosstalk during metastatic progression remains poorly understood. Here, using a high-throughput functional CRISPR-Cas9 screen targeting metabolic genes in an orthotopic 4T1 murine mammary carcinoma model of spontaneous lung metastasis, we identify a selective enrichment of arginase 2 (ARG2)-deficient tumor cells in metastatic lungs of immunocompetent but not RAG1-deficient mice, indicating a lymphocyte-dependent mechanism. Loss of ARG2 enhances spontaneous lung metastasis without affecting primary tumor growth. Further, metastatic outgrowth in the lung is not affected when tumor cells are injected intravenously, indicating that ARG2 regulates an early stage of the metastatic cascade. Mechanistically, ARG2 deficiency upregulates nitric oxide synthase 2 (NOS2), resulting in increased nitric oxide production, accumulation of cytosolic DNA, and activation of the cGAS-STING-NF-{kappa}B pathway, leading to upregulation of inflammatory cytokines. ARG2-deficient tumors exhibit an immunosupp",
@@ -1407,27 +1753,6 @@
       "territory": "National",
       "region": "National",
       "fetched": "2026-06-10T21:13:57+00:00"
-    },
-    {
-      "title": "scRNA-seq and genomics analyses reveal key mechanisms of inverted papilloma-associated sinonasal squamous cell carcinoma malignant transformation",
-      "link": "https://www.biorxiv.org/content/10.64898/2026.06.01.729345v1?rss=1",
-      "summary": "Sinonasal inverted papilloma (IP) carries a 10% risk of malignant transformation to IP-associated sinonasal squamous cell carcinoma (IP-SNSCC), yet the molecular and immune drivers of this progression remain poorly defined. This study integrates single-cell RNA sequencing, multiplexed spatial proteomics, whole-exome sequencing, and functional assays across IP and IP-SNSCC cohorts to define mechanisms of malignant transformation. Respiratory epithelial basal cells are identified as the putative cell of origin, with progression marked by recurrent CDKN2A loss and TP53 mutations. Spatial profiling reveals immune reorganization at the lesional interface in IP-SNSCC, characterized by enrichment of alternatively activated M2 macrophages. CXCL14 is shown to directly induce an immunosuppressive myeloid phenotype that suppresses T-cell IFN{gamma} production through an IDO-pathway-dependent mechanism. Integration of these multimodal datasets defines a previously unrecognized CXCL14-IDO mechanism that constrains anti-tumor immunity at the tumor-stroma interface. These findings establish IDO-targeted immunomodulation as a rational adjuvant strategy and provide a comprehensive molecular framewo",
-      "source": "bioRxiv (Genomics)",
-      "category_hint": "Research/Methods",
-      "date": "2026-06-04",
-      "id": "ef8552303f3d384a",
-      "score": 38,
-      "category": "Research/Methods",
-      "why": "scRNA-seq and spatial proteomics study of sinonasal cancer; immune markers (M2, CXCL14, IDO, IFNγ) need in situ validation in tissue but no explicit RNAscope/smFISH mention.",
-      "subscores": {
-        "relevance": 6,
-        "buying_signal": 5,
-        "competitive_urgency": 0,
-        "recency": 7
-      },
-      "territory": "National",
-      "region": "National",
-      "fetched": "2026-06-10T20:21:39+00:00"
     }
   ]
 }
