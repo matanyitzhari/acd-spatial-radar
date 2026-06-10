@@ -88,13 +88,6 @@
       "note": "PR Newswire main feed. Keyword-filtered. Catches 10x Genomics and others publishing via PRN. URL may need confirming."
     },
     {
-      "name": "10x Genomics Newsroom",
-      "type": "rss",
-      "url": "https://www.10xgenomics.com/feed",
-      "category_hint": "Competitor Move",
-      "note": "Likely dead (10x uses PR Newswire). Kept in case; newswire net is the real catch."
-    },
-    {
       "name": "Bruker News",
       "type": "rss",
       "url": "https://ir.bruker.com/rss/news-releases.xml",
@@ -149,6 +142,13 @@
       "url": "https://curiobioscience.com/feed/",
       "category_hint": "Competitor Move",
       "note": "WordPress feed, may work."
+    },
+    {
+      "name": "10x Genomics (PR Newswire)",
+      "type": "rss_filtered",
+      "url": "https://www.prnewswire.com/rss/10x-genomics-inc-news.rss",
+      "category_hint": "Competitor Move",
+      "note": "PR Newswire company feed for 10x. Keyword-filtered to spatial terms (skips earnings/conference noise). URL format needs verifying against the run log; falls back gracefully if 404."
     }
   ],
   "pubmed": {
