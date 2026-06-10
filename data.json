@@ -1,7 +1,7 @@
 {
-  "updated": "2026-06-10T20:54:50+00:00",
+  "updated": "2026-06-10T21:18:40+00:00",
   "count": 50,
-  "new_this_run": 0,
+  "new_this_run": 2,
   "categories": [
     "Competitor Move",
     "Research/Methods",
@@ -527,6 +527,40 @@
         ]
       },
       "fetched": "2026-06-10T20:24:15+00:00"
+    },
+    {
+      "title": "Vizgen to Debut Spatial Multiomics Roadmap at AGBT 2026",
+      "link": "https://vizgen.com/vizgen-to-debut-spatial-multiomics-roadmap-at-agbt-2026/",
+      "summary": "Vizgen will expand applications of MERSCOPE Ultra™ platform to include spatially-resolved molecular profiling of organoids; company has expansive pipeline and is progressing toward multiple breakthrough capabilities Waltham, Mass. – February 19, 2026 – Vizgen, Inc., a leader in spatial multiomics at single-cell resolution, today announced a series of innovations under development to help accelerate drug discovery, advance understanding of disease progression, and enable new research breakthroughs. The company will present its... The post Vizgen to Debut Spatial Multiomics Roadmap at AGBT 2026 appeared first on Vizgen .",
+      "source": "Vizgen News",
+      "category_hint": "Competitor Move",
+      "date": "Thu, 19 Feb 2026 15:05:01 +0000",
+      "id": "ab0762a99ade95f6",
+      "score": 84,
+      "category": "Competitor Move",
+      "why": "Vizgen expanding MERSCOPE Ultra to organoids; direct RNAscope competitor advancing spatial multiomics roadmap at AGBT 2026.",
+      "subscores": {
+        "relevance": 9,
+        "buying_signal": 3,
+        "competitive_urgency": 9,
+        "recency": 10
+      },
+      "territory": "National",
+      "region": "National",
+      "impact_brief": {
+        "what_happened": "Vizgen announced a spatial multiomics roadmap to be presented at AGBT 2026, highlighting expansions of its MERSCOPE Ultra platform into organoid profiling, new predesigned panels with modular customization (MERSCOPE Add-On Genes), improved sample preparation workflows, cloud-based image analysis for MERFISH 2.0 data, and development of thick-tissue 3D spatial imaging capabilities.",
+        "why_it_matters": "Vizgen is systematically expanding its integrated platform with validated applications in high-priority use cases (organoids, NAMs for drug discovery) while building ecosystem depth through reagent modularity, proprietary bioinformatics, and cloud infrastructure. This tightens the bundling around MERSCOPE and reduces switching cost friction. ACD's advantage lies in platform agnosticity and single-molecule sensitivity, but Vizgen's roadmap targets workflow convenience and regulatory tailwinds (FDA/NIH support for organoid models).",
+        "at_risk": [
+          "Organoid profiling is a growing applied space with regulatory momentum; MERSCOPE's validated performance there risks positioning Vizgen as the default tool for drug discovery teams moving to NAMs.",
+          "Add-On Genes modular customization and cloud bioinformatics erode the traditional friction between platform switching and workflow redesign.",
+          "Vizgen's integrated sample prep, imaging, and analysis pipeline amplifies lock-in appeal to large pharma and biotech, which value end-to-end validation and support."
+        ],
+        "holding_ground": [
+          "RNAscope's single-molecule sensitivity and deep cross-tissue validation remain technically distinct; many researchers still choose ISH for specific applications where platform independence and raw detection performance matter more than ecosystem integration.",
+          "Vizgen's roadmap is forward-looking (2026 launches); ACD can use this window to deepen organoid applications, partner on NAM workflows, and articulate RNAscope's flexibility advantage to customers concerned about vendor lock-in."
+        ]
+      },
+      "fetched": "2026-06-10T21:14:21+00:00"
     },
     {
       "title": "The barcode project: a strategy to track the early naïve reservoir",
@@ -1360,6 +1394,21 @@
       "fetched": "2026-06-10T20:26:45+00:00"
     },
     {
+      "title": "Loss of Arginase 2 Promotes Lung Metastasis in immune-competent hosts via Nitric Oxide Synthase 2-Dependent Th17 Response",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.04.730112v1?rss=1",
+      "summary": "Distant metastasis is the leading cause of mortality in many cancers. Although metabolic reprogramming is recognized as a hallmark of cancer, how tumor-intrinsic metabolic enzymes regulate tumor-immune crosstalk during metastatic progression remains poorly understood. Here, using a high-throughput functional CRISPR-Cas9 screen targeting metabolic genes in an orthotopic 4T1 murine mammary carcinoma model of spontaneous lung metastasis, we identify a selective enrichment of arginase 2 (ARG2)-deficient tumor cells in metastatic lungs of immunocompetent but not RAG1-deficient mice, indicating a lymphocyte-dependent mechanism. Loss of ARG2 enhances spontaneous lung metastasis without affecting primary tumor growth. Further, metastatic outgrowth in the lung is not affected when tumor cells are injected intravenously, indicating that ARG2 regulates an early stage of the metastatic cascade. Mechanistically, ARG2 deficiency upregulates nitric oxide synthase 2 (NOS2), resulting in increased nitric oxide production, accumulation of cytosolic DNA, and activation of the cGAS-STING-NF-{kappa}B pathway, leading to upregulation of inflammatory cytokines. ARG2-deficient tumors exhibit an immunosupp",
+      "source": "bioRxiv (Cancer Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-08",
+      "id": "1f764d04fedf8562",
+      "score": 40,
+      "category": "Research/Methods",
+      "why": "Could not score automatically, review manually.",
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T21:13:57+00:00"
+    },
+    {
       "title": "scRNA-seq and genomics analyses reveal key mechanisms of inverted papilloma-associated sinonasal squamous cell carcinoma malignant transformation",
       "link": "https://www.biorxiv.org/content/10.64898/2026.06.01.729345v1?rss=1",
       "summary": "Sinonasal inverted papilloma (IP) carries a 10% risk of malignant transformation to IP-associated sinonasal squamous cell carcinoma (IP-SNSCC), yet the molecular and immune drivers of this progression remain poorly defined. This study integrates single-cell RNA sequencing, multiplexed spatial proteomics, whole-exome sequencing, and functional assays across IP and IP-SNSCC cohorts to define mechanisms of malignant transformation. Respiratory epithelial basal cells are identified as the putative cell of origin, with progression marked by recurrent CDKN2A loss and TP53 mutations. Spatial profiling reveals immune reorganization at the lesional interface in IP-SNSCC, characterized by enrichment of alternatively activated M2 macrophages. CXCL14 is shown to directly induce an immunosuppressive myeloid phenotype that suppresses T-cell IFN{gamma} production through an IDO-pathway-dependent mechanism. Integration of these multimodal datasets defines a previously unrecognized CXCL14-IDO mechanism that constrains anti-tumor immunity at the tumor-stroma interface. These findings establish IDO-targeted immunomodulation as a rational adjuvant strategy and provide a comprehensive molecular framewo",
@@ -1379,48 +1428,6 @@
       "territory": "National",
       "region": "National",
       "fetched": "2026-06-10T20:21:39+00:00"
-    },
-    {
-      "title": "M6A-modified circEZH2 Protects Endothelial Cells from Senescence and Suppresses Atherosclerosis by Stabilizing ZNF326",
-      "link": "https://www.biorxiv.org/content/10.64898/2026.06.05.730538v1?rss=1",
-      "summary": "Objective: Endothelial cell senescence induces endothelial dysfunction, thereby contributing to atherosclerosis progression. Circular RNAs (circRNAs) play diverse roles in multiple physiological and pathological processes. N6-methyladenosine (m6A) is the most abundant internal RNA modification in eukaryotic RNAs and dynamically regulates RNA fate and function. However, the functions and therapeutic potential of m6A-modified circRNAs in endothelial cell senescence remain unknown. Approach and Results: m6A-modified circRNAs associated with endothelial cell senescence were screened by circRNA expression and m6A-circRNA microarray profiling of endothelial cells and mouse aortic intima. circEZH2 expression was validated in endothelial cells, vascular tissues, and human atherosclerotic plaques by RT-qPCR, and RNA fluorescence in situ hybridization. The role of circEZH2 in endothelial senescence and atherosclerosis was assessed in vitro and in vivo. RNA pull-down, mass spectrometry, RNA immunoprecipitation, co-immunoprecipitation, ubiquitination assays, and rescue experiments were used to define the underlying mechanism. We identified A novel m6A-modified circRNA, circEZH2, that was downr",
-      "source": "bioRxiv (Cell Biology)",
-      "category_hint": "Research/Methods",
-      "date": "2026-06-10",
-      "id": "0b3cc09dc25b216b",
-      "score": 34,
-      "category": "Research/Methods",
-      "why": "circRNA validation uses RNA FISH in vascular tissue; atherosclerosis TME interest but non-spatial transcriptomics focus limits urgency.",
-      "subscores": {
-        "relevance": 6,
-        "buying_signal": 4,
-        "competitive_urgency": 0,
-        "recency": 8
-      },
-      "territory": "National",
-      "region": "National",
-      "fetched": "2026-06-10T20:22:08+00:00"
-    },
-    {
-      "title": "SPACE-seq integrates spatial transcriptomics and lineage tracing in native tissues.",
-      "link": "https://pubmed.ncbi.nlm.nih.gov/42263684/",
-      "summary": "Cell Stem Cell. Cell stem cell",
-      "source": "PubMed",
-      "category_hint": "Research/Methods",
-      "date": "2026 Jun 9",
-      "id": "33df011e3b16a3c5",
-      "score": 32,
-      "category": "Research/Methods",
-      "why": "Spatial transcriptomics method combining lineage tracing; adjacent to RNAscope but not in situ imaging. Monitor for adoption signals.",
-      "subscores": {
-        "relevance": 6,
-        "buying_signal": 4,
-        "competitive_urgency": 0,
-        "recency": 3
-      },
-      "territory": "National",
-      "region": "National",
-      "fetched": "2026-06-10T20:25:57+00:00"
     }
   ]
 }
