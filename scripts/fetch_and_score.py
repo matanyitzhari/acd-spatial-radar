@@ -36,8 +36,8 @@ MODEL = "claude-haiku-4-5-20251001"  # cheap and fast for per-item scoring
 
 CATEGORIES = ["Competitor Move", "Research/Methods", "Funded Lab"]
 USER_AGENT = "ACD-Spatial-Radar/1.0 (sales intelligence; contact rep)"
-MAX_ITEMS_KEPT = 440  # cap the stored set so data.json stays small
-MIN_SCORE = 35        # items scoring below this are dropped, never shown
+MAX_ITEMS_KEPT = 430  # cap the stored set so data.json stays small
+MIN_SCORE = 40        # items scoring below this are dropped, never shown
 DAYS_LOOKBACK = 120   # only keep items from the last N days (about 4 months)
 TERRITORIES_PATH = os.path.join(ROOT, "territories.json")
 
@@ -452,26 +452,47 @@ def fetch_html_news(cfg):
             log(f"{name}: no newswire links found on page")
             return out
         # For headline+date, walk the de-tagged lines: a release is a longish
-        # title line, a source word, then a date line like 'February 17, 2026'.
-        date_re = re.compile(r'^[A-Z][a-z]+ \d{1,2}, \d{4}$')
+        # title line, a source word, then a date line. Two page layouts exist:
+        # MI: headline and date on separate lines.
+        # PR Newswire: 'Apr 18, 2026, 22:00 ET Headline text...' on one line.
+        date_re = re.compile(r'^([A-Z][a-z]{2,8} \d{1,2}, \d{4}(?:, \d{1,2}:\d{2} ET)?)\s*(.*)')
+        do_filter = cfg.get("filter", False)
+        # For company pages, filter on spatial/product terms only (not company
+        # names, since every headline on a company page contains the company name).
+        kws = ["spatial", "in situ", "rna-ish", "rna ish", "ish ", "xenium", "visium",
+               "atera", "proteomics", "protein", "proteintech", "multiomic", "multi-omic",
+               "single cell", "single-cell", "transcriptomic", "imaging", "merfish",
+               "acquire", "acquisition", "partner", "launch", "platform", "panel"]
         title_buf = None
         wire_idx = 0
         for i, ln in enumerate(lines):
-            if date_re.match(ln) and title_buf and wire_idx < len(wire_urls):
-                # found a release block: title_buf is the headline, ln is the date
+            mdate = date_re.match(ln)
+            # Case 1: date and headline interleaved on one line (PR Newswire)
+            if mdate and mdate.group(2) and len(mdate.group(2)) > 30 and wire_idx < len(wire_urls):
+                date_str = mdate.group(1)
+                title_clean = clean_text(mdate.group(2))
                 link = wire_urls[wire_idx]
                 wire_idx += 1
-                out.append({
-                    "title": clean_text(title_buf),
-                    "link": link,
-                    "summary": f"{name} press release via newswire.",
-                    "source": name,
-                    "category_hint": cfg.get("category_hint", "Competitor Move"),
-                    "date": ln,
-                })
+                if do_filter and not any(k in title_clean.lower() for k in kws):
+                    continue
+                out.append({"title": title_clean, "link": link,
+                            "summary": f"{name} press release via newswire.",
+                            "source": name, "category_hint": cfg.get("category_hint", "Competitor Move"),
+                            "date": date_str})
                 title_buf = None
+            # Case 2: date alone on a line, headline was the previous line (MI)
+            elif mdate and not mdate.group(2) and title_buf and wire_idx < len(wire_urls):
+                link = wire_urls[wire_idx]
+                wire_idx += 1
+                title_clean = clean_text(title_buf)
+                title_buf = None
+                if do_filter and not any(k in title_clean.lower() for k in kws):
+                    continue
+                out.append({"title": title_clean, "link": link,
+                            "summary": f"{name} press release via newswire.",
+                            "source": name, "category_hint": cfg.get("category_hint", "Competitor Move"),
+                            "date": mdate.group(1)})
             elif len(ln) > 40 and not ln.startswith(("http", "[", "meta-", "©", "Copyright")):
-                # candidate headline: a long content line
                 title_buf = ln
         log(f"{name}: {len(out)} items")
     except Exception as e:
@@ -852,7 +873,10 @@ def main():
         raw.extend(fetch_nih_reporter(sources["nih_reporter"]))
     if "nsf_awards" in sources:
         raw.extend(fetch_nsf(sources["nsf_awards"]))
-    if "mi_news" in sources:
+    if "html_news_sources" in sources:
+        for hcfg in sources["html_news_sources"]:
+            raw.extend(fetch_html_news(hcfg))
+    elif "mi_news" in sources:  # backward compat
         raw.extend(fetch_html_news(sources["mi_news"]))
 
     # dedupe and keep only new (by id AND by normalized title), within lookback window
