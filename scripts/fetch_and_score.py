@@ -764,6 +764,61 @@ def generate_impact_brief(item):
         return None
 
 
+OUTREACH_ANGLE_SYSTEM = """You are a sales enablement analyst for Advanced Cell Diagnostics (ACD), a Bio-Techne brand that sells RNAscope in situ hybridization probes and spatial biology products to academic researchers. You write a short "Outreach Angle" for a newly funded lab (an NIH or NSF grant), to help a field sales rep turn this lead into a conversation.
+
+Ground everything in the provided grant text. If the abstract is thin, keep it high-level and do not invent specifics about the lab's work.
+
+ACD targets 16 researcher personas. A funded lab is a strong RNAscope prospect when its work implies a need for in situ RNA validation, even if the grant never says "RNAscope" or "spatial." Common needs: validating cell-type markers in tissue, localizing low-abundance transcripts, confirming single-cell or sequencing findings in situ, detecting targets with no good antibody (cytokines, viral RNA, lncRNA), or mapping expression across tissue regions.
+
+Write three things, each concrete and specific to THIS grant:
+1. hook: what about this lab's funded work makes them a RNAscope prospect. Name the persona fit and the specific assay need their work implies.
+2. way_in: the concrete validation problem or product fit to lead a conversation with. What pain does RNAscope solve for them.
+3. routing: a brief cue on who should own this, referencing the territory if provided. Keep it short.
+
+Do not use em dashes. Use commas, periods, parentheses, or "and"/"but" instead.
+
+Respond with ONLY a JSON object, no preamble, no markdown fences:
+{"hook": "<2 sentences>", "way_in": "<2 sentences>", "routing": "<one short line>"}"""
+
+
+def generate_outreach_angle(item):
+    """Generate an outreach angle for a funded-lab item. Returns a dict or None.
+    Only called for Funded Lab items. Works from the stored grant abstract
+    (NIH/NSF summaries are already rich), so no web fetch needed."""
+    if not ANTHROPIC_API_KEY:
+        return None
+    user = (
+        f"Source: {item.get('source','')}\n"
+        f"Grant title: {item.get('title','')}\n"
+        f"PI: {item.get('pi','')}\n"
+        f"Institution: {item.get('institution','')}\n"
+        f"Territory: {item.get('territory','')} ({item.get('region','')})\n"
+        f"Grant abstract: {item.get('summary','')[:1800]}\n"
+        f"One-line take: {item.get('why','')}"
+    )
+    payload = {
+        "model": MODEL,
+        "max_tokens": 500,
+        "system": OUTREACH_ANGLE_SYSTEM,
+        "messages": [{"role": "user", "content": user}],
+    }
+    headers = {"x-api-key": ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01"}
+    try:
+        resp = http_post_json(ANTHROPIC_URL, payload, headers=headers, timeout=60)
+        text = "".join(b.get("text", "") for b in resp.get("content", []) if b.get("type") == "text")
+        text = text.strip().replace("```json", "").replace("```", "").strip()
+        parsed = json.loads(text)
+        clean = lambda s: clean_text(s).replace("\u2014", "-")
+        return {
+            "hook": clean(parsed.get("hook", "")),
+            "way_in": clean(parsed.get("way_in", "")),
+            "routing": clean(parsed.get("routing", "")),
+        }
+    except Exception as e:
+        warn(f"Outreach angle failed for '{item.get('title','')[:50]}': {e}")
+        return None
+
+
 # ----------------------------------------------------------------------
 # main
 # ----------------------------------------------------------------------
@@ -833,6 +888,12 @@ def main():
             brief = generate_impact_brief(it)
             if brief:
                 it["impact_brief"] = brief
+            time.sleep(0.2)
+        # Outreach Angle: prospecting layer, funded-lab items only.
+        elif it.get("category") == "Funded Lab":
+            angle = generate_outreach_angle(it)
+            if angle:
+                it["outreach_angle"] = angle
             time.sleep(0.2)
         it["fetched"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
         if it.get("score", 0) < MIN_SCORE:
