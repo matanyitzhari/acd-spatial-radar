@@ -36,9 +36,9 @@ MODEL = "claude-haiku-4-5-20251001"  # cheap and fast for per-item scoring
 
 CATEGORIES = ["Competitor Move", "Research/Methods", "Funded Lab"]
 USER_AGENT = "ACD-Spatial-Radar/1.0 (sales intelligence; contact rep)"
-MAX_ITEMS_KEPT = 400  # cap the stored set so data.json stays small
+MAX_ITEMS_KEPT = 430  # cap the stored set so data.json stays small
 MIN_SCORE = 30        # items scoring below this are dropped, never shown
-DAYS_LOOKBACK = 120   # only keep items from the last N days (about 4 months)
+DAYS_LOOKBACK = 100   # only keep items from the last N days (about 4 months)
 TERRITORIES_PATH = os.path.join(ROOT, "territories.json")
 
 # Keywords used to pre-filter broad newswire feeds (rss_filtered) before scoring,
