@@ -208,16 +208,27 @@ function render(){
   feed.innerHTML = items.map((i,n)=>{
     const color = CAT_COLOR[i.category]||"var(--accent)";
     const brief = i.impact_brief ? impactBriefHTML(i.impact_brief) : "";
-    const has = (i.summary && i.summary.length>0) || brief;
+    const angle = i.outreach_angle ? outreachAngleHTML(i.outreach_angle) : "";
+    const has = (i.summary && i.summary.length>0) || brief || angle;
     return `<article class="card" style="--catcolor:${color}; animation-delay:${Math.min(n*0.035,0.5)}s">
       <div class="scorebox"><div class="score">${i.score??"--"}<small>SIGNAL</small></div>
       <div class="meter" aria-hidden="true"><span style="width:${Math.max(0,Math.min(100,i.score||0))}%"></span></div>${subbars(i.subscores)}</div>
       <div class="body"><div class="toprow"><span class="tag">${esc(i.category||"")}</span>${i.territory && i.territory!=="National" ? `<span class="terr">${esc(i.territory)}</span>`:""}<span class="src">${esc(i.source||"")}</span><span class="date">${fmtDate(i.date)}</span></div>
       <h2><a href="${esc(i.link||"#")}" target="_blank" rel="noopener">${esc(i.title||"Untitled")}</a></h2>
       ${i.why? `<div class="why">${esc(i.why)}</div>`:""}
-      ${has? `<button class="expand" aria-expanded="false" onclick="const c=this.closest('.card');const o=c.classList.toggle('open');this.setAttribute('aria-expanded',o);this.textContent=o?'hide details \u25b4':'details \u25be'">details \u25be</button><div class="summary">${brief}${i.summary?`<div class="rawsum">${esc(i.summary)}</div>`:""}</div>`:""}
+      ${has? `<button class="expand" aria-expanded="false" onclick="const c=this.closest('.card');const o=c.classList.toggle('open');this.setAttribute('aria-expanded',o);this.textContent=o?'hide details \u25b4':'details \u25be'">details \u25be</button><div class="summary">${brief}${angle}${i.summary?`<div class="rawsum">${esc(i.summary)}</div>`:""}</div>`:""}
       </div></article>`;
   }).join("");
+}
+
+function outreachAngleHTML(a){
+  if(!a) return "";
+  return `<div class="impact">
+    <div class="ib-label" style="color:var(--cat-funded)">Outreach Angle</div>
+    ${a.hook?`<p><b>The hook.</b> ${esc(a.hook)}</p>`:""}
+    ${a.way_in?`<p><b>Way in.</b> ${esc(a.way_in)}</p>`:""}
+    ${a.routing?`<div class="ib-sub ib-hold" style="margin-top:8px"><span>Routing</span><div style="font-size:0.82rem;color:var(--ink-2)">${esc(a.routing)}</div></div>`:""}
+  </div>`;
 }
 
 function impactBriefHTML(b){
