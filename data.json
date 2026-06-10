@@ -1,7 +1,7 @@
 {
-  "updated": "2026-06-10T19:35:07+00:00",
-  "count": 50,
-  "new_this_run": 50,
+  "updated": "2026-06-10T19:58:04+00:00",
+  "count": 52,
+  "new_this_run": 2,
   "categories": [
     "Competitor Move",
     "Research/Methods",
@@ -1441,6 +1441,36 @@
       "territory": "National",
       "region": "National",
       "fetched": "2026-06-10T19:20:34+00:00"
+    },
+    {
+      "title": "A pancreatic intraepithelial neoplasia-Oramic view of early pancreatic cancer in 3D.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42265012/",
+      "summary": "Trends Immunol. Trends in immunology",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 9",
+      "id": "1d23760bd810eeb8",
+      "score": 40,
+      "category": "Research/Methods",
+      "why": "Could not score automatically, review manually.",
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T19:54:12+00:00"
+    },
+    {
+      "title": "Enhancer-gene regulatory interactions in colorectal cancer revealed through genome-wide CRISPRi perturbations",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.05.730086v1?rss=1",
+      "summary": "Background Establishing functional relationships between distal enhancers and their target genes is a central challenge in genome biology and cancer genetics. CRISPR/dCas9-mediated perturbations followed by single-cell RNA sequencing (Perturb-seq) has emerged as an efficient means of establishing enhancer-target gene relationships. Results We used genome-wide CRISPRi Perturb-seq with 35,139 guide RNAs targeting 12,117 enhancers to create a functional enhancer-gene map of colorectal cancer (CRC), identifying 238 significant regulatory associations (FDR < 0.1). Integration of chromatin accessibility (ATAC-seq), histone modification profiling (ChIP-seq), and ultra-high resolution chromatin conformation capture (Micro-C) data revealed that enhancer regulation in CRC is constrained by topological domains and often targets the nearest gene, findings corroborated by Activity-by-Contact modelling. Conclusions We provide a comprehensive functional enhancer-gene interaction map for CRC. This resource should provide a foundation for studying gene regulation in colorectal tumorigenesis and for prioritising candidate non-coding drivers in cancer sequencing studies.",
+      "source": "bioRxiv (Genomics)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-09",
+      "id": "b8b1d8515980ecf2",
+      "score": 40,
+      "category": "Research/Methods",
+      "why": "Could not score automatically, review manually.",
+      "territory": "National",
+      "region": "National",
+      "fetched": "2026-06-10T19:50:27+00:00"
     }
   ]
 }
