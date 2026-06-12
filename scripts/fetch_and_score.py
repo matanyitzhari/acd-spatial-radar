@@ -34,6 +34,11 @@ ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
 MODEL = "claude-haiku-4-5-20251001"  # cheap and fast for per-item scoring
 
+# Email digest delivery (Resend). Secrets come from the environment, never the repo.
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
+RESEND_URL = "https://api.resend.com/emails"
+DIGEST_TO = os.environ.get("DIGEST_TO", "")  # recipient; with the resend.dev sender this must be your Resend signup email
+
 CATEGORIES = ["Competitor Move", "Research/Methods", "Funded Lab"]
 USER_AGENT = "ACD-Spatial-Radar/1.0 (sales intelligence; contact rep)"
 MAX_ITEMS_KEPT = 400  # cap the stored set so data.json stays small
@@ -56,6 +61,13 @@ DEFAULT_RECENCY = {
     "older_factor": 0.4,
     "unknown_date_factor": 0.7,
 }
+DEFAULT_DIGEST = {
+    "enabled": True,
+    "min_score": 55,      # only items at or above this go in the email (>= a display threshold)
+    "max_items": 12,      # cap the email length
+    "subject_prefix": "Spatial Radar",
+    "from": "Spatial Radar <onboarding@resend.dev>",  # change to a verified-domain sender to mail anyone but yourself
+}
 
 _SCORING_CFG = None
 
@@ -71,6 +83,7 @@ def load_scoring_config():
         "min_score": dict(DEFAULT_MIN_SCORE),
         "min_score_default": DEFAULT_MIN_SCORE_DEFAULT,
         "recency": json.loads(json.dumps(DEFAULT_RECENCY)),  # deep copy
+        "digest": dict(DEFAULT_DIGEST),
     }
     try:
         with open(SCORING_CONFIG_PATH, "r", encoding="utf-8") as f:
@@ -100,6 +113,16 @@ def load_scoring_config():
                 cfg["recency"]["older_factor"] = float(rd["older_factor"])
             if "unknown_date_factor" in rd:
                 cfg["recency"]["unknown_date_factor"] = float(rd["unknown_date_factor"])
+        dg = raw.get("digest", {})
+        if isinstance(dg, dict):
+            if "enabled" in dg:
+                cfg["digest"]["enabled"] = bool(dg["enabled"])
+            for k in ("min_score", "max_items"):
+                if k in dg and isinstance(dg[k], (int, float)):
+                    cfg["digest"][k] = int(dg[k])
+            for k in ("subject_prefix", "from"):
+                if k in dg and isinstance(dg[k], str) and dg[k].strip():
+                    cfg["digest"][k] = dg[k]
         log(f"Loaded scoring_config.json: min_score={cfg['min_score']}, default={cfg['min_score_default']}")
     except FileNotFoundError:
         warn("scoring_config.json not found, using built-in scoring defaults.")
@@ -942,6 +965,124 @@ def load_existing():
         return {"updated": "", "items": []}
 
 
+def compose_digest_html(items):
+    """Render the picked items into a light, email-safe HTML body. Inline styles
+    and table layout so it survives Gmail and Outlook. No em dashes."""
+    cat_colors = {
+        "Competitor Move": ("#FAECE7", "#993C1D"),
+        "Funded Lab": ("#EAF3DE", "#27500A"),
+        "Research/Methods": ("#E6F1FB", "#0C447C"),
+    }
+    cards = []
+    for it in items:
+        title = html.escape(it.get("title", ""))
+        link = html.escape(it.get("link", "") or "#", quote=True)
+        cat = it.get("category", "")
+        bg, fg = cat_colors.get(cat, ("#F1EFE8", "#444441"))
+        score = it.get("score", 0)
+        meta_bits = [html.escape(it.get("source", ""))]
+        if it.get("date"):
+            meta_bits.append(html.escape(it.get("date", "")))
+        terr = it.get("territory", "")
+        if terr and terr not in ("National", "Unmapped", ""):
+            meta_bits.append("Territory: " + html.escape(terr))
+        meta = " &nbsp;&middot;&nbsp; ".join(b for b in meta_bits if b)
+        why = html.escape(it.get("why", ""))
+        extra = ""
+        if cat == "Competitor Move" and it.get("impact_brief", {}).get("why_it_matters"):
+            extra = ('<div style="margin-top:8px;font-size:13px;color:#5F5E5A;line-height:1.45;">'
+                     '<b style="color:#993C1D;">Why it matters.</b> '
+                     + html.escape(it["impact_brief"]["why_it_matters"]) + '</div>')
+        elif cat == "Funded Lab" and it.get("outreach_angle", {}).get("hook"):
+            extra = ('<div style="margin-top:8px;font-size:13px;color:#5F5E5A;line-height:1.45;">'
+                     '<b style="color:#27500A;">Angle.</b> '
+                     + html.escape(it["outreach_angle"]["hook"]) + '</div>')
+        cards.append(
+            '<table role="presentation" cellpadding="0" cellspacing="0" width="100%" '
+            'style="border:1px solid #E5E3DC;border-radius:10px;margin:0 0 12px;background:#ffffff;">'
+            '<tr>'
+            '<td width="64" valign="top" style="padding:14px 0 14px 14px;">'
+            '<div style="width:50px;height:50px;border-radius:8px;background:#F4F2EC;text-align:center;'
+            'line-height:50px;font-size:20px;font-weight:700;color:#2C2C2A;">' + str(score) + '</div>'
+            '</td>'
+            '<td valign="top" style="padding:14px 16px;">'
+            '<span style="display:inline-block;font-size:12px;font-weight:600;color:' + fg + ';background:' + bg + ';'
+            'padding:2px 9px;border-radius:6px;">' + html.escape(cat) + '</span>'
+            '<div style="margin:8px 0 3px;font-size:15px;font-weight:600;line-height:1.35;">'
+            '<a href="' + link + '" style="color:#1B3A8C;text-decoration:none;">' + title + '</a></div>'
+            '<div style="font-size:12px;color:#888780;font-family:Menlo,Consolas,monospace;">' + meta + '</div>'
+            '<div style="margin-top:6px;font-size:13px;color:#444441;line-height:1.45;">' + why + '</div>'
+            + extra +
+            '</td></tr></table>'
+        )
+    body = "\n".join(cards)
+    today = datetime.now(timezone.utc).strftime("%A, %b %d")
+    dash = os.environ.get("DASHBOARD_URL", "")
+    dash_link = ('<a href="' + html.escape(dash, quote=True) + '" style="color:#1B3A8C;">Open the full radar</a>'
+                 if dash else "the dashboard")
+    return (
+        '<!DOCTYPE html><html><body style="margin:0;padding:0;background:#F4F2EC;">'
+        '<table role="presentation" cellpadding="0" cellspacing="0" width="100%" '
+        'style="background:#F4F2EC;padding:24px 12px;"><tr><td align="center">'
+        '<table role="presentation" cellpadding="0" cellspacing="0" width="640" '
+        'style="max-width:640px;width:100%;background:#F4F2EC;'
+        'font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;">'
+        '<tr><td style="padding:0 4px 16px;">'
+        '<div style="font-size:22px;font-weight:700;color:#1B3A8C;letter-spacing:-0.01em;">Spatial Radar</div>'
+        '<div style="font-size:13px;color:#5F5E5A;margin-top:2px;">' + today + ' &nbsp;&middot;&nbsp; '
+        + str(len(items)) + ' new item(s) worth a look</div></td></tr>'
+        '<tr><td>' + body + '</td></tr>'
+        '<tr><td style="padding:8px 4px 0;font-size:12px;color:#888780;line-height:1.5;">'
+        'Items new since the last run, scored at or above your digest bar. '
+        'Tune thresholds in scoring_config.json. ' + dash_link + '.</td></tr>'
+        '</table></td></tr></table></body></html>'
+    )
+
+
+def send_digest(new_items):
+    """Email the run's new items that clear the digest bar. Sends only when there
+    is something new, so an every-few-hours cron does not spam. Never raises."""
+    dcfg = load_scoring_config().get("digest", DEFAULT_DIGEST)
+    if not dcfg.get("enabled", True):
+        log("Digest disabled in config, skipping email.")
+        return
+    if not RESEND_API_KEY:
+        warn("RESEND_API_KEY not set, skipping digest email.")
+        return
+    if not DIGEST_TO:
+        warn("DIGEST_TO not set, skipping digest email.")
+        return
+    bar = dcfg.get("min_score", 55)
+    cap = dcfg.get("max_items", 12)
+    picks = sorted((it for it in new_items if it.get("score", 0) >= bar),
+                   key=lambda x: x.get("score", 0), reverse=True)[:cap]
+    if not picks:
+        log(f"No new items at or above digest bar {bar}, no email sent.")
+        return
+    comp = sum(1 for it in picks if it.get("category") == "Competitor Move")
+    labs = sum(1 for it in picks if it.get("category") == "Funded Lab")
+    bits = []
+    if comp:
+        bits.append(f"{comp} competitor")
+    if labs:
+        bits.append(f"{labs} lab" + ("s" if labs != 1 else ""))
+    breakdown = (" (" + ", ".join(bits) + ")") if bits else ""
+    date_str = datetime.now(timezone.utc).strftime("%b %d")
+    subject = f"{dcfg.get('subject_prefix', 'Spatial Radar')}: {len(picks)} new{breakdown}, {date_str}"
+    payload = {
+        "from": dcfg.get("from", "Spatial Radar <onboarding@resend.dev>"),
+        "to": [DIGEST_TO],
+        "subject": subject,
+        "html": compose_digest_html(picks),
+    }
+    headers = {"Authorization": f"Bearer {RESEND_API_KEY}"}
+    try:
+        resp = http_post_json(RESEND_URL, payload, headers=headers, timeout=30)
+        log(f"Digest sent to {DIGEST_TO}: {len(picks)} items, id={resp.get('id', '?')}")
+    except Exception as e:
+        warn(f"Digest send failed: {e}")
+
+
 def main():
     with open(SOURCES_PATH, "r", encoding="utf-8") as f:
         sources = json.load(f)
@@ -1031,6 +1172,9 @@ def main():
     with open(DATA_PATH, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
     log(f"Wrote {len(all_items)} items to data.json ({len(scored_new)} new)")
+
+    # Email digest of this run's new items (sends only if any clear the bar).
+    send_digest(scored_new)
 
 
 if __name__ == "__main__":
