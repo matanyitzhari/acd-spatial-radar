@@ -93,6 +93,7 @@
   .tag { font-family: var(--mono); font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; padding: 3px 10px; border-radius: 6px; background: color-mix(in srgb, var(--catcolor) 12%, white); color: var(--catcolor); border: 1px solid color-mix(in srgb, var(--catcolor) 32%, white); }
   .src { font-family: var(--mono); font-size: 0.68rem; color: var(--ink-dim); }
   .terr { font-family: var(--mono); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 6px; background: var(--panel-2); color: var(--ink-2); border: 1px solid var(--line-bright); }
+  .owner { font-family: var(--mono); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 6px; background: color-mix(in srgb, var(--brand) 9%, white); color: var(--brand); border: 1px solid color-mix(in srgb, var(--brand) 24%, white); }
   .date { font-family: var(--mono); font-size: 0.66rem; color: var(--ink-dim); margin-left: auto; }
   .body h2 { font-weight: 600; font-size: 1.22rem; line-height: 1.32; letter-spacing: -0.01em; margin-bottom: 10px; }
   .body h2 a { color: var(--ink); text-decoration: none; }
@@ -232,7 +233,7 @@ function render(){
     return `<article class="card" style="--catcolor:${color}; animation-delay:${Math.min(n*0.035,0.5)}s">
       <div class="scorebox"><div class="score">${i.score??"--"}<small>SIGNAL</small></div>
       <div class="meter" aria-hidden="true"><span style="width:${Math.max(0,Math.min(100,i.score||0))}%"></span></div>${subbars(i.subscores)}${freshness(i.recency_factor)}</div>
-      <div class="body"><div class="toprow"><span class="tag">${esc(i.category||"")}</span>${i.territory && i.territory!=="National" ? `<span class="terr">${esc(i.territory)}</span>`:""}<span class="src">${esc(i.source||"")}</span><span class="date">${fmtDate(i.date)}</span></div>
+      <div class="body"><div class="toprow"><span class="tag">${esc(i.category||"")}</span>${i.territory && i.territory!=="National" ? `<span class="terr">${esc(i.territory)}</span>`:""}${i.owner? `<span class="owner">${esc(i.owner)}</span>`:""}<span class="src">${esc(i.source||"")}</span><span class="date">${fmtDate(i.date)}</span></div>
       <h2><a href="${esc(i.link||"#")}" target="_blank" rel="noopener">${esc(i.title||"Untitled")}</a></h2>
       ${i.why? `<div class="why">${esc(i.why)}</div>`:""}
       ${has? `<button class="expand" aria-expanded="false" onclick="const c=this.closest('.card');const o=c.classList.toggle('open');this.setAttribute('aria-expanded',o);this.textContent=o?'hide details \u25b4':'details \u25be'">details \u25be</button><div class="summary">${brief}${angle}${i.summary?`<div class="rawsum">${esc(i.summary)}</div>`:""}</div>`:""}

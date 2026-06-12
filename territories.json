@@ -30,6 +30,18 @@
   "east_coast_territories": ["BSA", "CEA", "MDA", "NEA", "NIH", "NYA", "PAA", "RBA"],
   "west_territories": ["GCA", "MSA", "MWA", "NCA", "NWA", "SCA", "SEA", "TXA"],
 
+  "rep_owners": {
+    "_comment": "Territory code to rep owner, used to stamp an owner on each item so the dashboard and the email digest can show who should act. Confirmed from the Web Revenue Tracker territory map. Edit when assignments change. Items with no single owner (National, Unmapped, or an unresolved MA/MD account split) get no owner.",
+    "BSA": "Suzanne Mertens",
+    "CEA": "Richard Yao",
+    "MDA": "Jason Rosenzweig",
+    "NEA": "Hank Beggs",
+    "NIH": "Connie Zhang",
+    "NYA": "Maria Bahamon",
+    "PAA": "Stephen Sowinski",
+    "RBA": "Sam Shank"
+  },
+
   "account_level_overrides": {
     "_comment": "State-only lookup cannot resolve these. Applied by institution name where possible.",
     "MA": {
