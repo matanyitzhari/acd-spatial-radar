@@ -227,6 +227,12 @@ def classify_territory(state, institution="", city=""):
     return (chosen, region)
 
 
+def owner_for(territory_code):
+    """Map a resolved territory code to its rep owner, or '' when there is no
+    single owner (National, Unmapped, or an unresolved account-level split)."""
+    return load_territories().get("rep_owners", {}).get(territory_code, "")
+
+
 # ----------------------------------------------------------------------
 # helpers
 # ----------------------------------------------------------------------
@@ -986,6 +992,8 @@ def compose_digest_html(items):
         terr = it.get("territory", "")
         if terr and terr not in ("National", "Unmapped", ""):
             meta_bits.append("Territory: " + html.escape(terr))
+        if it.get("owner"):
+            meta_bits.append("Owner: " + html.escape(it["owner"]))
         meta = " &nbsp;&middot;&nbsp; ".join(b for b in meta_bits if b)
         why = html.escape(it.get("why", ""))
         extra = ""
@@ -1132,6 +1140,7 @@ def main():
         terr_code, region = classify_territory(it.get("state", ""), it.get("institution", ""), it.get("city", ""))
         it["territory"] = terr_code
         it["region"] = region
+        it["owner"] = owner_for(terr_code)
         # Impact Brief: extra analysis layer, competitor items only (one more API call each).
         if it.get("category") == "Competitor Move":
             brief = generate_impact_brief(it)
