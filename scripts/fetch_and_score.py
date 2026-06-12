@@ -42,7 +42,7 @@ DIGEST_TO = os.environ.get("DIGEST_TO", "")  # recipient; with the resend.dev se
 CATEGORIES = ["Competitor Move", "Research/Methods", "Funded Lab"]
 USER_AGENT = "ACD-Spatial-Radar/1.0 (sales intelligence; contact rep)"
 MAX_ITEMS_KEPT = 400  # cap the stored set so data.json stays small
-DAYS_LOOKBACK = 120   # only keep items from the last N days (about 4 months)
+DEFAULT_MAX_AGE_DAYS = 365  # hard cutoff: items older than this are never shown (about 1 year). Tunable in scoring_config.json.
 TERRITORIES_PATH = os.path.join(ROOT, "territories.json")
 SCORING_CONFIG_PATH = os.path.join(ROOT, "scoring_config.json")
 
@@ -84,6 +84,7 @@ def load_scoring_config():
         "min_score_default": DEFAULT_MIN_SCORE_DEFAULT,
         "recency": json.loads(json.dumps(DEFAULT_RECENCY)),  # deep copy
         "digest": dict(DEFAULT_DIGEST),
+        "max_age_days": DEFAULT_MAX_AGE_DAYS,
     }
     try:
         with open(SCORING_CONFIG_PATH, "r", encoding="utf-8") as f:
@@ -123,6 +124,8 @@ def load_scoring_config():
             for k in ("subject_prefix", "from"):
                 if k in dg and isinstance(dg[k], str) and dg[k].strip():
                     cfg["digest"][k] = dg[k]
+        if isinstance(raw.get("max_age_days"), (int, float)) and raw["max_age_days"] > 0:
+            cfg["max_age_days"] = int(raw["max_age_days"])
         log(f"Loaded scoring_config.json: min_score={cfg['min_score']}, default={cfg['min_score_default']}")
     except FileNotFoundError:
         warn("scoring_config.json not found, using built-in scoring defaults.")
@@ -135,6 +138,10 @@ def load_scoring_config():
 def min_score_for(category):
     cfg = load_scoring_config()
     return cfg["min_score"].get(category, cfg["min_score_default"])
+
+
+def max_age_days():
+    return load_scoring_config().get("max_age_days", DEFAULT_MAX_AGE_DAYS)
 
 # Keywords used to pre-filter broad newswire feeds (rss_filtered) before scoring,
 # so we don't waste API calls on unrelated pharma news. An item passes if its
@@ -284,35 +291,48 @@ def title_key(title):
     return t[:120]
 
 
-def is_recent(date_str, days=DAYS_LOOKBACK):
-    """True if date_str parses to within the last `days`. If the date cannot
-    be parsed, return True (keep it) so we never silently drop good items on a
-    formatting quirk. Scoring + threshold still gate it."""
+def parse_date(date_str):
+    """Best-effort parse of a feed date string to an aware UTC datetime, or None.
+    Handles ISO (with or without time, offset, or trailing Z), RFC822 RSS dates,
+    and a few common variants, then a loose YYYY-MM-DD extraction as a fallback."""
     if not date_str:
-        return True
-    from datetime import timedelta
-    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
-    s = date_str.strip()
-    fmts = ["%Y-%m-%d", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%dT%H:%M:%SZ",
-            "%a, %d %b %Y %H:%M:%S %Z", "%a, %d %b %Y %H:%M:%S %z",
-            "%Y/%m/%d", "%d %b %Y", "%b %d, %Y", "%Y %b %d", "%Y"]
+        return None
+    s = str(date_str).strip()
+    iso = s[:-1] + "+00:00" if s.endswith("Z") else s
+    try:
+        dt = datetime.fromisoformat(iso)
+        return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+    except Exception:
+        pass
+    fmts = ["%a, %d %b %Y %H:%M:%S %z", "%a, %d %b %Y %H:%M:%S %Z",
+            "%a, %d %b %Y %H:%M %z", "%a, %d %b %Y %H:%M:%S",
+            "%d %b %Y", "%b %d, %Y", "%B %d, %Y", "%Y/%m/%d", "%m/%d/%Y", "%Y-%m-%d"]
     for fmt in fmts:
         try:
-            dt = datetime.strptime(s[:len(fmt)+8], fmt)
-            if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=timezone.utc)
-            return dt >= cutoff
+            dt = datetime.strptime(s, fmt)
+            return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
         except Exception:
             continue
-    # try a loose YYYY-MM-DD extraction
     m = re.search(r"(\d{4})[-/](\d{1,2})[-/](\d{1,2})", s)
     if m:
         try:
-            dt = datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)), tzinfo=timezone.utc)
-            return dt >= cutoff
+            return datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)), tzinfo=timezone.utc)
         except Exception:
             pass
-    return True  # unparseable: keep
+    return None
+
+
+def is_recent(date_str, days=None):
+    """True only if the date parses to within the last `days` (the configurable
+    one-year cutoff by default). Items with a missing or unparseable date are
+    treated as NOT recent and excluded, so nothing ancient or dateless leaks in."""
+    if days is None:
+        days = max_age_days()
+    from datetime import timedelta
+    dt = parse_date(date_str)
+    if dt is None:
+        return False
+    return dt >= (datetime.now(timezone.utc) - timedelta(days=days))
 
 
 def normalize_link(link, source_name=""):
@@ -448,7 +468,7 @@ def fetch_nih_reporter(cfg):
     try:
         from datetime import timedelta
         now = datetime.now(timezone.utc)
-        cutoff = (now - timedelta(days=DAYS_LOOKBACK)).strftime("%Y-%m-%d")
+        cutoff = (now - timedelta(days=max_age_days())).strftime("%Y-%m-%d")
         # NIH fiscal year runs Oct 1 to Sep 30. Include current and prior FY so a
         # 4-month window never falls in a gap around the Oct boundary.
         fy = now.year if now.month >= 10 else now.year
@@ -587,7 +607,7 @@ def fetch_nsf(cfg):
     out = []
     try:
         from datetime import timedelta
-        start = (datetime.now(timezone.utc) - timedelta(days=DAYS_LOOKBACK)).strftime("%m/%d/%Y")
+        start = (datetime.now(timezone.utc) - timedelta(days=max_age_days())).strftime("%m/%d/%Y")
         end = datetime.now(timezone.utc).strftime("%m/%d/%Y")
         params = {
             "keyword": cfg.get("keyword_query", "spatial biology"),
@@ -633,7 +653,7 @@ def fetch_sec_edgar(cfg):
     out = []
     try:
         from datetime import timedelta
-        start = (datetime.now(timezone.utc) - timedelta(days=DAYS_LOOKBACK)).strftime("%Y-%m-%d")
+        start = (datetime.now(timezone.utc) - timedelta(days=max_age_days())).strftime("%Y-%m-%d")
         end = datetime.now(timezone.utc).strftime("%Y-%m-%d")
         ciks = [v for v in (cfg.get("ciks_of_interest") or {}).values()
                 if v and not v.startswith("VERIFY")]
@@ -743,28 +763,8 @@ def recency_factor(date_str):
     items count full, older ones taper, nothing drops below the floor on age
     alone. An unparseable date gets a middling factor so a formatting quirk
     never zeroes a good item. Cutoffs and floor live in scoring_config.json."""
-    parsed = None
-    if date_str:
-        s = date_str.strip()
-        fmts = ["%Y-%m-%d", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%dT%H:%M:%SZ",
-                "%a, %d %b %Y %H:%M:%S %Z", "%a, %d %b %Y %H:%M:%S %z",
-                "%Y/%m/%d", "%d %b %Y", "%b %d, %Y", "%Y %b %d", "%Y"]
-        for fmt in fmts:
-            try:
-                dt = datetime.strptime(s[:len(fmt) + 8], fmt)
-                parsed = dt.replace(tzinfo=timezone.utc) if dt.tzinfo is None else dt
-                break
-            except Exception:
-                continue
-        if parsed is None:
-            m = re.search(r"(\d{4})[-/](\d{1,2})[-/](\d{1,2})", s)
-            if m:
-                try:
-                    parsed = datetime(int(m.group(1)), int(m.group(2)),
-                                      int(m.group(3)), tzinfo=timezone.utc)
-                except Exception:
-                    parsed = None
     rcfg = load_scoring_config()["recency"]
+    parsed = parse_date(date_str)
     if parsed is None:
         return rcfg["unknown_date_factor"]
     age = (datetime.now(timezone.utc) - parsed).days
@@ -1088,7 +1088,14 @@ def send_digest(new_items):
         resp = http_post_json(RESEND_URL, payload, headers=headers, timeout=30)
         log(f"Digest sent to {DIGEST_TO}: {len(picks)} items, id={resp.get('id', '?')}")
     except Exception as e:
-        warn(f"Digest send failed: {e}")
+        detail = ""
+        try:
+            if hasattr(e, "read"):
+                detail = e.read().decode("utf-8", "replace")[:400]
+        except Exception:
+            pass
+        code = getattr(e, "code", "")
+        warn(f"Digest send failed: HTTP {code}. Resend said: {detail or e}")
 
 
 def main():
@@ -1129,7 +1136,7 @@ def main():
         it["id"] = iid
         new_items.append(it)
 
-    log(f"{len(new_items)} new items to score (of {len(raw)} fetched, {skipped_old} older than {DAYS_LOOKBACK} days)")
+    log(f"{len(new_items)} new items to score (of {len(raw)} fetched, {skipped_old} older than {max_age_days()} days)")
 
     # score new items
     scored_new = []
