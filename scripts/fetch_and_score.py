@@ -36,10 +36,82 @@ MODEL = "claude-haiku-4-5-20251001"  # cheap and fast for per-item scoring
 
 CATEGORIES = ["Competitor Move", "Research/Methods", "Funded Lab"]
 USER_AGENT = "ACD-Spatial-Radar/1.0 (sales intelligence; contact rep)"
-MAX_ITEMS_KEPT = 430  # cap the stored set so data.json stays small
-MIN_SCORE = 40        # items scoring below this are dropped, never shown
+MAX_ITEMS_KEPT = 400  # cap the stored set so data.json stays small
 DAYS_LOOKBACK = 120   # only keep items from the last N days (about 4 months)
 TERRITORIES_PATH = os.path.join(ROOT, "territories.json")
+SCORING_CONFIG_PATH = os.path.join(ROOT, "scoring_config.json")
+
+# Built-in scoring defaults. scoring_config.json overrides these when present,
+# so the per-category thresholds and the recency decay can be tuned without
+# editing this file. If that JSON is missing or malformed, we warn and use these.
+DEFAULT_MIN_SCORE = {"Competitor Move": 25, "Funded Lab": 30, "Research/Methods": 45}
+DEFAULT_MIN_SCORE_DEFAULT = 30
+DEFAULT_RECENCY = {
+    "tiers": [
+        {"max_age_days": 7, "factor": 1.0},
+        {"max_age_days": 21, "factor": 0.9},
+        {"max_age_days": 45, "factor": 0.75},
+        {"max_age_days": 90, "factor": 0.55},
+    ],
+    "older_factor": 0.4,
+    "unknown_date_factor": 0.7,
+}
+
+_SCORING_CFG = None
+
+
+def load_scoring_config():
+    """Load scoring_config.json once, falling back to the built-in defaults for
+    anything missing or malformed. A broken config logs a warning and is ignored,
+    it never stops the run."""
+    global _SCORING_CFG
+    if _SCORING_CFG is not None:
+        return _SCORING_CFG
+    cfg = {
+        "min_score": dict(DEFAULT_MIN_SCORE),
+        "min_score_default": DEFAULT_MIN_SCORE_DEFAULT,
+        "recency": json.loads(json.dumps(DEFAULT_RECENCY)),  # deep copy
+    }
+    try:
+        with open(SCORING_CONFIG_PATH, "r", encoding="utf-8") as f:
+            raw = json.load(f)
+        ms = raw.get("min_score", {})
+        if isinstance(ms, dict):
+            for k, v in ms.items():
+                if k == "_default":
+                    cfg["min_score_default"] = int(v)
+                elif not str(k).startswith("_") and isinstance(v, (int, float)):
+                    cfg["min_score"][k] = int(v)
+        rd = raw.get("recency_decay", {})
+        if isinstance(rd, dict):
+            tiers = rd.get("tiers")
+            if isinstance(tiers, list):
+                clean = []
+                for t in tiers:
+                    try:
+                        clean.append({"max_age_days": int(t["max_age_days"]),
+                                      "factor": float(t["factor"])})
+                    except Exception:
+                        continue
+                if clean:
+                    clean.sort(key=lambda t: t["max_age_days"])
+                    cfg["recency"]["tiers"] = clean
+            if "older_factor" in rd:
+                cfg["recency"]["older_factor"] = float(rd["older_factor"])
+            if "unknown_date_factor" in rd:
+                cfg["recency"]["unknown_date_factor"] = float(rd["unknown_date_factor"])
+        log(f"Loaded scoring_config.json: min_score={cfg['min_score']}, default={cfg['min_score_default']}")
+    except FileNotFoundError:
+        warn("scoring_config.json not found, using built-in scoring defaults.")
+    except Exception as e:
+        warn(f"Could not parse scoring_config.json: {e}. Using built-in scoring defaults.")
+    _SCORING_CFG = cfg
+    return _SCORING_CFG
+
+
+def min_score_for(category):
+    cfg = load_scoring_config()
+    return cfg["min_score"].get(category, cfg["min_score_default"])
 
 # Keywords used to pre-filter broad newswire feeds (rss_filtered) before scoring,
 # so we don't waste API calls on unrelated pharma news. An item passes if its
@@ -452,47 +524,26 @@ def fetch_html_news(cfg):
             log(f"{name}: no newswire links found on page")
             return out
         # For headline+date, walk the de-tagged lines: a release is a longish
-        # title line, a source word, then a date line. Two page layouts exist:
-        # MI: headline and date on separate lines.
-        # PR Newswire: 'Apr 18, 2026, 22:00 ET Headline text...' on one line.
-        date_re = re.compile(r'^([A-Z][a-z]{2,8} \d{1,2}, \d{4}(?:, \d{1,2}:\d{2} ET)?)\s*(.*)')
-        do_filter = cfg.get("filter", False)
-        # For company pages, filter on spatial/product terms only (not company
-        # names, since every headline on a company page contains the company name).
-        kws = ["spatial", "in situ", "rna-ish", "rna ish", "ish ", "xenium", "visium",
-               "atera", "proteomics", "protein", "proteintech", "multiomic", "multi-omic",
-               "single cell", "single-cell", "transcriptomic", "imaging", "merfish",
-               "acquire", "acquisition", "partner", "launch", "platform", "panel"]
+        # title line, a source word, then a date line like 'February 17, 2026'.
+        date_re = re.compile(r'^[A-Z][a-z]+ \d{1,2}, \d{4}$')
         title_buf = None
         wire_idx = 0
         for i, ln in enumerate(lines):
-            mdate = date_re.match(ln)
-            # Case 1: date and headline interleaved on one line (PR Newswire)
-            if mdate and mdate.group(2) and len(mdate.group(2)) > 30 and wire_idx < len(wire_urls):
-                date_str = mdate.group(1)
-                title_clean = clean_text(mdate.group(2))
+            if date_re.match(ln) and title_buf and wire_idx < len(wire_urls):
+                # found a release block: title_buf is the headline, ln is the date
                 link = wire_urls[wire_idx]
                 wire_idx += 1
-                if do_filter and not any(k in title_clean.lower() for k in kws):
-                    continue
-                out.append({"title": title_clean, "link": link,
-                            "summary": f"{name} press release via newswire.",
-                            "source": name, "category_hint": cfg.get("category_hint", "Competitor Move"),
-                            "date": date_str})
+                out.append({
+                    "title": clean_text(title_buf),
+                    "link": link,
+                    "summary": f"{name} press release via newswire.",
+                    "source": name,
+                    "category_hint": cfg.get("category_hint", "Competitor Move"),
+                    "date": ln,
+                })
                 title_buf = None
-            # Case 2: date alone on a line, headline was the previous line (MI)
-            elif mdate and not mdate.group(2) and title_buf and wire_idx < len(wire_urls):
-                link = wire_urls[wire_idx]
-                wire_idx += 1
-                title_clean = clean_text(title_buf)
-                title_buf = None
-                if do_filter and not any(k in title_clean.lower() for k in kws):
-                    continue
-                out.append({"title": title_clean, "link": link,
-                            "summary": f"{name} press release via newswire.",
-                            "source": name, "category_hint": cfg.get("category_hint", "Competitor Move"),
-                            "date": mdate.group(1)})
             elif len(ln) > 40 and not ln.startswith(("http", "[", "meta-", "©", "Copyright")):
+                # candidate headline: a long content line
                 title_buf = ln
         log(f"{name}: {len(out)} items")
     except Exception as e:
@@ -606,14 +657,18 @@ def fetch_sec_edgar(cfg):
 
 SCORING_SYSTEM = """You are a sales intelligence analyst for Advanced Cell Diagnostics (ACD), a Bio-Techne brand. ACD sells RNAscope in situ hybridization and spatial biology products to academic researchers in the United States. This radar is an early-warning system first and a prospecting feed second.
 
-You score one item at a time. Instead of one gut number, rate four axes from 0 to 10, then derive a headline score. Reason about each axis honestly.
+You score one item at a time on two axes from 0 to 10. Reason about each honestly. Do not compute a final score, that is handled in code outside this prompt.
 
 AXES (0 to 10 each):
-1. relevance: How squarely is this in the spatial biology / in situ hybridization / RNAscope world? 10 = directly about RNAscope, smFISH, spatial transcriptomics, or multiplexed in situ imaging. 5 = adjacent (single-cell, general genomics) with a plausible spatial angle. 0 = unrelated biology.
-2. buying_signal: How strongly does this point to a near-term purchase or active lab? 10 = a newly funded grant naming a spatial/ISH aim, or a lab clearly standing up this capability. 5 = an active lab publishing relevant work. 0 = no commercial implication.
-3. competitive_urgency: How much does the field team need to hear this now to defend deals? 10 = a direct competitor launching, repositioning, partnering, or getting funded. 0 = no competitive angle.
-   Direct and emerging competitors to watch closely:
-   - Molecular Instruments (HCR RNA-CISH and RNA-FISH; positioned head-to-head against RNAscope on speed and price. Treat any MI news as high urgency.)
+1. relevance: How squarely is this in the spatial biology / in situ hybridization / RNAscope world? This is the gate. 10 = directly about RNAscope, smFISH, spatial transcriptomics, HCR, MERFISH, or multiplexed in situ imaging. 5 = adjacent (single-cell, general genomics) with a plausible spatial or in situ angle. 0 = unrelated biology. A routine single-cell or genomics paper does not earn high relevance just because it mentions tissue.
+
+2. importance: How much should a field sales manager care, read through the lens of the item's category.
+   - For a Funded Lab: the strength of the buying signal. 10 = a newly funded grant whose aims imply in situ RNA validation, or a clear match to a high-value persona below. 5 = an active lab in a relevant area. 0 = no commercial implication. A grant or paper that matches a persona is a strong RNAscope prospect EVEN IF it never says "spatial" or "RNAscope", because these labs need in situ RNA validation.
+   - For a Competitor Move: competitive threat or urgency to ACD. 10 = a direct competitor launching, repositioning, partnering, or getting funded. Treat any Molecular Instruments news as high importance (HCR is positioned head-to-head against RNAscope on speed and price). 0 = no competitive angle.
+   - For Research/Methods: how useful for positioning or objection handling, not as a lead. 10 = work that directly uses or compares RNAscope, smFISH, HCR, or MERFISH and hands the rep a talking point. Lower for general interest with no clear lever.
+
+DIRECT AND EMERGING COMPETITORS to weigh when scoring a Competitor Move:
+   - Molecular Instruments (HCR RNA-CISH and RNA-FISH; head-to-head against RNAscope on speed and price. High importance.)
    - 10x Genomics (Xenium, Visium)
    - Bruker / NanoString (CosMx, GeoMx)
    - Vizgen (MERSCOPE)
@@ -624,12 +679,11 @@ AXES (0 to 10 each):
    - Singular Genomics (G4X emerging spatial entrant)
    - Rebus Biosystems (Esper), Curio Bioscience (emerging entrants)
    - Leica Biosystems (BOND RX automation, often partnering with the above)
-   Adjacent ecosystem (score moderate urgency, useful context not direct threat): Visiopharm, Grundium, Indica Labs (HALO), and pathology/imaging analysis vendors.
-4. recency: 10 = within the last week. 5 = within a month. 0 = older.
+   Adjacent ecosystem (moderate importance, useful context not direct threat): Visiopharm, Grundium, Indica Labs (HALO), and pathology/imaging analysis vendors.
 
-NOISE CONTROL: A generic preprint or paper with no clear spatial, in situ, or commercial hook should score LOW on relevance and buying_signal, which will pull its headline score below the display threshold. Do not inflate a routine single-cell or genomics paper just because it mentions tissue. Reserve high research scores for work that genuinely uses or compares RNAscope, smFISH, HCR, MERFISH, or multiplexed in situ imaging, or that reveals an active high-value lab.
+NOISE CONTROL: A generic preprint or paper with no clear spatial, in situ, or commercial hook should score LOW on relevance, which gates its final score below the display threshold. Do not inflate a routine single-cell or genomics paper just because it mentions tissue. Reserve high research scores for work that genuinely uses or compares RNAscope, smFISH, HCR, MERFISH, or multiplexed in situ imaging, or that reveals an active high-value lab.
 
-HIGH-VALUE LAB PROFILES: ACD field reps target these 16 research personas. A grant or paper matching one of these is a strong RNAscope prospect EVEN IF it never says "spatial" or "RNAscope", because these labs need in situ RNA validation. Treat a clear match as high relevance and high buying_signal:
+HIGH-VALUE LAB PROFILES: ACD field reps target these 16 research personas. A grant or paper matching one of these is a strong RNAscope prospect EVEN IF it never says "spatial" or "RNAscope", because these labs need in situ RNA validation. Treat a clear match as high relevance and high importance:
 1. Neuro-psychiatric: bulk or single-cell RNA-seq on brain tissue in psychiatric cohorts (depression, PTSD, schizophrenia, autism, bipolar, addiction). Needs subtype marker validation in situ.
 2. HIV / SIV: viral reservoir labs in lymph node, gut, or brain tissue (HIV-1, SIV, SHIV). No antibodies for viral RNA, so RNAscope is the only option.
 3. Gene therapy: AAV or lentiviral biodistribution and transgene expression (vector, transgene, AAV, RNAi, siRNA).
@@ -647,16 +701,48 @@ HIGH-VALUE LAB PROFILES: ACD field reps target these 16 research personas. A gra
 15. Stem cell and iPSC differentiation: lineage marker validation (iPSC, OCT4, NANOG, neural differentiation, cardiomyocytes).
 16. Barrier-organ inflammation: lung, GI, kidney epithelia (IBD, Crohn's, ulcerative colitis, asthma, COPD, glomerulonephritis, podocytes).
 
-HEADLINE SCORE: compute as a weighted blend, scaled to 0 to 100:
-score = round( (relevance*3 + buying_signal*2.5 + competitive_urgency*2.5 + recency*2) / 100 * 100 )
-Then apply one tiebreak rule: when two items would score within 3 points of each other and one is a competitor move, nudge the competitor item up by 3. Competitor intelligence wins ties because a missed launch costs the team across every deal at once.
-
 CATEGORY: assign exactly one from: Competitor Move, Research/Methods, Funded Lab.
 
 WHY: write a one-line hook of at most 24 words. Be concrete, not vague. Name the specific lever where present: gene targets, tissue or disease, method, PI name, institution, or the competing product. Tell the rep what to note or do. Do not use em dashes.
 
 Respond with ONLY a JSON object, no preamble, no markdown fences:
-{"relevance": <int>, "buying_signal": <int>, "competitive_urgency": <int>, "recency": <int>, "score": <int>, "category": "<one of the four>", "why": "<one line>"}"""
+{"relevance": <int>, "importance": <int>, "category": "<one of the three>", "why": "<one line>"}"""
+
+
+def recency_factor(date_str):
+    """Freshness decay applied to the score in code, not by the model. Fresh
+    items count full, older ones taper, nothing drops below the floor on age
+    alone. An unparseable date gets a middling factor so a formatting quirk
+    never zeroes a good item. Cutoffs and floor live in scoring_config.json."""
+    parsed = None
+    if date_str:
+        s = date_str.strip()
+        fmts = ["%Y-%m-%d", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%dT%H:%M:%SZ",
+                "%a, %d %b %Y %H:%M:%S %Z", "%a, %d %b %Y %H:%M:%S %z",
+                "%Y/%m/%d", "%d %b %Y", "%b %d, %Y", "%Y %b %d", "%Y"]
+        for fmt in fmts:
+            try:
+                dt = datetime.strptime(s[:len(fmt) + 8], fmt)
+                parsed = dt.replace(tzinfo=timezone.utc) if dt.tzinfo is None else dt
+                break
+            except Exception:
+                continue
+        if parsed is None:
+            m = re.search(r"(\d{4})[-/](\d{1,2})[-/](\d{1,2})", s)
+            if m:
+                try:
+                    parsed = datetime(int(m.group(1)), int(m.group(2)),
+                                      int(m.group(3)), tzinfo=timezone.utc)
+                except Exception:
+                    parsed = None
+    rcfg = load_scoring_config()["recency"]
+    if parsed is None:
+        return rcfg["unknown_date_factor"]
+    age = (datetime.now(timezone.utc) - parsed).days
+    for tier in rcfg["tiers"]:
+        if age <= tier["max_age_days"]:
+            return tier["factor"]
+    return rcfg["older_factor"]
 
 
 def score_item(item):
@@ -685,21 +771,22 @@ def score_item(item):
         text = "".join(b.get("text", "") for b in resp.get("content", []) if b.get("type") == "text")
         text = text.strip().replace("```json", "").replace("```", "").strip()
         parsed = json.loads(text)
-        score = int(parsed.get("score", 0))
+        rel = max(0, min(10, int(parsed.get("relevance", 0) or 0)))
+        imp = max(0, min(10, int(parsed.get("importance", 0) or 0)))
         category = parsed.get("category", "")
         if category not in CATEGORIES:
             category = item.get("category_hint") or "Research/Methods"
+        rf = recency_factor(item.get("date", ""))
+        # Composite: multiply the two axes (both must be true to rank high),
+        # then decay by age. relevance*importance is 0..100; rf is 0.4..1.0.
+        score = round(rel * imp * rf)
         why = clean_text(parsed.get("why", "")).replace("\u2014", "-")
         return {
             "score": max(0, min(100, score)),
             "category": category,
             "why": why,
-            "subscores": {
-                "relevance": parsed.get("relevance"),
-                "buying_signal": parsed.get("buying_signal"),
-                "competitive_urgency": parsed.get("competitive_urgency"),
-                "recency": parsed.get("recency"),
-            },
+            "subscores": {"relevance": rel, "importance": imp},
+            "recency_factor": round(rf, 2),
         }
     except Exception as e:
         warn(f"Scoring failed for '{item['title'][:60]}': {e}")
@@ -873,10 +960,7 @@ def main():
         raw.extend(fetch_nih_reporter(sources["nih_reporter"]))
     if "nsf_awards" in sources:
         raw.extend(fetch_nsf(sources["nsf_awards"]))
-    if "html_news_sources" in sources:
-        for hcfg in sources["html_news_sources"]:
-            raw.extend(fetch_html_news(hcfg))
-    elif "mi_news" in sources:  # backward compat
+    if "mi_news" in sources:
         raw.extend(fetch_html_news(sources["mi_news"]))
 
     # dedupe and keep only new (by id AND by normalized title), within lookback window
@@ -920,7 +1004,7 @@ def main():
                 it["outreach_angle"] = angle
             time.sleep(0.2)
         it["fetched"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
-        if it.get("score", 0) < MIN_SCORE:
+        if it.get("score", 0) < min_score_for(it.get("category", "")):
             dropped += 1
         else:
             scored_new.append(it)
@@ -928,11 +1012,11 @@ def main():
             log(f"scored {i}/{len(new_items)}")
         time.sleep(0.2)  # gentle pacing
 
-    log(f"kept {len(scored_new)} new items, dropped {dropped} below score {MIN_SCORE}")
+    log(f"kept {len(scored_new)} new items, dropped {dropped} below category thresholds")
 
     # merge, sort, cap. Re-filter stored items by score AND recency.
     kept_existing = [it for it in existing.get("items", [])
-                     if it.get("score", 0) >= MIN_SCORE and is_recent(it.get("date", ""))]
+                     if it.get("score", 0) >= min_score_for(it.get("category", "")) and is_recent(it.get("date", ""))]
     all_items = scored_new + kept_existing
     all_items.sort(key=lambda x: (x.get("score", 0), x.get("fetched", "")), reverse=True)
     all_items = all_items[:MAX_ITEMS_KEPT]
