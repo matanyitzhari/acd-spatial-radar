@@ -92,7 +92,91 @@
       "type": "rss",
       "url": "https://www.10xgenomics.com/feed",
       "category_hint": "Competitor Move",
-      "note": "Likely dead (10x uses PR Newswire). Kept in case; newswire net is the real catch."
+      "note": "Likely dead (10x uses PR Newswire). Kept in case; the two feeds below are the real catch."
+    },
+    {
+      "name": "10x Genomics IR",
+      "type": "rss",
+      "url": "https://investors.10xgenomics.com/rss/news-releases.xml",
+      "category_hint": "Competitor Move",
+      "note": "10x IR runs on Q4 Inc, the same platform and feed pattern as the Bruker and Singular Genomics IR feeds. Carries official 10x press releases (earnings, acquisitions, launches). If it 404s it just warns and skips, and the Google News feed below still covers 10x."
+    },
+    {
+      "name": "10x Genomics (Google News)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%2210x+Genomics%22+when%3A30d&hl=en-US&gl=US&ceid=US:en",
+      "category_hint": "Competitor Move",
+      "note": "Reliable backstop. Google News RSS for the exact phrase 10x Genomics, last 30 days. Always current and catches corporate moves (the Proteintech acquisition, earnings) that the all-news firehose scrolls off before the job runs. The relevance gate in scoring drops pure stock-ticker noise."
+    },
+    {
+      "name": "Molecular Instruments (Google News)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22Molecular+Instruments%22+OR+%22HCR+RNA%22+when%3A30d&hl=en-US&gl=US&ceid=US:en",
+      "category_hint": "Competitor Move",
+      "note": "Backstop for the Wix scraper, which is fragile. Most direct RNAscope competitor, treat as high urgency."
+    },
+    {
+      "name": "Vizgen (Google News)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22Vizgen%22+OR+%22MERSCOPE%22+when%3A30d&hl=en-US&gl=US&ceid=US:en",
+      "category_hint": "Competitor Move",
+      "note": "MERSCOPE imaging-based spatial."
+    },
+    {
+      "name": "NanoString / Bruker spatial (Google News)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22NanoString%22+OR+%22CosMx%22+OR+%22GeoMx%22+when%3A30d&hl=en-US&gl=US&ceid=US:en",
+      "category_hint": "Competitor Move",
+      "note": "CosMx and GeoMx now under Bruker. Anchored on product names since Bruker as a company is too broad."
+    },
+    {
+      "name": "Akoya / Quanterix (Google News)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22Akoya%22+OR+%22PhenoCycler%22+when%3A30d&hl=en-US&gl=US&ceid=US:en",
+      "category_hint": "Competitor Move",
+      "note": "PhenoCycler (formerly CODEX). Akoya acquired by Quanterix in 2025. CODEX dropped from the query because it collides with unrelated software news."
+    },
+    {
+      "name": "Navinci (Google News)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22Navinci%22+OR+%22Naveni%22+when%3A30d&hl=en-US&gl=US&ceid=US:en",
+      "category_hint": "Competitor Move",
+      "note": "Naveni in situ proximity ligation, competes with ProximityScope."
+    },
+    {
+      "name": "Resolve Biosciences (Google News)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22Resolve+Biosciences%22+OR+%22Molecular+Cartography%22+when%3A30d&hl=en-US&gl=US&ceid=US:en",
+      "category_hint": "Competitor Move",
+      "note": "ISH-based spatial, Molecular Cartography."
+    },
+    {
+      "name": "Standard BioTools (Google News)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22Standard+BioTools%22+OR+%22imaging+mass+cytometry%22+when%3A30d&hl=en-US&gl=US&ceid=US:en",
+      "category_hint": "Competitor Move",
+      "note": "Hyperion imaging mass cytometry. 'Hyperion' alone dropped, too many unrelated hits."
+    },
+    {
+      "name": "Singular Genomics (Google News)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22Singular+Genomics%22+OR+%22G4X%22+when%3A30d&hl=en-US&gl=US&ceid=US:en",
+      "category_hint": "Competitor Move",
+      "note": "G4X emerging spatial entrant."
+    },
+    {
+      "name": "Lunaphore (Google News)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22Lunaphore%22+when%3A30d&hl=en-US&gl=US&ceid=US:en",
+      "category_hint": "Competitor Move",
+      "note": "COMET sequential immunofluorescence, under Bio-Rad."
+    },
+    {
+      "name": "Curio Bioscience (Google News)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22Curio+Bioscience%22+when%3A30d&hl=en-US&gl=US&ceid=US:en",
+      "category_hint": "Competitor Move",
+      "note": "Emerging entrant, Curio Seeker and Trekker."
     },
     {
       "name": "Bruker News",
