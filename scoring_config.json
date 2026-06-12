@@ -1,6 +1,9 @@
 {
   "_comment": "Tuning knobs for Spatial Radar scoring and the email digest. Edit the numbers, commit, and the next run uses them. No code changes needed. If this file is missing or broken, the script falls back to its built-in defaults and keeps running.",
 
+  "max_age_days": 365,
+  "_max_age_comment": "Hard cutoff. Items older than this many days are never shown, and items with a missing or unparseable date are excluded too. 365 is about one year. Lower it (e.g. 180) to tighten the window.",
+
   "min_score": {
     "_comment": "An item is shown only if its 0-100 score meets the bar for its category. Lower bar = more items shown. Competitor moves are rare, so a low bar avoids missing one. Research must earn its place, so it sits higher. _default applies to any category not listed.",
     "Competitor Move": 25,
