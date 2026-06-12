@@ -120,6 +120,16 @@
   @media (max-width: 620px) { .ib-cols { grid-template-columns: 1fr; } }
   .expand { font-family: var(--mono); font-size: 0.66rem; font-weight: 500; color: var(--brand); cursor: pointer; background: none; border: none; padding: 6px 0 0; }
   .expand:hover { text-decoration: underline; text-underline-offset: 2px; }
+  .draftwrap { margin: 4px 0 2px; }
+  .draftbtn { font-family: var(--mono); font-size: 0.7rem; font-weight: 700; color: #fff; background: var(--cat-funded); border: none; border-radius: 8px; padding: 7px 13px; cursor: pointer; letter-spacing: 0.02em; }
+  .draftbtn:hover { filter: brightness(1.06); }
+  .draftbtn.on { background: #176b3c; }
+  .draftbox { margin-top: 10px; background: #f3f8f2; border: 1px solid #cfe6d4; border-radius: 12px; padding: 14px 16px; }
+  .draftbox[hidden] { display: none; }
+  .draftsub { font-family: var(--mono); font-size: 0.72rem; color: #27500a; font-weight: 700; margin-bottom: 8px; }
+  .draftbody { font-size: 0.9rem; color: var(--ink); line-height: 1.55; }
+  .copybtn { margin-top: 12px; font-family: var(--mono); font-size: 0.68rem; color: var(--cat-funded); background: #fff; border: 1px solid #cfe6d4; border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+  .copybtn:hover { background: #eaf4ec; }
 
   .empty { text-align: center; color: var(--ink-dim); font-family: var(--mono); padding: 70px 0; font-size: 0.85rem; }
   footer { margin-top: 54px; text-align: center; font-family: var(--mono); font-size: 0.66rem; color: var(--ink-dim); }
@@ -229,6 +239,7 @@ function render(){
     const color = CAT_COLOR[i.category]||"var(--accent)";
     const brief = i.impact_brief ? impactBriefHTML(i.impact_brief) : "";
     const angle = i.outreach_angle ? outreachAngleHTML(i.outreach_angle) : "";
+    const draft = (i.category==="Funded Lab" && i.outreach_angle && i.outreach_angle.draft_body) ? draftBlock(i.outreach_angle) : "";
     const has = (i.summary && i.summary.length>0) || brief || angle;
     return `<article class="card" style="--catcolor:${color}; animation-delay:${Math.min(n*0.035,0.5)}s">
       <div class="scorebox"><div class="score">${i.score??"--"}<small>SIGNAL</small></div>
@@ -236,9 +247,37 @@ function render(){
       <div class="body"><div class="toprow"><span class="tag">${esc(i.category||"")}</span>${i.territory && i.territory!=="National" ? `<span class="terr">${esc(i.territory)}</span>`:""}${i.owner? `<span class="owner">${esc(i.owner)}</span>`:""}<span class="src">${esc(i.source||"")}</span><span class="date">${fmtDate(i.date)}</span></div>
       <h2><a href="${esc(i.link||"#")}" target="_blank" rel="noopener">${esc(i.title||"Untitled")}</a></h2>
       ${i.why? `<div class="why">${esc(i.why)}</div>`:""}
+      ${draft}
       ${has? `<button class="expand" aria-expanded="false" onclick="const c=this.closest('.card');const o=c.classList.toggle('open');this.setAttribute('aria-expanded',o);this.textContent=o?'hide details \u25b4':'details \u25be'">details \u25be</button><div class="summary">${brief}${angle}${i.summary?`<div class="rawsum">${esc(i.summary)}</div>`:""}</div>`:""}
       </div></article>`;
   }).join("");
+}
+
+function draftBlock(a){
+  const subj = a.draft_subject||"";
+  const body = a.draft_body||"";
+  const full = "Subject: "+subj+"\n\n"+body;
+  return `<div class="draftwrap">
+    <button class="draftbtn" onclick="toggleDraft(this)">\u2709 Draft outreach</button>
+    <div class="draftbox" hidden>
+      ${subj?`<div class="draftsub">Subject: ${esc(subj)}</div>`:""}
+      <div class="draftbody">${esc(body).replace(/\n/g,"<br>")}</div>
+      <button class="copybtn" data-text="${esc(full)}" onclick="copyDraft(this)">Copy email</button>
+    </div>
+  </div>`;
+}
+function toggleDraft(btn){
+  const box = btn.parentNode.querySelector(".draftbox");
+  if(!box) return;
+  const show = box.hasAttribute("hidden");
+  box.toggleAttribute("hidden", !show);
+  btn.classList.toggle("on", show);
+}
+function copyDraft(btn){
+  const t = btn.getAttribute("data-text")||"";
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(()=>{ btn.textContent="Copied"; setTimeout(()=>btn.textContent="Copy email",1500); }).catch(()=>{ btn.textContent="Copy failed"; });
+  } else { btn.textContent="Copy unavailable"; }
 }
 
 function outreachAngleHTML(a){
