@@ -1,7 +1,7 @@
 name: Fetch and score spatial news
 
 on:
-  workflow_dispatch: {}   # manual only. Add a schedule: block here to automate.
+  workflow_dispatch: {}   # manual only: run from the Actions tab.
 
   # TO RUN AUTOMATICALLY ONCE A DAY: remove the # from the three lines below.
   # Time is UTC. "0 11 * * *" is 11:00 UTC, which is about 6-7 AM US Eastern
@@ -27,6 +27,9 @@ jobs:
       - name: Run fetch and score
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          DIGEST_TO: ${{ secrets.DIGEST_TO }}
+          DASHBOARD_URL: ${{ secrets.DASHBOARD_URL }}
         run: python scripts/fetch_and_score.py
 
       - name: Commit updated data
