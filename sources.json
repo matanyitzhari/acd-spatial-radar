@@ -104,9 +104,9 @@
     {
       "name": "10x Genomics (Google News)",
       "type": "rss",
-      "url": "https://news.google.com/rss/search?q=%2210x+Genomics%22+when%3A30d&hl=en-US&gl=US&ceid=US:en",
+      "url": "https://news.google.com/rss/search?q=%2210x+Genomics%22+-%22buy+rating%22+-%22price+target%22+-%22strong+buy%22+when%3A30d&hl=en-US&gl=US&ceid=US:en",
       "category_hint": "Competitor Move",
-      "note": "Reliable backstop. Google News RSS for the exact phrase 10x Genomics, last 30 days. Always current and catches corporate moves (the Proteintech acquisition, earnings) that the all-news firehose scrolls off before the job runs. The relevance gate in scoring drops pure stock-ticker noise."
+      "note": "Reliable backstop with a few negative terms to thin stock chatter. The script's blocklist removes the rest (TipRanks, GuruFocus, Yahoo Finance, etc.). Catches corporate moves the firehose scrolls off."
     },
     {
       "name": "Molecular Instruments (Google News)",
@@ -271,5 +271,54 @@
     "url": "https://www.molecularinstruments.com/news",
     "category_hint": "Competitor Move",
     "note": "MI site is Wix with no working RSS. Scrapes the news page HTML and links to the Business Wire / PR Newswire article for each release. Most direct RNAscope competitor, treat as high urgency."
-  }
+  },
+  "blocked_publishers": [
+    "tipranks",
+    "gurufocus",
+    "simplywall",
+    "moomoo",
+    "yahoo finance",
+    "marketbeat",
+    "benzinga",
+    "zacks",
+    "stocktitan",
+    "stock titan",
+    "motley fool",
+    "insider monkey",
+    "investing.com",
+    "barchart",
+    "seeking alpha",
+    "nasdaq",
+    "defense world",
+    "markets insider",
+    "tickerreport",
+    "americanbankingnews",
+    "etf daily news",
+    "stocktwits",
+    "wallstreetzen",
+    "the globe and mail",
+    "stocknews"
+  ],
+  "blocked_title_phrases": [
+    "buy rating",
+    "sell rating",
+    "strong buy",
+    "hold rating",
+    "price target",
+    "target price",
+    "stock forecast",
+    "analyst rating",
+    "% surge",
+    "stock soars",
+    "stock jumps",
+    "txg.us",
+    "stock split",
+    "market cap of",
+    "stock to buy",
+    "shares sold",
+    "shares purchased",
+    "shares bought",
+    "raises stake",
+    "lowers stake"
+  ]
 }
