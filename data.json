@@ -1,7 +1,7 @@
 {
-  "updated": "2026-06-10T21:35:33+00:00",
+  "updated": "2026-06-12T14:26:06+00:00",
   "count": 60,
-  "new_this_run": 11,
+  "new_this_run": 4,
   "categories": [
     "Competitor Move",
     "Research/Methods",
@@ -1611,6 +1611,31 @@
       "fetched": "2026-06-10T20:30:06+00:00"
     },
     {
+      "title": "First-line dolutegravir/lamivudine penetrates lymph nodes and reduces HIV reservoirs comparably to triple therapy.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42282038/",
+      "summary": "Res Sq. Research square",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 Jun 3",
+      "id": "d3a243f95624bc38",
+      "score": 50,
+      "category": "Funded Lab",
+      "why": "HIV reservoir mapping in lymph node tissue; validates viral RNA localization need-RNAscope is standard for HIV-1 RNA in situ when antibodies fail.",
+      "subscores": {
+        "relevance": 7,
+        "importance": 8
+      },
+      "recency_factor": 0.9,
+      "territory": "National",
+      "region": "National",
+      "outreach_angle": {
+        "hook": "This lab is mapping HIV-1 RNA distribution across lymph node tissue to evaluate antiretroviral drug penetration and reservoir dynamics. They need to localize and quantify viral RNA in situ within intact tissue architecture, a classic RNAscope application where antibody-based detection fails.",
+        "way_in": "RNAscope HIV-1 probes enable single-cell resolution detection of integrated and episomal viral RNA directly in lymph node sections, supporting their reservoir quantification without the antibody cross-reactivity and background noise that plague immunohistochemistry on infected tissue.",
+        "routing": "National territory, infectious disease/virology focus. Route to rep with HIV research accounts or IVD experience."
+      },
+      "fetched": "2026-06-12T14:21:57+00:00"
+    },
+    {
       "title": "High resolution spatial transcriptomics identifies insufficient radiofrequency ablation induces hepatocellular carcinoma progression via CEBPD / CXCL2 axis.",
       "link": "https://pubmed.ncbi.nlm.nih.gov/42263221/",
       "summary": "Hepatology. Hepatology (Baltimore, Md.)",
@@ -1653,6 +1678,85 @@
       "fetched": "2026-06-10T20:25:09+00:00"
     },
     {
+      "title": "Pulmonary vagal sensory neurons in chronic lung disease",
+      "link": "https://reporter.nih.gov/project-details/11386476",
+      "summary": "PI: Gary Charles Mouradian. Institution: MEDICAL COLLEGE OF WISCONSIN. Award: $467,332. PROJECT SUMMARY Preterm infants are born with immature lungs and immature neural control of breathing. They rely on supplemental oxygen therapy (hyperoxia; HX). Though necessary for survival, they require HX which progressively damages the lungs and causes bronchopulmonary dysplasia (BPD), the most common respiratory complication among preterm infants. Infants with BPD have worse neural control of breathing (nCOB) than age- matched non-BPD infants, suggesting HX dose and/or duration contribute to worse breathing control. With HX used to varying amounts and durations among nearly all preterm births and with BPD infants having a greater risk for adulthood respiratory health complications, understanding the dose- and duration-dependent effects of HX on breathing acutely and chronically remain",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-06-05T00:00:00",
+      "institution": "MEDICAL COLLEGE OF WISCONSIN",
+      "pi": "Gary Charles Mouradian",
+      "state": "WI",
+      "city": "MILWAUKEE",
+      "id": "7812d4e2e2e355df",
+      "score": 42,
+      "category": "Funded Lab",
+      "why": "Lung tissue neural circuits and sensory neuron phenotyping in disease model; needs in situ RNA validation of receptor/neuropeptide markers in vagal neurons.",
+      "subscores": {
+        "relevance": 6,
+        "importance": 7
+      },
+      "recency_factor": 1.0,
+      "territory": "MWA",
+      "region": "West",
+      "outreach_angle": {
+        "hook": "This lab is mapping how hyperoxia damages sensory neural circuits controlling breathing in bronchopulmonary dysplasia, a disease affecting preterm infants. They will need to validate neuropeptide receptors, ion channels, and sensory neuron markers directly in lung tissue to link altered gene expression to functional breathing deficits.",
+        "way_in": "RNAscope multiplex in situ hybridization lets them localize low-abundance neuropeptides and receptor transcripts in intact vagal sensory neuron populations within lung tissue, confirming which neuron subtypes are altered by hyperoxia exposure without relying on antibodies that may not exist for all targets.",
+        "routing": "MWA territory; route to West region sales rep."
+      },
+      "fetched": "2026-06-12T14:25:32+00:00"
+    },
+    {
+      "title": "Dissecting the sources of variation in neuronally differentiated iPSC lines through multi-omics analysis",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.10.731279v1?rss=1",
+      "summary": "Induced pluripotent stem cells (iPSCs) are widely used as patient-specific disease models, yet substantial unexplained variability in molecular and functional readouts limits their reliability. Here, we systematically investigated the sources of variation in iPSC-derived neurons for three rare genetic disorders: Myotonic Dystrophy Type 1, chromodomain-DNA-helicase-binding protein 2-related disorder and N-acetylneuraminic acid synthase deficiency. This was performed by profiling multi-omics layers: genomics, epigenomics, transcriptomics, proteomics, metabolomics and lipidomics. Our study found that clonal variability was comparable to inter-patient differences and that neuronal differentiation state and nutrient-driven metabolic activity emerged as dominant contributors to variability observed across omics layers. Clonal differences could partly be attributed to stochastic differences in DNA methylation established during reprogramming. By modeling and correcting the observed variation, we improved the detection of disease-associated molecular signatures. Our study provides guidelines for improved study design and data analysis to minimize variability, enabling robust biomarker disc",
+      "source": "bioRxiv (Cell Biology)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-10",
+      "id": "a2979addd0606a49",
+      "score": 42,
+      "category": "Funded Lab",
+      "why": "iPSC-derived neuronal differentiation lab needs in situ marker validation (OCT4, neuronal subtypes, disease markers) to confirm cell identity across variable clones.",
+      "subscores": {
+        "relevance": 6,
+        "importance": 7
+      },
+      "recency_factor": 1.0,
+      "territory": "National",
+      "region": "National",
+      "outreach_angle": {
+        "hook": "This lab is generating iPSC-derived neurons across multiple clones and disease conditions, then profiling them with multi-omics to understand variability. They need to spatially validate their transcriptomic and proteomic findings directly in differentiated neuronal tissue to confirm cell-type identity and disease-associated markers across their variable clonal populations.",
+        "way_in": "RNAscope can confirm neuronal differentiation state and validate clonal differences by localizing pluripotency markers (OCT4, NANOG) and stage-specific neuronal transcripts in their iPSC-derived cultures and tissues. This bridges their bulk sequencing data to single-cell and spatial resolution, catching the variability they're modeling in multi-omics.",
+        "routing": "National territory; route to whoever owns academic cell biology or stem cell differentiation research."
+      },
+      "fetched": "2026-06-12T14:18:56+00:00"
+    },
+    {
+      "title": "Liquidity of gene co-expression trajectories across the lifespan highlights delayed maturation and the perinatal GABA switch in schizophrenia risk",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.10.731457v1?rss=1",
+      "summary": "Schizophrenia genetic and environmental risk factors play out largely in early life, biasing development toward a pathogenic trajectory that becomes clinically apparent in early adulthood, when the disorder typically onsets. Here, we convert snapshots of gene expression in postmortem brain at a moment in time into a dynamic lifetime series employing the \"liquidity\" metric, a novel tool to track the evolution of networks across time from a multi-systemic perspective. The landscape of normal prefrontal cortical development becomes increasingly \"liquid\" during the first two decades of post-natal life, with sharp discontinuities in known critical periods such as birth and adolescence. Neurotypical individuals free of apparent neuropathology with relatively elevated polygenic risk scores for schizophrenia exhibit a generalized delay in the dynamics of liquidity across these trajectories compared to below-average-risk individuals. Impacted biological processes strongly converge on delayed GABA-A receptor functional maturation, involved in establishing Excitatory/Inhibitory balance in brain during early development. Similar to patients with schizophrenia, neurotypical high-risk individual",
+      "source": "bioRxiv (Genomics)",
+      "category_hint": "Research/Methods",
+      "date": "2026-06-11",
+      "id": "b50c765a59c4b52b",
+      "score": 42,
+      "category": "Funded Lab",
+      "why": "Psychiatric neuroscience lab (schizophrenia, prefrontal cortex) will need to validate gene expression and GABA markers in situ across developmental timepoints.",
+      "subscores": {
+        "relevance": 6,
+        "importance": 7
+      },
+      "recency_factor": 1.0,
+      "territory": "National",
+      "region": "National",
+      "outreach_angle": {
+        "hook": "This developmental neuroscience lab is mapping gene co-expression trajectories across the lifespan in postmortem prefrontal cortex, with a focus on GABA-A receptor maturation as a schizophrenia risk mechanism. They will need to validate their sequencing-derived expression patterns and confirm GABA-related markers in native tissue context across critical developmental windows (birth, adolescence, adulthood).",
+        "way_in": "RNAscope enables single-cell localization of GABA-A subunits and other co-expressed genes directly in their postmortem brain sections, resolving whether predicted expression changes actually occur in the cell types and laminae they hypothesize. This bridges their computational liquidity model with spatial ground truth and can map regional or layer-specific delays in maturation that sequencing alone cannot reveal.",
+        "routing": "National territory sales; psychiatric neuroscience or developmental brain imaging specialists should lead outreach to prefrontal cortex and schizophrenia risk research groups."
+      },
+      "fetched": "2026-06-12T14:18:07+00:00"
+    },
+    {
       "title": "Schwann Cell Reprogramming after Nerve Injury",
       "link": "https://reporter.nih.gov/project-details/11336347",
       "summary": "PI: Rajeshwar B Awatramani, John P Svaren. Institution: UNIVERSITY OF WISCONSIN-MADISON. Award: $475,401. Abstract Myelination of axons in the nervous system is critical for not only conduction of action potentials, but also for providing tropic support to ensure long term survival of neurons in both the central and peripheral nervous systems. Myelin disorders are a major cause of neurological disease, and can be caused by genetic disorders, infectious disease, and inflammation. The peripheral nervous system has substantial plasticity in being able to regenerate after nerve injury, and critical transcription factors and their target gene networks have begun to be elucidated. Schwann cell reprogramming to a new differentiated state is a critical and rate limiting factor in peripheral nerve regeneration, particularly when regeneration is impaired as a function of aging/chronic denervation. There",
@@ -1681,78 +1785,6 @@
         "routing": "MWA territory (West) - field rep should lead with peripheral nerve regeneration biology and spatial validation angle."
       },
       "fetched": "2026-06-10T21:33:04+00:00"
-    },
-    {
-      "title": "Human 3D epithelioids enable continuous long-term clonal evolution studies across multiple epithelial tissues",
-      "link": "https://www.biorxiv.org/content/10.64898/2026.06.07.730560v1?rss=1",
-      "summary": "Modeling human epithelia in vitro remains challenging because current systems do not fully preserve the combination of architecture, heterogeneity, clonal composition, and long-term dynamics shown in vivo. While 3D approaches such as organoids and organotypic cultures capture important aspects of lineage differentiation and niche signaling, they often lose stable organization over time, limiting studies of long-lasting processes such as clonal evolution and cell competition. Here, we present human epithelioids as continuous long-term, 3D epithelial cultures efficiently derived from eight adult human epithelia, including trachea, skin, buccal mucosa, esophagus, blader, urethra, submandibular gland and endometrium. Using immunostaining, electron microscopy, single-cell RNA sequencing, functional assays and somatic mutation analyses, we deeply characterized human epithelioids and confirmed that they recapitulate native architecture and cell diversity, sustain regenerative capacity, and preserve donor-specific mutational landscapes, establishing a robust and versatile platform for longitudinal interrogation of clonal evolution, tissue dynamics and responses to clinically relevant pertu",
-      "source": "bioRxiv (Cancer Biology)",
-      "category_hint": "Research/Methods",
-      "date": "2026-06-08",
-      "id": "ee5ac3d24a14ca43",
-      "score": 42,
-      "category": "Research/Methods",
-      "why": "3D epithelial models need in situ validation of clonal markers and lineage; RNAscope ideal for spatial cell-type confirmation in epithelioids.",
-      "subscores": {
-        "relevance": 6,
-        "buying_signal": 6,
-        "competitive_urgency": 0,
-        "recency": 8
-      },
-      "territory": "National",
-      "region": "National",
-      "fetched": "2026-06-10T20:23:49+00:00"
-    },
-    {
-      "title": "Transcriptional analyses identify pericyte-centered signaling programs altered by sex and brain region in Alzheimer's Disease.",
-      "link": "https://pubmed.ncbi.nlm.nih.gov/42260160/",
-      "summary": "Commun Biol. Communications biology",
-      "source": "PubMed",
-      "category_hint": "Research/Methods",
-      "date": "2026 Jun 8",
-      "id": "4148bdc2c817aaf2",
-      "score": 41,
-      "category": "Research/Methods",
-      "why": "AD brain pericyte biology with scRNA-seq; likely needs in situ validation of cell-type markers and sex-dependent signaling nodes in human tissue.",
-      "subscores": {
-        "relevance": 7,
-        "buying_signal": 6,
-        "competitive_urgency": 0,
-        "recency": 3
-      },
-      "territory": "National",
-      "region": "National",
-      "fetched": "2026-06-10T20:26:45+00:00"
-    },
-    {
-      "title": "Multi-modal comparison of primary and stem cell-derived β-cells nominates targets for maturation",
-      "link": "https://www.biorxiv.org/content/10.64898/2026.06.04.730032v1?rss=1",
-      "summary": "Stem-cell-derived {beta}-like-cells (SC{beta}-cells) provide a promising platform for diabetes modelling and cell replacement therapy, but their incomplete functional maturation remains a challenge. Here, we compared immature SC{beta}-cells to human primary {beta}-cells utilizing a multi-omic, single-cell framework integrating patch-clamp electrophysiology with scRNA sequencing (patch-seq), regulatory network inference, and functional phenotyping. Despite low insulin secretion and reduced insulin content, SC{beta}-cells displayed larger Na+ and Ca2+ currents and depolarization-induced exocytosis. Ultrastructural and metabolic profiling revealed immature insulin granules, altered mitochondrial morphology, elevated basal respiration and proton leak, and diminished spare respiratory capacity and glucose-responsive metabolism. Patch-seq linked exocytotic activity in SC{beta}-cells to oxidative phosphorylation and MYC target programs, consistent with incomplete terminal differentiation, whereas SC{beta}-cells expressing higher levels of mature identity markers showed reduced ion channel hyperactivity. Multi-omics profiling showed that electrophysiological features in SC{beta}-cells were",
-      "source": "bioRxiv (Cell Biology)",
-      "category_hint": "Research/Methods",
-      "date": "2026-06-09",
-      "id": "ef524103abc468d4",
-      "score": 40,
-      "category": "Research/Methods",
-      "why": "Could not score automatically, review manually.",
-      "territory": "National",
-      "region": "National",
-      "fetched": "2026-06-10T21:29:20+00:00"
-    },
-    {
-      "title": "Loss of Arginase 2 Promotes Lung Metastasis in immune-competent hosts via Nitric Oxide Synthase 2-Dependent Th17 Response",
-      "link": "https://www.biorxiv.org/content/10.64898/2026.06.04.730112v1?rss=1",
-      "summary": "Distant metastasis is the leading cause of mortality in many cancers. Although metabolic reprogramming is recognized as a hallmark of cancer, how tumor-intrinsic metabolic enzymes regulate tumor-immune crosstalk during metastatic progression remains poorly understood. Here, using a high-throughput functional CRISPR-Cas9 screen targeting metabolic genes in an orthotopic 4T1 murine mammary carcinoma model of spontaneous lung metastasis, we identify a selective enrichment of arginase 2 (ARG2)-deficient tumor cells in metastatic lungs of immunocompetent but not RAG1-deficient mice, indicating a lymphocyte-dependent mechanism. Loss of ARG2 enhances spontaneous lung metastasis without affecting primary tumor growth. Further, metastatic outgrowth in the lung is not affected when tumor cells are injected intravenously, indicating that ARG2 regulates an early stage of the metastatic cascade. Mechanistically, ARG2 deficiency upregulates nitric oxide synthase 2 (NOS2), resulting in increased nitric oxide production, accumulation of cytosolic DNA, and activation of the cGAS-STING-NF-{kappa}B pathway, leading to upregulation of inflammatory cytokines. ARG2-deficient tumors exhibit an immunosupp",
-      "source": "bioRxiv (Cancer Biology)",
-      "category_hint": "Research/Methods",
-      "date": "2026-06-08",
-      "id": "1f764d04fedf8562",
-      "score": 40,
-      "category": "Research/Methods",
-      "why": "Could not score automatically, review manually.",
-      "territory": "National",
-      "region": "National",
-      "fetched": "2026-06-10T21:13:57+00:00"
     }
   ]
 }
