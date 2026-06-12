@@ -1,7 +1,7 @@
 {
-  "updated": "2026-06-12T17:48:11+00:00",
-  "count": 35,
-  "new_this_run": 35,
+  "updated": "2026-06-12T18:41:23+00:00",
+  "count": 38,
+  "new_this_run": 3,
   "categories": [
     "Competitor Move",
     "Research/Methods",
@@ -743,6 +743,27 @@
       "fetched": "2026-06-12T17:34:36+00:00"
     },
     {
+      "title": "Integrated Single-Cell and Spatial Transcriptomic Analysis Identifies Putative Metabolic Crosstalk Between SPP1+ TAMs and SLC6A20+ Epithelial Cells in Colorectal Cancer.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/42279338/",
+      "summary": "Cancers (Basel). Cancers",
+      "source": "PubMed",
+      "category_hint": "Research/Methods",
+      "date": "2026 May 27",
+      "id": "39adf13337fce071",
+      "score": 50,
+      "category": "Research/Methods",
+      "why": "Spatial transcriptomics + tumor microenvironment (TAMs, epithelial cells) in colorectal cancer. Strong RNAscope validation target for SPP1, SLC6A20 localization and cell-cell crosstalk mapping.",
+      "subscores": {
+        "relevance": 8,
+        "importance": 7
+      },
+      "recency_factor": 0.9,
+      "territory": "National",
+      "region": "National",
+      "owner": "",
+      "fetched": "2026-06-12T18:37:36+00:00"
+    },
+    {
       "title": "Molecular Instruments and Standard BioTools Announce Collaboration to Bring Amplified Multi-Omic Readouts to Imaging Mass Cytometry",
       "link": "https://www.businesswire.com/news/home/20251119210160/en/Molecular-Instruments-and-Standard-BioTools-Announce-Collaboration-to-Bring-Amplified-Multi-Omic-Readouts-to-Imaging-Mass-Cytometry",
       "summary": "Molecular Instruments press release via newswire.",
@@ -860,6 +881,66 @@
         ]
       },
       "fetched": "2026-06-12T17:35:20+00:00"
+    },
+    {
+      "title": "Blood-Brain Barrier Repair in Alzheimer’s Disease with Epilepsy",
+      "link": "https://reporter.nih.gov/project-details/11327334",
+      "summary": "PI: Bjoern Bauer, Anika M.S. Hartz. Institution: UNIVERSITY OF KENTUCKY. Award: $719,390. More than 25% of patients with Alzheimer’s disease (AD) develop epilepsy as co-morbidity. In AD with epilepsy (ADxEpi), seizures accelerate cognitive decline and further reduce life expectancy compared to AD alone. One hallmark of both AD and epilepsy is blood-brain barrier dysfunction. We discovered that barrier dysfunction is more severe in ADxEpi patients compared to seizure-free AD patients. Collectively, our data suggest that a combination of Ab and seizure-released glutamate (Aβ/Glu) triggers a dual positive feedback loop which exac- erbates barrier dysfunction, seizures, and cognitive decline in ADxEpi. However, the detailed mechanism(s) that leads to barrier dysfunction in ADxEpi is/are unknown, and treatment options for ADxEpi patients are limited to anti-seizure drugs that by the",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-06-05T00:00:00",
+      "institution": "UNIVERSITY OF KENTUCKY",
+      "pi": "Bjoern Bauer, Anika M.S. Hartz",
+      "state": "KY",
+      "city": "LEXINGTON",
+      "id": "a26782edfc0d8471",
+      "score": 42,
+      "category": "Funded Lab",
+      "why": "AD and epilepsy comorbidity with BBB dysfunction; needs in situ validation of barrier markers, amyloid, glutamate signaling in human brain tissue.",
+      "subscores": {
+        "relevance": 6,
+        "importance": 7
+      },
+      "recency_factor": 1.0,
+      "territory": "RBA",
+      "region": "East",
+      "owner": "Sam Shank",
+      "outreach_angle": {
+        "hook": "This lab is dissecting blood-brain barrier dysfunction in Alzheimer's disease with comorbid epilepsy, requiring validation of barrier integrity markers (claudins, occludin, ZO-1) and disease-relevant proteins (amyloid, glutamate signaling molecules) in human brain tissue sections. They are a strong fit for RNAscope as a Neuroscience Researcher persona needing to map expression of tight junction genes and inflammatory mediators across affected brain regions.",
+        "way_in": "RNAscope enables them to visualize and quantify BBB marker transcripts and glutamate-related genes directly in postmortem human brain tissue from AD, epilepsy, and ADxEpi patients, bypassing antibody availability issues for some targets and providing cellular and subcellular localization that complements their biochemical barrier function studies.",
+        "routing": "East territory (RBA) to own and introduce RNAscope multiplexing capability for co-localization of barrier markers with amyloid or glutamate signaling in their tissue cohorts."
+      },
+      "fetched": "2026-06-12T18:38:44+00:00"
+    },
+    {
+      "title": "mRNA Nuclear Export Machinery as Target of SARS-CoV-2 Nsp1 Protein",
+      "link": "https://reporter.nih.gov/project-details/11351035",
+      "summary": "PI: Beatriz MA Fontoura, Adolfo Garcia-Sastre, Yi Ren. Institution: VANDERBILT UNIVERSITY. Award: $802,444. The global COVID-19 pandemic caused by the SARS-CoV-2 outbreak underscores the need for understanding viral-host interactions that impact host gene expression and antiviral responses. A critical virulence factor of coronaviruses is the nonstructural protein 1 (Nsp1). We uncovered a previously unknown mechanism of Nsp1- mediated inhibition of host antiviral responses: Nsp1 targets the cellular mRNA nuclear export pathway. Nuclear export of cellular mRNAs through the nuclear pore complex (NPC) is obligatory for eukaryotic gene expression including those genes encoding antiviral factors. By contrast, SARS-CoV-2 mRNA synthesis takes place at viral transcriptional factories in the cytoplasm. We have demonstrated that SARS-CoV-2 Nsp1 protein inhibits host mRNA nuclear export by targeting the cel",
+      "source": "NIH RePORTER",
+      "category_hint": "Funded Lab",
+      "date": "2026-06-05T00:00:00",
+      "institution": "VANDERBILT UNIVERSITY",
+      "pi": "Beatriz MA Fontoura, Adolfo Garcia-Sastre, Yi Ren",
+      "state": "TN",
+      "city": "Nashville",
+      "id": "d872a67a4b7df990",
+      "score": 42,
+      "category": "Funded Lab",
+      "why": "Viral RNA localization in SARS-CoV-2-infected tissue; RNAscope validates viral mRNA and host antiviral transcripts in situ.",
+      "subscores": {
+        "relevance": 6,
+        "importance": 7
+      },
+      "recency_factor": 1.0,
+      "territory": "GCA",
+      "region": "West",
+      "owner": "",
+      "outreach_angle": {
+        "hook": "This lab is dissecting how SARS-CoV-2 Nsp1 disables host antiviral responses by blocking mRNA nuclear export, a mechanism that requires mapping viral and host transcript localization in infected cells and tissues. They are a strong RNAscope prospect because validating where viral mRNA, host antiviral factors, and nuclear export machinery are expressed in situ will be critical to proving their mechanistic model.",
+        "way_in": "RNAscope solves the problem of detecting viral RNA (SARS-CoV-2 mRNA) and host antiviral transcripts in the same infected tissue sections with single-cell resolution and subcellular localization, enabling them to visualize which cells are infected and whether antiviral genes are retained in the nucleus or exported to the cytoplasm.",
+        "routing": "GCA territory (West); route to Vanderbilt region rep."
+      },
+      "fetched": "2026-06-12T18:38:18+00:00"
     },
     {
       "title": "Pulmonary vagal sensory neurons in chronic lung disease",
