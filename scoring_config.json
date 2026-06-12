@@ -8,7 +8,7 @@
     "_comment": "An item is shown only if its 0-100 score meets the bar for its category. Lower bar = more items shown. Competitor moves are rare, so a low bar avoids missing one. Research must earn its place, so it sits higher. _default applies to any category not listed.",
     "Competitor Move": 25,
     "Funded Lab": 30,
-    "Research/Methods": 45,
+    "Research/Methods": 30,
     "_default": 30
   },
 
@@ -31,5 +31,11 @@
     "max_items": 12,
     "subject_prefix": "Spatial Radar",
     "from": "Spatial Radar <onboarding@resend.dev>"
+  },
+
+  "outreach": {
+    "_comment": "Funded-lab outreach drafting. enrich_with_search lets the model web-search for the PI's lab page, email, and recent work when the grant abstract is thin. This is a paid Anthropic API feature (per-search cost), so set false to disable. max_searches caps searches per lab.",
+    "enrich_with_search": true,
+    "max_searches": 3
   }
 }
