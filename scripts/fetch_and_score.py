@@ -68,6 +68,10 @@ DEFAULT_DIGEST = {
     "subject_prefix": "Spatial Radar",
     "from": "Spatial Radar <onboarding@resend.dev>",  # change to a verified-domain sender to mail anyone but yourself
 }
+DEFAULT_OUTREACH = {
+    "enrich_with_search": True,  # let the model web-search for thin labs (paid API feature)
+    "max_searches": 3,
+}
 
 _SCORING_CFG = None
 
@@ -85,6 +89,7 @@ def load_scoring_config():
         "recency": json.loads(json.dumps(DEFAULT_RECENCY)),  # deep copy
         "digest": dict(DEFAULT_DIGEST),
         "max_age_days": DEFAULT_MAX_AGE_DAYS,
+        "outreach": dict(DEFAULT_OUTREACH),
     }
     try:
         with open(SCORING_CONFIG_PATH, "r", encoding="utf-8") as f:
@@ -126,6 +131,12 @@ def load_scoring_config():
                     cfg["digest"][k] = dg[k]
         if isinstance(raw.get("max_age_days"), (int, float)) and raw["max_age_days"] > 0:
             cfg["max_age_days"] = int(raw["max_age_days"])
+        og = raw.get("outreach", {})
+        if isinstance(og, dict):
+            if "enrich_with_search" in og:
+                cfg["outreach"]["enrich_with_search"] = bool(og["enrich_with_search"])
+            if isinstance(og.get("max_searches"), (int, float)):
+                cfg["outreach"]["max_searches"] = int(og["max_searches"])
         log(f"Loaded scoring_config.json: min_score={cfg['min_score']}, default={cfg['min_score_default']}")
     except FileNotFoundError:
         warn("scoring_config.json not found, using built-in scoring defaults.")
@@ -936,23 +947,40 @@ def generate_impact_brief(item):
         return None
 
 
-OUTREACH_ANGLE_SYSTEM = """You are a sales enablement analyst for Advanced Cell Diagnostics (ACD), a Bio-Techne brand that sells RNAscope in situ hybridization probes and spatial biology products to academic researchers. You write a short "Outreach Angle" for a newly funded lab (an NIH or NSF grant), to help a field sales rep turn this lead into a conversation.
+OUTREACH_ANGLE_SYSTEM = """You are a sales enablement analyst for Advanced Cell Diagnostics (ACD), a Bio-Techne brand that sells RNAscope in situ hybridization and spatial biology products to academic researchers. For a newly funded lab (an NIH or NSF grant), you produce a complete, ready-to-send outreach package for the field rep.
 
-Ground everything in the provided grant text. If the abstract is thin, keep it high-level and do not invent specifics about the lab's work.
+Ground everything in the provided grant text. If the grant abstract is thin on the PI's work, contact details, or recent papers, use web search to find the PI's lab or department page, their work email if it is publicly listed on an institutional page, and their recent single-cell or spatial work. Do not invent an email, a person, or findings. If you cannot find the email, leave it blank.
 
-ACD targets 16 researcher personas. A funded lab is a strong RNAscope prospect when its work implies a need for in situ RNA validation, even if the grant never says "RNAscope" or "spatial." Common needs: validating cell-type markers in tissue, localizing low-abundance transcripts, confirming single-cell or sequencing findings in situ, detecting targets with no good antibody (cytokines, viral RNA, lncRNA), or mapping expression across tissue regions.
+ASSAY: pick exactly ONE, the single best fit, from this list, and explain why it fits the disease model, target type, or single-cell findings:
+- RNAscope: validating gene or cell-type expression in tissue (the default for most labs).
+- BaseScope: variant, isoform, exon junction, or short-sequence detection.
+- HiPlex v2: multiplex spatial validation up to 12 targets. If you pick HiPlex v2, recommend Multiplex v2 as the starting point to validate findings first.
+- Multiplex v2 fluorescent assay: 3 to 4 plex validation.
+- miRNAscope: microRNA spatial mapping.
 
-Write the following, each concrete and specific to THIS grant. Map the lab's research signals (disease, tissue, gene targets, technique) to the RNAscope need the way the MeSH signal-to-angle playbook does:
-1. hook: what about this lab's funded work makes them a RNAscope prospect. Name the persona fit and the specific assay need their work implies.
-2. way_in: the concrete validation problem or product fit to lead a conversation with. What pain does RNAscope solve for them.
-3. routing: a brief cue on who should own this, referencing the territory if provided. Keep it short.
-4. draft_subject: a short, specific email subject line (under 10 words) that references their work, not a generic pitch.
-5. draft_body: a ready-to-send cold outreach email of 3 to 5 sentences from an ACD rep to the PI. Open by referencing their specific funded work, connect it to the in situ RNA validation need, and end with a low-friction ask (a short call, a relevant probe set, or sample data). Professional and concise, no hype. Do not invent personal details, lab members, or results not in the abstract. Leave the signature as a placeholder line "[Rep name], Advanced Cell Diagnostics (Bio-Techne)". Do not use em dashes.
+RESEARCH SUMMARY: at most 2 sentences. Cover the disease model, tissue type, or biological system; the single-cell or single-nucleus RNA-seq context if applicable; and the immune, neuronal, epithelial, or developmental context where relevant.
 
-Do not use em dashes anywhere. Use commas, periods, parentheses, or "and"/"but" instead.
+SUBJECT LINES: exactly three. Reference single-cell or single-nucleus RNA-seq and emphasize spatial validation or in situ confirmation. Do not put the product name in all three lines. Do not use em dashes.
 
-Respond with ONLY a JSON object, no preamble, no markdown fences:
-{"hook": "<2 sentences>", "way_in": "<2 sentences>", "routing": "<one short line>", "draft_subject": "<short subject>", "draft_body": "<3 to 5 sentence email>"}"""
+EMAIL BODY: write it in this exact structure (the Soumya format), using the PI's real first name and their specific transcripts or targets. Keep the line breaks:
+Hi [First Name],
+
+Could confirming [specific transcripts or targets identified by scRNA-seq] directly in tissue strengthen your findings?
+
+- [spatial validation benefit specific to their tissue or cell type]
+- [orthogonal confirmation or visualization benefit specific to their workflow]
+
+It's a cost-effective way to complement your work with spatial evidence, considered the gold standard for spatial validation, and is being actively used in your institution.
+
+I'd love to discuss how we can support your research. Would you be open to a brief call next week to explore this?
+
+Best regards,
+[Rep name], Advanced Cell Diagnostics (Bio-Techne)
+
+Do not use em dashes anywhere. Use commas, periods, parentheses, or "and"/"but".
+
+Respond with ONLY a JSON object, no preamble, no markdown fences. In email_body use literal \\n for line breaks:
+{"researcher_name": "<first last>", "institution": "<institution>", "email": "<work email or empty>", "research_summary": "<2 sentences>", "assay": "<one of the five>", "assay_why": "<1 to 2 sentences>", "subject_lines": ["<s1>", "<s2>", "<s3>"], "email_body": "<full email with \\n line breaks>", "routing": "<one short internal line on who owns this>"}"""
 
 
 def generate_outreach_angle(item):
@@ -961,6 +989,7 @@ def generate_outreach_angle(item):
     (NIH/NSF summaries are already rich), so no web fetch needed."""
     if not ANTHROPIC_API_KEY:
         return None
+    ocfg = load_scoring_config().get("outreach", DEFAULT_OUTREACH)
     user = (
         f"Source: {item.get('source','')}\n"
         f"Grant title: {item.get('title','')}\n"
@@ -972,23 +1001,42 @@ def generate_outreach_angle(item):
     )
     payload = {
         "model": MODEL,
-        "max_tokens": 800,
+        "max_tokens": 1500,
         "system": OUTREACH_ANGLE_SYSTEM,
         "messages": [{"role": "user", "content": user}],
     }
+    if ocfg.get("enrich_with_search", True):
+        payload["tools"] = [{
+            "type": "web_search_20250305",
+            "name": "web_search",
+            "max_uses": int(ocfg.get("max_searches", 3)),
+        }]
     headers = {"x-api-key": ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01"}
     try:
-        resp = http_post_json(ANTHROPIC_URL, payload, headers=headers, timeout=60)
+        resp = http_post_json(ANTHROPIC_URL, payload, headers=headers, timeout=90)
         text = "".join(b.get("text", "") for b in resp.get("content", []) if b.get("type") == "text")
         text = text.strip().replace("```json", "").replace("```", "").strip()
+        if not text.startswith("{"):  # model may add prose around the JSON after searching
+            a, b = text.find("{"), text.rfind("}")
+            if a != -1 and b != -1:
+                text = text[a:b + 1]
         parsed = json.loads(text)
         clean = lambda s: clean_text(s).replace("\u2014", "-")
+        clean_nl = lambda s: html.unescape(str(s or "")).replace("\u2014", "-").strip()
+        subs = parsed.get("subject_lines") or []
+        if isinstance(subs, str):
+            subs = [subs]
+        subs = [clean(s) for s in subs if s][:3]
         return {
-            "hook": clean(parsed.get("hook", "")),
-            "way_in": clean(parsed.get("way_in", "")),
+            "researcher_name": clean(parsed.get("researcher_name", "")),
+            "institution": clean(parsed.get("institution", "")),
+            "email": clean(parsed.get("email", "")),
+            "research_summary": clean(parsed.get("research_summary", "")),
+            "assay": clean(parsed.get("assay", "")),
+            "assay_why": clean(parsed.get("assay_why", "")),
+            "subject_lines": subs,
+            "email_body": clean_nl(parsed.get("email_body", "")),
             "routing": clean(parsed.get("routing", "")),
-            "draft_subject": clean(parsed.get("draft_subject", "")),
-            "draft_body": clean(parsed.get("draft_body", "")),
         }
     except Exception as e:
         warn(f"Outreach angle failed for '{item.get('title','')[:50]}': {e}")
@@ -1034,28 +1082,38 @@ def compose_digest_html(items):
             meta_bits.append("Owner: " + html.escape(it["owner"]))
         meta = " &nbsp;&middot;&nbsp; ".join(b for b in meta_bits if b)
         why = html.escape(it.get("why", ""))
+        ang = it.get("outreach_angle") or {}
         extra = ""
         if cat == "Competitor Move" and it.get("impact_brief", {}).get("why_it_matters"):
             extra = ('<div style="margin-top:8px;font-size:13px;color:#5F5E5A;line-height:1.45;">'
                      '<b style="color:#993C1D;">Why it matters.</b> '
                      + html.escape(it["impact_brief"]["why_it_matters"]) + '</div>')
-        elif cat == "Funded Lab" and it.get("outreach_angle", {}).get("hook"):
+        elif cat == "Funded Lab" and ang.get("research_summary"):
             extra = ('<div style="margin-top:8px;font-size:13px;color:#5F5E5A;line-height:1.45;">'
-                     '<b style="color:#27500A;">Angle.</b> '
-                     + html.escape(it["outreach_angle"]["hook"]) + '</div>')
+                     '<b style="color:#27500A;">Lab.</b> ' + html.escape(ang["research_summary"]) + '</div>')
         draft = ""
-        ang = it.get("outreach_angle") or {}
-        if cat == "Funded Lab" and ang.get("draft_body"):
-            subj = html.escape(ang.get("draft_subject", ""))
-            body_txt = html.escape(ang.get("draft_body", "")).replace("\n", "<br>")
+        if cat == "Funded Lab" and ang.get("email_body"):
+            header_line = " &middot; ".join(html.escape(x) for x in [ang.get("researcher_name", ""), ang.get("institution", "")] if x)
+            email_line = (('<a href="mailto:' + html.escape(ang["email"], quote=True) + '" style="color:#1B3A8C;">'
+                           + html.escape(ang["email"]) + '</a>') if ang.get("email")
+                          else '<span style="color:#888780;">email not found</span>')
+            assay_line = (('<div style="font-size:12px;color:#27500A;margin:8px 0;"><b>Why ' + html.escape(ang.get("assay", ""))
+                           + '.</b> ' + html.escape(ang.get("assay_why", "")) + '</div>') if ang.get("assay") else '')
+            subs = ang.get("subject_lines") or []
+            subs_html = (('<div style="font-family:Menlo,Consolas,monospace;font-size:11px;color:#27500A;font-weight:700;'
+                          'text-transform:uppercase;letter-spacing:0.05em;margin:8px 0 4px;">Subject options</div>'
+                          '<div style="font-size:12px;color:#444441;line-height:1.7;">'
+                          + "<br>".join(html.escape(s) for s in subs) + '</div>') if subs else '')
+            body_txt = html.escape(ang.get("email_body", "")).replace("\n", "<br>")
             draft = (
                 '<div style="margin-top:10px;background:#F3F8F2;border:1px solid #CFE6D4;'
                 'border-radius:10px;padding:12px 14px;">'
                 '<div style="font-family:Menlo,Consolas,monospace;font-size:11px;font-weight:700;'
                 'color:#27500A;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Draft outreach</div>'
-                + (('<div style="font-family:Menlo,Consolas,monospace;font-size:12px;color:#27500A;'
-                    'font-weight:700;margin-bottom:6px;">Subject: ' + subj + '</div>') if subj else '')
-                + '<div style="font-size:13px;color:#2C2C2A;line-height:1.55;">' + body_txt + '</div></div>'
+                + ((('<div style="font-size:13px;font-weight:700;color:#2C2C2A;">' + header_line + '</div>') if header_line else '')
+                   + '<div style="font-size:12px;margin-bottom:6px;">' + email_line + '</div>')
+                + assay_line + subs_html
+                + '<div style="font-size:13px;color:#2C2C2A;line-height:1.55;margin-top:8px;">' + body_txt + '</div></div>'
             )
         return (
             '<table role="presentation" cellpadding="0" cellspacing="0" width="100%" '
