@@ -1,0 +1,23 @@
+{
+  "_comment": "Tuning knobs for Spatial Radar scoring. Edit the numbers, commit, and the next run uses them. No code changes needed. If this file is missing or broken, the script falls back to its built-in defaults and keeps running.",
+
+  "min_score": {
+    "_comment": "An item is shown only if its 0-100 score meets the bar for its category. Lower bar = more items shown. Competitor moves are rare, so a low bar avoids missing one. Research must earn its place, so it sits higher. _default applies to any category not listed.",
+    "Competitor Move": 25,
+    "Funded Lab": 30,
+    "Research/Methods": 45,
+    "_default": 30
+  },
+
+  "recency_decay": {
+    "_comment": "Score is relevance x importance x recency factor. This is the recency factor, applied by age in days. Each tier: items at or below max_age_days get that factor. Raise factors to keep older items alive longer; lower them to favor fresh news harder.",
+    "tiers": [
+      {"max_age_days": 7,  "factor": 1.0},
+      {"max_age_days": 21, "factor": 0.9},
+      {"max_age_days": 45, "factor": 0.75},
+      {"max_age_days": 90, "factor": 0.55}
+    ],
+    "older_factor": 0.4,
+    "unknown_date_factor": 0.7
+  }
+}
