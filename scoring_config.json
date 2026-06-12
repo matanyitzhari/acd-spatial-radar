@@ -1,5 +1,5 @@
 {
-  "_comment": "Tuning knobs for Spatial Radar scoring. Edit the numbers, commit, and the next run uses them. No code changes needed. If this file is missing or broken, the script falls back to its built-in defaults and keeps running.",
+  "_comment": "Tuning knobs for Spatial Radar scoring and the email digest. Edit the numbers, commit, and the next run uses them. No code changes needed. If this file is missing or broken, the script falls back to its built-in defaults and keeps running.",
 
   "min_score": {
     "_comment": "An item is shown only if its 0-100 score meets the bar for its category. Lower bar = more items shown. Competitor moves are rare, so a low bar avoids missing one. Research must earn its place, so it sits higher. _default applies to any category not listed.",
@@ -19,5 +19,14 @@
     ],
     "older_factor": 0.4,
     "unknown_date_factor": 0.7
+  },
+
+  "digest": {
+    "_comment": "Email digest settings. Only this run's NEW items at or above min_score are emailed, so nothing repeats and a quiet run sends nothing. Set enabled false to pause email. 'from' stays as the resend.dev sender until you verify your own domain. Recipient (DIGEST_TO) and the API key (RESEND_API_KEY) are GitHub secrets, not in this file.",
+    "enabled": true,
+    "min_score": 55,
+    "max_items": 12,
+    "subject_prefix": "Spatial Radar",
+    "from": "Spatial Radar <onboarding@resend.dev>"
   }
 }
