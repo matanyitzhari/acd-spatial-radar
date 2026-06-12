@@ -284,11 +284,46 @@ def item_id(link, title):
 
 def title_key(title):
     """Normalized title for meaning-based dedupe so a preprint and its
-    published version (same title, different link) collapse into one."""
-    t = (title or "").lower()
+    published version (same title, different link) collapse into one. Also
+    strips the ' - Outlet' suffix Google News appends, so the same story from
+    several outlets collapses to one key."""
+    t = (title or "")
+    # drop a trailing " - Source" that Google News tacks on (last occurrence)
+    if " - " in t:
+        t = t.rsplit(" - ", 1)[0]
+    t = t.lower()
     t = re.sub(r"[^a-z0-9 ]", "", t)   # drop punctuation
     t = re.sub(r"\s+", " ", t).strip()
     return t[:120]
+
+
+# Stock-trading noise that the Google News competitor feeds drag in. Publishers
+# are ticker and analyst aggregators; phrases are trading chatter. Both are
+# overridable from sources.json (blocked_publishers, blocked_title_phrases).
+DEFAULT_BLOCKED_PUBLISHERS = [
+    "tipranks", "gurufocus", "simplywall", "moomoo", "yahoo finance", "marketbeat",
+    "benzinga", "zacks", "stocktitan", "stock titan", "motley fool", "insider monkey",
+    "investing.com", "barchart", "seeking alpha", "nasdaq", "defense world",
+    "markets insider", "tickerreport", "americanbankingnews", "etf daily news",
+    "stocktwits", "wallstreetzen", "the globe and mail", "stocknews",
+]
+DEFAULT_BLOCKED_PHRASES = [
+    "buy rating", "sell rating", "strong buy", "hold rating", "price target",
+    "target price", "stock forecast", "analyst rating", "% surge", "stock soars",
+    "stock jumps", "txg.us", "stock split", "market cap of", "stock to buy",
+    "shares sold", "shares purchased", "shares bought", "raises stake", "lowers stake",
+]
+
+
+def is_market_noise(item, publishers, phrases):
+    """True if an item looks like stock-trading noise (analyst ratings, price
+    targets, ticker chatter) rather than a real competitor move. Keyed on the
+    Google News outlet suffix and on trading phrases in the title."""
+    title = (item.get("title") or "").lower()
+    outlet = title.rsplit(" - ", 1)[-1] if " - " in title else ""
+    if outlet and any(p in outlet for p in publishers):
+        return True
+    return any(ph in title for ph in phrases)
 
 
 def parse_date(date_str):
@@ -907,15 +942,17 @@ Ground everything in the provided grant text. If the abstract is thin, keep it h
 
 ACD targets 16 researcher personas. A funded lab is a strong RNAscope prospect when its work implies a need for in situ RNA validation, even if the grant never says "RNAscope" or "spatial." Common needs: validating cell-type markers in tissue, localizing low-abundance transcripts, confirming single-cell or sequencing findings in situ, detecting targets with no good antibody (cytokines, viral RNA, lncRNA), or mapping expression across tissue regions.
 
-Write three things, each concrete and specific to THIS grant:
+Write the following, each concrete and specific to THIS grant. Map the lab's research signals (disease, tissue, gene targets, technique) to the RNAscope need the way the MeSH signal-to-angle playbook does:
 1. hook: what about this lab's funded work makes them a RNAscope prospect. Name the persona fit and the specific assay need their work implies.
 2. way_in: the concrete validation problem or product fit to lead a conversation with. What pain does RNAscope solve for them.
 3. routing: a brief cue on who should own this, referencing the territory if provided. Keep it short.
+4. draft_subject: a short, specific email subject line (under 10 words) that references their work, not a generic pitch.
+5. draft_body: a ready-to-send cold outreach email of 3 to 5 sentences from an ACD rep to the PI. Open by referencing their specific funded work, connect it to the in situ RNA validation need, and end with a low-friction ask (a short call, a relevant probe set, or sample data). Professional and concise, no hype. Do not invent personal details, lab members, or results not in the abstract. Leave the signature as a placeholder line "[Rep name], Advanced Cell Diagnostics (Bio-Techne)". Do not use em dashes.
 
-Do not use em dashes. Use commas, periods, parentheses, or "and"/"but" instead.
+Do not use em dashes anywhere. Use commas, periods, parentheses, or "and"/"but" instead.
 
 Respond with ONLY a JSON object, no preamble, no markdown fences:
-{"hook": "<2 sentences>", "way_in": "<2 sentences>", "routing": "<one short line>"}"""
+{"hook": "<2 sentences>", "way_in": "<2 sentences>", "routing": "<one short line>", "draft_subject": "<short subject>", "draft_body": "<3 to 5 sentence email>"}"""
 
 
 def generate_outreach_angle(item):
@@ -935,7 +972,7 @@ def generate_outreach_angle(item):
     )
     payload = {
         "model": MODEL,
-        "max_tokens": 500,
+        "max_tokens": 800,
         "system": OUTREACH_ANGLE_SYSTEM,
         "messages": [{"role": "user", "content": user}],
     }
@@ -950,6 +987,8 @@ def generate_outreach_angle(item):
             "hook": clean(parsed.get("hook", "")),
             "way_in": clean(parsed.get("way_in", "")),
             "routing": clean(parsed.get("routing", "")),
+            "draft_subject": clean(parsed.get("draft_subject", "")),
+            "draft_body": clean(parsed.get("draft_body", "")),
         }
     except Exception as e:
         warn(f"Outreach angle failed for '{item.get('title','')[:50]}': {e}")
@@ -979,8 +1018,7 @@ def compose_digest_html(items):
         "Funded Lab": ("#EAF3DE", "#27500A"),
         "Research/Methods": ("#E6F1FB", "#0C447C"),
     }
-    cards = []
-    for it in items:
+    def card(it):
         title = html.escape(it.get("title", ""))
         link = html.escape(it.get("link", "") or "#", quote=True)
         cat = it.get("category", "")
@@ -1005,7 +1043,21 @@ def compose_digest_html(items):
             extra = ('<div style="margin-top:8px;font-size:13px;color:#5F5E5A;line-height:1.45;">'
                      '<b style="color:#27500A;">Angle.</b> '
                      + html.escape(it["outreach_angle"]["hook"]) + '</div>')
-        cards.append(
+        draft = ""
+        ang = it.get("outreach_angle") or {}
+        if cat == "Funded Lab" and ang.get("draft_body"):
+            subj = html.escape(ang.get("draft_subject", ""))
+            body_txt = html.escape(ang.get("draft_body", "")).replace("\n", "<br>")
+            draft = (
+                '<div style="margin-top:10px;background:#F3F8F2;border:1px solid #CFE6D4;'
+                'border-radius:10px;padding:12px 14px;">'
+                '<div style="font-family:Menlo,Consolas,monospace;font-size:11px;font-weight:700;'
+                'color:#27500A;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Draft outreach</div>'
+                + (('<div style="font-family:Menlo,Consolas,monospace;font-size:12px;color:#27500A;'
+                    'font-weight:700;margin-bottom:6px;">Subject: ' + subj + '</div>') if subj else '')
+                + '<div style="font-size:13px;color:#2C2C2A;line-height:1.55;">' + body_txt + '</div></div>'
+            )
+        return (
             '<table role="presentation" cellpadding="0" cellspacing="0" width="100%" '
             'style="border:1px solid #E5E3DC;border-radius:10px;margin:0 0 12px;background:#ffffff;">'
             '<tr>'
@@ -1020,10 +1072,35 @@ def compose_digest_html(items):
             '<a href="' + link + '" style="color:#1B3A8C;text-decoration:none;">' + title + '</a></div>'
             '<div style="font-size:12px;color:#888780;font-family:Menlo,Consolas,monospace;">' + meta + '</div>'
             '<div style="margin-top:6px;font-size:13px;color:#444441;line-height:1.45;">' + why + '</div>'
-            + extra +
+            + extra + draft +
             '</td></tr></table>'
         )
-    body = "\n".join(cards)
+
+    # group by category, in priority order; anything unrecognized goes last
+    order = [("Competitor Move", "Competitor Moves"),
+             ("Funded Lab", "Funded Labs"),
+             ("Research/Methods", "Research and Methods")]
+    known = {c for c, _ in order}
+    sections = []
+    for cat, label in order:
+        group = [it for it in items if it.get("category") == cat]
+        if not group:
+            continue
+        _, fg = cat_colors.get(cat, ("", "#444441"))
+        sections.append(
+            '<div style="font-family:Menlo,Consolas,monospace;font-size:12px;font-weight:700;'
+            'text-transform:uppercase;letter-spacing:0.08em;color:' + fg + ';margin:18px 0 10px;">'
+            + html.escape(label) + ' (' + str(len(group)) + ')</div>'
+            + "".join(card(it) for it in group)
+        )
+    leftovers = [it for it in items if it.get("category") not in known]
+    if leftovers:
+        sections.append(
+            '<div style="font-family:Menlo,Consolas,monospace;font-size:12px;font-weight:700;'
+            'text-transform:uppercase;letter-spacing:0.08em;color:#444441;margin:18px 0 10px;">Other</div>'
+            + "".join(card(it) for it in leftovers)
+        )
+    body = "\n".join(sections)
     today = datetime.now(timezone.utc).strftime("%A, %b %d")
     dash = os.environ.get("DASHBOARD_URL", "")
     dash_link = ('<a href="' + html.escape(dash, quote=True) + '" style="color:#1B3A8C;">Open the full radar</a>'
@@ -1105,6 +1182,8 @@ def main():
     existing = load_existing()
     seen_ids = {it["id"] for it in existing.get("items", [])}
     seen_titles = {title_key(it.get("title", "")) for it in existing.get("items", [])}
+    blocked_pubs = [p.lower() for p in (sources.get("blocked_publishers") or DEFAULT_BLOCKED_PUBLISHERS)]
+    blocked_phrases = [p.lower() for p in (sources.get("blocked_title_phrases") or DEFAULT_BLOCKED_PHRASES)]
 
     # gather raw items from all sources
     raw = []
@@ -1122,9 +1201,13 @@ def main():
     # dedupe and keep only new (by id AND by normalized title), within lookback window
     new_items = []
     skipped_old = 0
+    skipped_noise = 0
     for it in raw:
         if not is_recent(it.get("date", "")):
             skipped_old += 1
+            continue
+        if is_market_noise(it, blocked_pubs, blocked_phrases):
+            skipped_noise += 1
             continue
         iid = item_id(it.get("link", ""), it.get("title", ""))
         tkey = title_key(it.get("title", ""))
@@ -1136,7 +1219,8 @@ def main():
         it["id"] = iid
         new_items.append(it)
 
-    log(f"{len(new_items)} new items to score (of {len(raw)} fetched, {skipped_old} older than {max_age_days()} days)")
+    log(f"{len(new_items)} new items to score (of {len(raw)} fetched, "
+        f"{skipped_old} older than {max_age_days()} days, {skipped_noise} stock-noise)")
 
     # score new items
     scored_new = []
@@ -1173,7 +1257,9 @@ def main():
 
     # merge, sort, cap. Re-filter stored items by score AND recency.
     kept_existing = [it for it in existing.get("items", [])
-                     if it.get("score", 0) >= min_score_for(it.get("category", "")) and is_recent(it.get("date", ""))]
+                     if it.get("score", 0) >= min_score_for(it.get("category", ""))
+                     and is_recent(it.get("date", ""))
+                     and not is_market_noise(it, blocked_pubs, blocked_phrases)]
     all_items = scored_new + kept_existing
     all_items.sort(key=lambda x: (x.get("score", 0), x.get("fetched", "")), reverse=True)
     all_items = all_items[:MAX_ITEMS_KEPT]
