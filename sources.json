@@ -88,6 +88,13 @@
       "note": "PR Newswire main feed. Keyword-filtered. Catches 10x Genomics and others publishing via PRN. URL may need confirming."
     },
     {
+      "name": "10x Genomics Newsroom",
+      "type": "rss",
+      "url": "https://www.10xgenomics.com/feed",
+      "category_hint": "Competitor Move",
+      "note": "Likely dead (10x uses PR Newswire). Kept in case; newswire net is the real catch."
+    },
+    {
       "name": "Bruker News",
       "type": "rss",
       "url": "https://ir.bruker.com/rss/news-releases.xml",
@@ -174,22 +181,11 @@
     "category_hint": "Funded Lab",
     "note": "Funds spatial method development NIH misses (BIO directorate, neuro, plant). No auth. Names PI and institution for territory targeting. NOTE: NSF keyword is a phrase match, so a single anchor term is used; scoring filters relevance downstream."
   },
-  "html_news_sources": [
-    {
-      "name": "Molecular Instruments",
-      "type": "html_news",
-      "url": "https://www.molecularinstruments.com/news",
-      "category_hint": "Competitor Move",
-      "note": "MI site is Wix with no working RSS. Scrapes the news page HTML and links to the Business Wire / PR Newswire article for each release. Most direct RNAscope competitor, treat as high urgency.",
-      "filter": false
-    },
-    {
-      "name": "10x Genomics (PR Newswire)",
-      "type": "html_news",
-      "url": "https://www.prnewswire.com/news/10x-genomics,-inc./",
-      "category_hint": "Competitor Move",
-      "filter": true,
-      "note": "Scrapes 10x's PR Newswire company page (no per-company RSS exists). Each release links to its prnewswire article. Keyword-filtered to skip earnings/conference noise."
-    }
-  ]
+  "mi_news": {
+    "name": "Molecular Instruments",
+    "type": "html_news",
+    "url": "https://www.molecularinstruments.com/news",
+    "category_hint": "Competitor Move",
+    "note": "MI site is Wix with no working RSS. Scrapes the news page HTML and links to the Business Wire / PR Newswire article for each release. Most direct RNAscope competitor, treat as high urgency."
+  }
 }

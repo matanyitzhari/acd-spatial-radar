@@ -2,8 +2,8 @@
 
 A self-updating news radar for Advanced Cell Diagnostics / Bio-Techne Spatial field sales.
 A GitHub Actions job (run manually from the Actions tab) pulls RSS feeds, PubMed, and NIH RePORTER,
-scores each new item for relevance via the Claude API, and writes `data.json`.
-GitHub Pages serves the dashboard, which reads that file.
+scores each new item on two axes (relevance and importance) via the Claude API, applies a recency decay in code, and writes `data.json`.
+GitHub Pages serves the dashboard, which reads that file. The job can also email you a digest of the run's new high-signal items.
 
 No server to run. No hosting bill. The only cost is a few cents of Claude API usage per run.
 
@@ -12,7 +12,8 @@ No server to run. No hosting bill. The only cost is a few cents of Claude API us
 | File | Job |
 |------|-----|
 | `sources.json` | The feed list and search terms. Edit this to add or tune sources. |
-| `scripts/fetch_and_score.py` | Pulls sources, dedupes, scores via Claude, writes `data.json`. |
+| `scripts/fetch_and_score.py` | Pulls sources, dedupes, scores via Claude, writes `data.json`, and emails the digest. |
+| `scoring_config.json` | Tuning knobs: per-category score thresholds, the recency decay, and the digest settings. Edit and commit, no code changes needed. |
 | `.github/workflows/fetch.yml` | The cron scheduler that runs the script and commits results. |
 | `index.html` | The dashboard. Reads `data.json`. |
 | `data.json` | The output. Auto-committed by the job. A sample is included so the dashboard renders before the first real run. |
@@ -37,9 +38,25 @@ No server to run. No hosting bill. The only cost is a few cents of Claude API us
 
 It runs only when you trigger it manually (Actions tab > Run workflow). To re-enable a schedule later, add a `schedule:` block back to `fetch.yml`.
 
+## Email digest (optional)
+
+The job can email you the run's new high-signal items. It sends only when something new clears the digest bar, so a frequent schedule will not spam you, and a quiet run sends nothing.
+
+1. **Sign up at [resend.com](https://resend.com)** using the exact address you want the digest delivered to. Until you verify your own domain, the default `onboarding@resend.dev` sender can only deliver to that signup address. Create an API key.
+
+2. **Add two secrets** (Settings > Secrets and variables > Actions):
+   - `RESEND_API_KEY`: your Resend key.
+   - `DIGEST_TO`: your email (the same one you signed up with).
+   - Optional `DASHBOARD_URL`: your Pages URL, so the email footer links back to the radar.
+
+3. **Tune it** in the `digest` block of `scoring_config.json`: `min_score` (the bar an item must clear to be emailed), `max_items`, `subject_prefix`, and `enabled` (set to `false` to pause email). To send to other people later, verify a domain in Resend and change the `from` line.
+
+If the secrets are not set, the job still runs and just skips the email.
+
 ## Tuning
 
-- **Score threshold:** items scoring below `MIN_SCORE` (currently 30) in `fetch_and_score.py` are dropped and never shown. Raise or lower that one constant to taste.
+- **Score thresholds:** edit `scoring_config.json`. Each category has its own bar in `min_score` (an item is shown only if its 0-100 score clears the bar for its category), so competitor moves sit low and research sits high. The `recency_decay` block controls how fast older items fade. If the file is missing or malformed, the script logs a warning and falls back to built-in defaults rather than failing.
+- **How scoring works:** the Claude call returns two numbers, `relevance` and `importance` (0-10 each). The script computes `score = relevance x importance x recency factor`, so an item must be both relevant and important to rank high. Recency is arithmetic in code, not a model guess.
 - **Competitors tracked:** Molecular Instruments, 10x Genomics, Bruker/NanoString, Vizgen, Akoya/Quanterix, Navinci, plus adjacent imaging vendors. Edit the competitor block in the scoring prompt to add or remove.
 
 - **Add or change sources:** edit `sources.json`. RSS entries just need a `name`, `url`, and `category_hint`. A broken feed is logged and skipped, it will not break the run.
